@@ -393,15 +393,15 @@ function setup() {
                         grades: item.attributes.Grades,
                         sClass: item.attributes.SchoolClass,
                         sType: item.attributes.SchoolType,
-                        // ELA1: item.attributes.ELA1,
-                        // ELA2: item.attributes.ELA2,
-                        // ELA3: item.attributes.ELA3,
-                        // ELA4: item.attributes.ELA4,
+                        ELA1: item.attributes.ELA1,
+                        ELA2: item.attributes.ELA2,
+                        ELA3: item.attributes.ELA3,
+                        ELA4: item.attributes.ELA4,
                         ELAP: item.attributes.ELAP,
-                        // MATH1: item.attributes.MATH1,
-                        // MATH2: item.attributes.MATH2,
-                        // MATH3: item.attributes.MATH3,
-                        // MATH4: item.attributes.MATH4,
+                        MATH1: item.attributes.MATH1,
+                        MATH2: item.attributes.MATH2,
+                        MATH3: item.attributes.MATH3,
+                        MATH4: item.attributes.MATH4,
                         MATHP: item.attributes.MATHP,
                         group: groupScore,
                         sort: item.attributes.GROUP1,
@@ -866,9 +866,9 @@ function setup() {
                     var mathChange = info2016math.PCT_Passing - info2015math.PCT_Passing;
                     // console.log("MATH " + mathChange);
 
-                    var upARROW = '<img class="arrow" src="./images/arrowUp.png" alt="UP">';
-                    var downARROW = '<img class="arrow" src="./images/arrowDown.png" alt="Down">';
-                    var noARROW = '<img class="noarrow" src="./images/arrowSide.png" alt="Side">';
+                    var upARROW = '<img class="arrow" src="./app/images/arrowUp.png" alt="UP">';
+                    var downARROW = '<img class="arrow" src="./app/images/arrowDown.png" alt="Down">';
+                    var noARROW = '<img class="noarrow" src="./app/images/arrowSide.png" alt="Side">';
 
                     if (selectedYear === "2016") {
 
