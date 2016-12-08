@@ -1,0 +1,489 @@
+/* ========================================================================
+ * Maricopa Association of Governments
+ *
+ * MAG AzMERIT Data Viewer
+ * CSS document guiding layout for the MAG AzMERIT Data Viewer
+ *
+ * ========================================================================
+ * @project     MAG AzMERIT Data Viewer
+ * @version     0.0.0
+ * @cssdoc      main.css
+ * @copyright   2016 MAG
+ * @license     Licensed under MIT
+ * ======================================================================== */
+
+/*! ===============================================================
+ *  @cssdoc main.css | @version 0.0.0 | @license Licensed under MIT
+ *  =============================================================== */
+
+body {
+  min-height: 2000px;
+  padding-top: 90px;
+}
+/*******************
+Header Section
+********************/
+.example-title,
+.example-subtitle,
+.metric,
+.example-description,
+.stat dd {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+}
+.example-title,
+.example-subtitle {
+    text-transform: uppercase;
+}
+.example-title {
+    color: #2b8abe;
+    font-size: 48px;
+    font-weight: 300;
+}
+.example-title span,
+.first dd {
+    font-weight: 700;
+}
+.example-description {
+    font-size: 18px;
+    font-weight: 300;
+    color: #1a364a;
+}
+.example-subtitle {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+.example-title,
+.example-description {
+    display: inline-block;
+    margin: 0;
+}
+.filtering-tabs {
+    border: 0;
+    background: #E4E4E4;
+}
+.k-panelbar li.k-state-default .k-link, .k-tabstrip-items .k-state-default .k-link {
+    color: #727f8e;
+}
+.k-tabstrip-items .k-item.k-state-hover {
+    background: #727f83;
+    background-color: #727f8e ;
+    color: #E4E4E4;
+}
+.k-tabstrip-items .k-state-hover .k-link {
+    color: #E4E4E4;
+}
+.filtering-tabs .k-tabstrip-items {
+    padding: 0;
+}
+.filtering-tabs .k-item {
+    width: 19.8%;
+    border: 0;
+    margin: 0 .2% 0 0;
+    padding: 0 0 4px;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border-bottom: 4px solid #b3bbc5;
+    font: 16px/2em Arial,sans-serif;
+    color: #727f8e;
+}
+.filtering-tabs .k-state-hover {
+    color: #2e2e2e;
+    background: none;
+}
+.filtering-tabs .k-state-active {
+    padding: 0;
+    color: #2b8abe;
+    border-bottom: 8px solid #2b8abe;
+}
+.filtering-tabs .k-link {
+    padding: 0;
+}
+.k-tabstrip-items .k-item.k-state-active {
+    background: none;
+}
+.k-tabstrip-top .k-tabstrip-items .k-state-active {
+    border-bottom-width: 8px;
+    border-bottom-color: #2b8abe;
+}
+.navbar-fixed-top {
+    padding-top: 15px;
+}
+#infoBtn {
+    padding-top: 40px;
+    text-align: right;
+}
+/*******************
+ Footer
+********************/
+.blog-footer {
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+/*******************
+ School Titles
+********************/
+.schoolName {
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    margin-bottom: 0;
+}
+.districtName {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    text-transform: uppercase;
+    color: #727f8e;
+    margin-top: 0;
+}
+.info {
+    font-size: 18px;
+    color: #708090;
+}
+/*******************
+ School Drop Down
+********************/
+#schools {
+    width: 325px;
+}
+.tDrop {
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    padding-top: 15px;
+}
+.field {
+    padding-top: 10px;
+}
+/*******************
+ State Panels
+********************/
+.stateInfo {
+    box-shadow: 6px 6px 5px #ccc;
+    width: 225px;
+    height: 155px;
+    cursor: default;
+}
+.panel {
+    margin-bottom: 17px;
+    background-color: white;
+    border: 2px solid;
+    border-radius: 4px;
+    text-align: center;
+}
+.panel-body {
+    padding: 10px;
+}
+.school-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    content: url(../images/school.png);
+    width: 35%;
+}
+.district-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    content: url(../images/district.png);
+    width: 35%;
+}
+
+/*******************
+ District Section
+********************/
+.k-grid-content {
+    max-height: 500px;
+}
+#distName, #distName1 {
+    display: inline-block;
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    text-transform: uppercase;
+    margin-top: 10px;
+    font-size: large;
+    font-weight: bold;
+}
+#distNum, #distNum1 {
+    display: inline-block;
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+}
+
+.k-grid-header th.k-header {
+    font-weight: bold;
+    white-space: normal;
+    text-align: center;
+}
+.grid-header-style {
+
+}
+
+.kendoGridCenter {
+    text-align: center;
+}
+
+#grid tbody {
+    font-size: 12px;
+}
+
+/*******************
+ Section
+********************/
+#azMERITchartSchools {
+    /*box-shadow: 6px 6px 5px #ccc;*/
+}
+#grid {
+    box-shadow: 6px 6px 5px #ccc;
+}
+
+#example {
+    width: auto;
+    background: none;
+    color: #454447;
+}
+.title {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #708090;
+    margin-bottom: 1px;
+
+}
+
+.sectionHeader{
+    font-size: 11px;
+    color: #35373d;
+    text-transform: uppercase;
+    /*padding-bottom: 1.091em;*/
+    /*padding: 15px 0;*/
+}
+#info{
+    display: inline-block;
+}
+#ela{
+    float: left;
+}
+#math {
+    float: right;
+}
+.stat {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    font-size: 100px;
+    font-weight: 700;
+    line-height: 1em;
+    letter-spacing: -2px;
+    text-indent: -8px;
+    color: #454447;
+}
+
+.separator {
+    height: 1.5px;
+    background: #b3bbc5;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#info{
+    margin-left: 40px;
+}
+.arrow {
+    width: 65px;
+}
+.noarrow {
+    /*transform: rotate(90deg);*/
+    width: 55px;
+    height: 65px;
+}
+.change {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1em;
+    letter-spacing: -2px;
+    /*text-indent: -8px;*/
+    text-align: center;
+    color: #454447;
+}
+.diff{
+    float: right;
+    margin-left: 10px;
+}
+
+.chartGone {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1em;
+    letter-spacing: -2px;
+    color: #454447;
+
+    margin-bottom: 0;
+}
+.chartGoneNA {
+    font-family: 'Open Sans Condensed', Verdana, sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1em;
+    letter-spacing: -2px;
+    color: #454447;
+    text-align: center;
+    padding-top: 50px;
+}
+.pCG {
+    margin-top: 0;
+}
+
+.k-widget.k-dropdown.k-header {
+    width: 425px !important;
+}
+
+
+
+.btn-group-justified {
+    width: 195px;
+}
+
+.note{
+    font-size: smaller;
+}
+
+/*******************
+ Modal Drop-down
+********************/
+.modal-header {
+    background-color: #c0c3c6;
+}
+
+.demo-section {
+        padding: 20px 25px;
+        margin: 0 auto;
+    }
+
+    .metric {
+        display: block;
+        text-transform: none;
+        font-weight: 300;
+        font-size: 12px;
+        color: #727f8e;
+        margin: 0;
+    }
+
+
+
+    #chart-type-chooser {
+        float: right;
+        margin-right: .2%;
+        width: 170px;
+        text-align: right;
+        line-height: 32px;
+        margin-top: -30px;
+    }
+
+.level {
+    margin-bottom: 8px;
+}
+
+/*******************
+ Popup
+********************/
+.esriPopup .titleButton.maximize {
+    display: none;
+}
+
+/*******************
+ Checkbox
+********************/
+/*http://bootsnipp.com/snippets/a65Wy*/
+@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') .funkyradio div {
+    clear: both;
+    /*margin: 0 50px;*/
+    overflow: hidden;
+}
+.funkyradio label {
+    /*min-width: 400px;*/
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+    font-weight: normal;
+    font-size: 12px;
+    width: 200px;
+}
+.funkyradio input[type="radio"]:empty, .funkyradio input[type="checkbox"]:empty {
+    display: none;
+}
+.funkyradio input[type="radio"]:empty ~ label, .funkyradio input[type="checkbox"]:empty ~ label {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    /*margin-top: 2em;*/
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.funkyradio input[type="radio"]:empty ~ label:before, .funkyradio input[type="checkbox"]:empty ~ label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content:'';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before, .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label, .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+    color: #888;
+}
+.funkyradio input[type="radio"]:checked ~ label:before, .funkyradio input[type="checkbox"]:checked ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
+}
+.funkyradio input[type="radio"]:checked ~ label, .funkyradio input[type="checkbox"]:checked ~ label {
+    /*color: #777;*/
+    font-weight: bold;
+    background-color: #E8E8E8;
+}
+.funkyradio input[type="radio"]:focus ~ label:before, .funkyradio input[type="checkbox"]:focus ~ label:before {
+    box-shadow: 0 0 0 3px #999;
+}
+.funkyradio-default input[type="radio"]:checked ~ label:before, .funkyradio-default input[type="checkbox"]:checked ~ label:before {
+    color: #333;
+    background-color: #ccc;
+}
+.funkyradio-primary input[type="radio"]:checked ~ label:before, .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #337ab7;
+}
+.funkyradio-success input[type="radio"]:checked ~ label:before, .funkyradio-success input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #5cb85c;
+}
+.funkyradio-danger input[type="radio"]:checked ~ label:before, .funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #d9534f;
+}
+.funkyradio-warning input[type="radio"]:checked ~ label:before, .funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #f0ad4e;
+}
+.funkyradio-info input[type="radio"]:checked ~ label:before, .funkyradio-info input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #5bc0de;
+}

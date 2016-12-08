@@ -1,0 +1,251 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAG | AzMERIT Data</title>
+    <meta name="description" content="MAG AzMERIT Data Visualization  #MAGmaps">
+    <meta name="subject" content="School data for the State of Arizona">
+    <meta name="author" content="Maricopa Association of Governments">
+    <link type="text/plain" rel="author" href="http://geo.azmag.gov/maps//humans.txt">
+    <meta name="contact" content="www.azmag.gov">
+    <meta name="url" content="http://geo.azmag.gov/maps//">
+    <link rel="shortcut icon" type="image-favorites-icon" href="images/magfavicon.png">
+    <meta name="creation-date" content="10/03/2016">
+    <meta name="revision-date" content="10/31/2016">
+    <meta name="version" content="0.0.1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-- Kendo UI Bootstrap -->
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.bootstrap.min.css" />
+    <!-- ArcGIS -->
+    <link rel="stylesheet" href="https://js.arcgis.com/3.18/esri/css/esri.css">
+    <link rel="stylesheet" href="app/css/main.css" />
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <h3 class="example-title">AzMERIT<span> Test Scores</span></h3>
+                <h4 class="example-description">Data Visualization Project</h4>
+                <div id="year-filtering-tabs" class="filtering-tabs"></div>
+            </div>
+        </div>
+    </nav>
+    <!-- MAIN Container -->
+    <div class="container" role="main">
+    <!-- row 1 **Find A School -->
+        <div class="row">
+            <div class="col-md-10 field">
+                <h4 class="tDrop">Find a school</h4>
+                <input id="schools" />
+            </div>
+            <div id="infoBtn" class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+            </div>
+        </div>
+        <!-- Modal Info-->
+        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modalInfo">
+            <div class="modal-dialog" role="document">
+                <div id="infoModal" class="modal-content"></div>
+            </div>
+        </div>
+        <!-- / Modal Info-->
+        <!-- Modal Legal-->
+        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modalLegal">
+            <div class="modal-dialog" role="document">
+                <div id="legalModal" class="modal-content"></div>
+            </div>
+        </div>
+        <!-- / Modal Legal-->
+        <!-- /row 1 -->
+        <!-- row 2 **Info & Map -->
+        <div class="separator"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3 id="schoolName2" class="schoolName"></h3>
+                <h6 id="sNUM2" class="schoolName"></h6>
+                <h5 id="districtName2" class="districtName"></h5>
+                <br>
+                <div id="info1" class="info"></div>
+                <div id="info2" class="info"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="mapDiv"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 2 -->
+        <!-- row 3 **AzMERIT Percent Passing -->
+        <h4 class="example-subtitle">Schools AzMERIT Percent Passing Scores</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div>
+            <h3 id="schoolName0" class="schoolName"></h3>
+            <h6 id="sNUM0" class="schoolName"></h6>
+            <h5 id="districtName0" class="districtName"></h5>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="ela" class="sectionHeader">
+                    <h4>ELA Score</h4>
+                    <span id="elaScore" class="stat"></span>
+                    <div class="diff">
+                        <div id="elaChange" class="change"></div>
+                        <div id="elaArrow" class=""></div>
+                    </div>
+                    <div id="elaChart"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="math" class="sectionHeader">
+                    <h4>MATH Score</h4>
+                    <span id="mathScore" class="stat"></span>
+                    <div class="diff">
+                        <div id="mathChange" class="change"></div>
+                        <div id="mathArrow" class=""></div>
+                    </div>
+                    <div id="mathChart"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="comp" class="sectionHeader">
+                    <h4>Comparison Scores</h4>
+                    <div id="compChart"></div>
+                    <span id="cName"></span>
+                </div>
+            </div>
+        </div>
+        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
+        <div class="separator"></div>
+        <!-- /row 3 -->
+        <!-- row 4 **AzMERIT Student Breakdown -->
+        <h4 class="example-subtitle">Schools AzMERIT Student Breakdown</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div>
+            <h3 id="schoolName1" class="schoolName"></h3>
+            <h6 id="sNUM1" class="schoolName"></h6>
+            <h5 id="districtName1" class="districtName"></h5>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span><h4>Assessment Type</h4></span>
+                <div id="typeAssess" class="btn-group level" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="options" id="option1" value="ELA" autocomplete="off" checked> ELA
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="option2" value="MATH" autocomplete="off"> MATH
+                    </label>
+                </div>
+                <span><h4>Test Level</h4></span>
+                <div id="fradio" class="funkyradio"></div>
+            </div>
+            <div class="col-md-5">
+                <div id="allChart"></div>
+            </div>
+            <div class="col-md-5">
+                <div id="passChart"></div>
+            </div>
+        </div>
+        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
+        <div class="separator"></div>
+        <!-- /row 4 -->
+
+
+        <!-- row 5 ** Percent Passing Breakdown-->
+        <!-- <h4 class="example-subtitle">Schools AzMERIT Percent Passed</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div>
+            <h3 id="schoolName3" class="schoolName"></h3>
+            <h6 id="sNUM3" class="schoolName"></h6>
+            <h5 id="districtName3" class="districtName"></h5>
+        </div> -->
+       <!--  <div class="row">
+            <div class="col-md-3">
+                <span><h4>Assessment Type</h4></span>
+                <div id="typeAssess1" class="btn-group level" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="options1" id="option3" value="ELA1" autocomplete="off" checked> ELA
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options1" id="option4" value="MATH1" autocomplete="off"> MATH
+                    </label>
+                </div>
+                <span><h4>Test Level</h4></span>
+                <div id="fradio1" class="funkyradio"></div>
+            </div>
+            <div class="col-md-9">
+                <div id="passChart"></div>
+            </div>
+        </div>
+        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div> -->
+        <!-- <div class="separator"></div> -->
+        <!-- /row 5 -->
+
+
+        <!-- row 6 **District Summary Table-->
+        <h4 class="example-subtitle">District Summary</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 id="distName"></h4>
+                <h6 id=distNum></h6>
+                <div id="grid"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 6 -->
+        <!-- row 7 **District Scatter Chart-->
+        <h4 class="example-subtitle">District Schools AzMERIT Percent Passing Scores</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 id="distName1"></h4>
+                <h6 id=distNum1></h6>
+                <div id="azMERITdistrictScatter"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 7 -->
+        <!-- row 8 **State Scatter Chart-->
+        <h4 class="example-subtitle">All Schools AzMERIT Percent Passing Scores</h4>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div class="row">
+            <div id="azMERITchartSchools" class="col-md-12"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 8 -->
+    </div>
+    <!-- /container -->
+    <footer class="blog-footer">
+        <p>&copy; 2016 Maricopa Association of Governments</p>
+        <p>version <span id="version"></span> | <a href="#" data-toggle="modal" data-target="#modal2">Legal Disclaimer</a></p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//kendo.cdn.telerik.com/2016.3.914/js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+    <script>
+    var dojoConfig = {
+        packages: [{
+            name: "appConfig",
+            location: location.pathname.replace(/\/[^/]+$/, "") + "./app/js"
+        }]
+    };
+    </script>
+    <!-- ArcGIS JS 3.x -->
+    <script src="https://js.arcgis.com/3.18/"></script>
+    <script src="app/js/main.js"></script>
+</body>
+
+</html>

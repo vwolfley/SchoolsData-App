@@ -1,0 +1,56 @@
+humanstxt.org/
+# The humans responsible & technology colophon
+==============================================
+
+# TEAM
+
+    Maricopa Association of Governments
+    	Name:  Vern Wolfley
+    	Role: GIS Analyst/Developer
+    	Contact:
+    	Twitter: @vernwolfley
+    	From: Litchfield Park, AZ
+
+        Name:  Jack Fairfield
+        Role: Decision Support Analyst I
+        Contact:
+        Twitter:
+        From: Tempe, AZ
+
+    	Name:  Jason Howard
+    	Role: GIS Program Manager
+    	Contact:
+    	Twitter:
+    	From: Chandler, AZ
+
+        Name:  Anubhav Bagley
+        Role: Information Services Manager
+        Contact:
+        Twitter:
+        From: Phoenix, AZ
+
+# THANKS
+
+    Arizona Department of Education
+        Rebecca Bolnick
+
+    Read On Arizona
+        Terri Clark
+
+
+# TECHNOLOGY COLOPHON
+
+    Standards: HTML5, CSS3
+    Components: HTML5BoilerPlate, Normalize.css, jQuery, Modernizr, Require.js, Kendo, ESRI Javascript API, Grunt
+
+# SITE
+
+    Site Name: AzMERIT Test Scores Data Visualization Project
+    Site URL: http://geo.azmag.gov/maps/
+    Version: 0.0.1
+	Last updated: 10/24/2016
+    Creation date: 10/03/2016
+	Language: English
+	Doctype: HTML5
+	IDE: Sublime Text
+
