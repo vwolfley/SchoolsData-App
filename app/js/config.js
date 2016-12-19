@@ -28,6 +28,11 @@ define([], function() {
 
             subGroups: ["All Students", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 
+            stateAzMERIT2016ela: [0,42,20,28,10],
+            stateAzMERIT2016math: [0,38,25,26,11],
+            stateAzMERIT2015ela: [0,42,23,28,7],
+            stateAzMERIT2015math: [0,38,27,24,11],
+
             subGroups1: [
                   "All",
                   "Male",
