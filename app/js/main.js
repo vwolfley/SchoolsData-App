@@ -1889,7 +1889,8 @@ function setup() {
                                 field: "ELAP",
                                 color: function(point) {
                                     if (point.value < 100) {
-                                        return "#50be09";
+                                        // return "#50be09";
+                                        return "#7709be";
                                     } else {
                                         return "#c0c0c0";
                                     }
@@ -1903,7 +1904,8 @@ function setup() {
                                 field: "MATHP",
                                 color: function(point) {
                                     if (point.value < 100) {
-                                        return "#50be09";
+                                        // return "#50be09";
+                                        return "#7709be";
                                     } else {
                                         return "#c0c0c0";
                                     }
