@@ -91,20 +91,12 @@ function setup() {
                 var queryTask;
                 var query;
 
-                if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/0");
-                    query = new Query();
-                    query.where = "SchoolID > 0 AND FY = '2015'";
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
-                if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/1");
-                    query = new Query();
-                    query.where = "SchoolID > 0 AND FY = '2016'";
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
+                queryTask = new QueryTask(appConfig.mainURL + "/0");
+                query = new Query();
+                query.where = "SchoolEntityID > 0";
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+
                 queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault)
             }
 
@@ -117,20 +109,12 @@ function setup() {
                 var queryTask;
                 var query;
 
-                if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/0");
-                    query = new Query();
-                    query.where = "ENTITYID = " + self.dataItem.entityID;
-                    query.returnGeometry = true;
-                    query.outFields = ["*"];
-                }
-                if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/1");
-                    query = new Query();
-                    query.where = "ENTITYID = " + self.dataItem.entityID;
-                    query.returnGeometry = true;
-                    query.outFields = ["*"];
-                }
+                queryTask = new QueryTask(appConfig.mainURL + "/0");
+                query = new Query();
+                query.where = "EntityID = " + self.dataItem.entityID;
+                query.returnGeometry = true;
+                query.outFields = ["*"];
+
                 queryTask.execute(query, schoolPointQueryHandler, schoolPointQueryFault)
             }
 
@@ -144,9 +128,9 @@ function setup() {
                 var s2015;
                 var s2016;
 
-                qt2015 = new QueryTask(appConfig.mainURL + "/2");
+                qt2015 = new QueryTask(appConfig.mainURL + "/1");
                 q2015 = new Query();
-                qt2016 = new QueryTask(appConfig.mainURL + "/4");
+                qt2016 = new QueryTask(appConfig.mainURL + "/2");
                 q2016 = new Query();
 
                 q2015.returnGeometry = q2016.returnGeometry = false;
@@ -169,14 +153,14 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = " + self.dataItem.entityID;
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    queryTask = new QueryTask(appConfig.mainURL + "/2");
                     query = new Query();
                     query.where = "EntityID = " + self.dataItem.entityID;
                     query.returnGeometry = false;
@@ -189,20 +173,12 @@ function setup() {
                 var queryTask;
                 var query;
 
-                if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/0");
-                    query = new Query();
-                    query.where = "DISTRICTID = " + dID;
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
-                if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/1");
-                    query = new Query();
-                    query.where = "DISTRICTID = " + dID;
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
+                queryTask = new QueryTask(appConfig.mainURL + "/0");
+                query = new Query();
+                query.where = "DistrictEntityID = " + dID;
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+
                 queryTask.execute(query, azMERITdistQueryHandler, azMERITdistQueryFault)
             }
 
@@ -217,14 +193,14 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = " + dID + "AND Subgroup = 'X'";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    queryTask = new QueryTask(appConfig.mainURL + "/2");
                     query = new Query();
                     query.where = "EntityID = " + dID + "AND Subgroup = 'X'";
                     query.returnGeometry = false;
@@ -243,14 +219,14 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = -1";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    queryTask = new QueryTask(appConfig.mainURL + "/2");
                     query = new Query();
                     query.where = "EntityID = -1";
                     query.returnGeometry = false;
@@ -258,34 +234,6 @@ function setup() {
                 }
                 queryTask.execute(query, stateBreakdownQueryHandler, stateBreakdownQueryFault)
             }
-
-            /**
-             * [getCountyData]
-             * @return {countyQueryHandler}
-             * @return {countyQueryFault} [error]
-             */
-            // function getCountyData() {
-            //     var queryTask;
-            //     var query;
-
-            //     if (selectedYear === "2015") {
-            //         queryTask = new QueryTask(appConfig.mainURL + "/2");
-            //         query = new Query();
-            //         // query.where = "EntityID = " + self.countyID + " AND Subgroup = 'X' AND TestLevel = 'All Students'";
-            //         query.where = "EntityID = " + self.countyID;
-            //         query.returnGeometry = false;
-            //         query.outFields = ["*"];
-            //     }
-            //     if (selectedYear === "2016") {
-            //         queryTask = new QueryTask(appConfig.mainURL + "/4");
-            //         query = new Query();
-            //         // query.where = "EntityID = " + self.countyID + " AND Subgroup = 'X' AND TestLevel = 'All Students'";
-            //         query.where = "EntityID = " + self.countyID;
-            //         query.returnGeometry = false;
-            //         query.outFields = ["*"];
-            //     }
-            //     queryTask.execute(query, countyQueryHandler, countyQueryFault)
-            // }
             //================================================================================================>
 
             /**
@@ -371,8 +319,8 @@ function setup() {
                     self.azSchools.push({
                         sName: item.attributes.SchoolName,
                         dName: item.attributes.DistrictName,
-                        dID: item.attributes.DISTRICTID,
-                        entityID: item.attributes.ENTITYID,
+                        dID: item.attributes.DistrictEntityID,
+                        entityID: item.attributes.EntityID,
                         FY: item.attributes.FY,
                         address: item.attributes.Address,
                         city: item.attributes.City,
@@ -380,7 +328,10 @@ function setup() {
                         grades: item.attributes.Grades,
                         sClass: item.attributes.SchoolClass,
                         sType: item.attributes.SchoolType,
-                        active: item.attributes.Active
+                        active: item.attributes.Active,
+                        titleI: item.attributes.TitleI,
+                        frl: item.attributes.FRL,
+                        grade: item.attributes.Grade
                     });
                 });
                 // console.log(self.azSchools);
@@ -427,8 +378,8 @@ function setup() {
                     self.distInfo.push({
                         sName: item.attributes.SchoolName,
                         dName: item.attributes.DistrictName,
-                        dID: item.attributes.DISTRICTID,
-                        entityID: item.attributes.ENTITYID,
+                        dID: item.attributes.DistrictEntityID,
+                        entityID: item.attributes.EntityID,
                         FY: item.attributes.FY,
                         address: item.attributes.Address,
                         city: item.attributes.City,
@@ -587,7 +538,7 @@ function setup() {
              */
             function districtBreakdownQueryHandler(results) {
                 var features = results.features;
-                console.log(features);
+                // console.log(features);
 
                 self.districtELA = [];
                 self.districtMATH = [];
@@ -651,7 +602,7 @@ function setup() {
                 // console.log(districtAZMERITela);
                 // console.log(districtAZMERITmath);
                 self.districtAll = $.extend({}, districtAZMERITela[0], districtAZMERITmath[0]);
-                console.log(self.districtAll);
+                // console.log(self.districtAll);
                 // createDistrictStateChart();
             };
 
@@ -726,7 +677,7 @@ function setup() {
                 // console.log(stateMATHall);
 
                 self.stateAll = $.extend({}, stateELAall[0], stateMATHall[0]);
-                console.log(self.stateAll);
+                // console.log(self.stateAll);
                 self.typeA = "ELA";
                 self.tLevel = "All Students";
 
@@ -758,108 +709,6 @@ function setup() {
                 createAllMERITChart();
             });
 
-            // function countyQueryFault(error) {
-            //     console.log(error.messaege);
-            // };
-
-            /**
-             * [countyQueryHandler description]
-             * * Data via [getCountyData();]
-             * @param  {[type]} results [description]
-             * @return {[type]}         [createCountyStateChart]
-             */
-            // function countyQueryHandler(results) {
-            //     // console.log(results.features);
-            //     var countyInfo = results.features;
-
-            //     // data for comparison scores charts
-            //     self.countyELA = [];
-            //     $.each(countyInfo, function(index, item) {
-            //         if (item.attributes.ContentArea === 675 && item.attributes.Subgroup === "X" && item.attributes.TestLevel === "All Students") {
-            //             self.countyELA.push(item.attributes);
-            //         }
-            //     });
-            //     // console.log(countyELA);
-            //     self.countyELApassing = countyELA[0].PCT_Passing;
-
-            //     self.countyMATH = [];
-            //     $.each(countyInfo, function(index, item) {
-            //         if (item.attributes.ContentArea === 677 && item.attributes.Subgroup === "X" && item.attributes.TestLevel === "All Students") {
-            //             self.countyMATH.push(item.attributes);
-            //         }
-            //     });
-            //     // console.log(countyMATH);
-            //     self.countyMATHpassing = countyMATH[0].PCT_Passing;
-
-            //     // data for Student Breakdown Chart
-            //     self.countyELAall = [];
-            //     $.each(countyInfo, function(index, item) {
-            //         if (item.attributes.ContentArea === 675) {
-            //             self.countyELAall.push(item.attributes);
-            //         }
-            //     });
-            //     // console.log(self.countyELAall);
-
-            //     self.countyMATHall = [];
-            //     $.each(countyInfo, function(index, item) {
-            //         if (item.attributes.ContentArea === 677) {
-            //             self.countyMATHall.push(item.attributes);
-            //         }
-            //     });
-            //     // console.log(self.countyMATHall);
-
-            //     self.countyName;
-            //     switch (self.countyID) {
-            //         case 338:
-            //             self.countyName = "Apache";
-            //             break;
-            //         case 339:
-            //             self.countyName = "Cochise";
-            //             break;
-            //         case 340:
-            //             self.countyName = "Coconino";
-            //             break;
-            //         case 341:
-            //             self.countyName = "Gila";
-            //             break;
-            //         case 342:
-            //             self.countyName = "Graham";
-            //             break;
-            //         case 343:
-            //             self.countyName = "Greenlee";
-            //             break;
-            //         case 344:
-            //             self.countyName = "Maricopa";
-            //             break;
-            //         case 345:
-            //             self.countyName = "Mohave";
-            //             break;
-            //         case 346:
-            //             self.countyName = "Navajo";
-            //             break;
-            //         case 347:
-            //             self.countyName = "Pima";
-            //             break;
-            //         case 348:
-            //             self.countyName = "Pinal";
-            //             break;
-            //         case 349:
-            //             self.countyName = "Santa Cruz";
-            //             break;
-            //         case 350:
-            //             self.countyName = "Yavapai";
-            //             break;
-            //         case 351:
-            //             self.countyName = "Yuma";
-            //             break;
-            //         case 352:
-            //             self.countyName = "La Paz";
-            //             break;
-            //     }
-
-            //     // createCountyStateChart()
-            // };
-
             function schoolScoresQueryFault(error) {
                 console.log(error.messaege);
             };
@@ -870,52 +719,64 @@ function setup() {
                 // console.log(features2015);
                 // console.log(features2016);
 
-                self.schoolID = features2015[0].attributes.SchoolEntityID;
-                self.countyID = features2015[0].attributes.CountyEntityID;
-                self.districtID = features2015[0].attributes.DistrictEntityID;
-                // console.log(self.countyID);
+                var info2015ela;
+                var info2015math;
+                if (features2015.length != 0) {
+                    info2015ela = features2015[0].attributes;
+                    info2015math = features2015[1].attributes;
+                } else {
+                    info2015ela = 0;
+                    info2015math = 0;
+                    info2015ela.PCT_Passing = 0;
+                    info2015math.PCT_Passing = 0;
+                }
 
-                var info2015ela = features2015[0].attributes;
-                var info2015math = features2015[1].attributes;
-                var info2016ela = features2016[0].attributes;
-                var info2016math = features2016[1].attributes;
-                // // console.log('ELA 2015 - ' + info2015ela.PCT_Passing);
-                // // console.log('ELA 2016 - ' + info2016ela.PCT_Passing);
+                var info2016ela;
+                var info2016math;
+                if (features2016.length != 0) {
+                    info2016ela = features2016[0].attributes;
+                    info2016math = features2016[1].attributes;
+                } else {
+                    info2016ela = 0;
+                    info2016math = 0;
+                    info2016ela.PCT_Passing = 0;
+                    info2016math.PCT_Passing = 0;
+                }
 
+                var e1, e2;
                 if (selectedYear === "2016") {
-                    if (info2016ela.PCT_Passing > 0) {
-                        dom.byId("elaScore").innerHTML = info2016ela.PCT_Passing + "%";
-                        createChartELA(info2016ela);
-                    } else {
-                        dom.byId("elaScore").innerHTML = "N/A";
-                        createChartELA(info2016ela);
-                    }
-                    if (info2016math.PCT_Passing > 0) {
-                        dom.byId("mathScore").innerHTML = info2016math.PCT_Passing + "%";
-                        createChartMATH(info2016math);
-                    } else {
-                        dom.byId("mathScore").innerHTML = "N/A";
-                        createChartMATH(info2016math);
-                    }
+                    e1 = info2016ela;
+                    e2 = info2016math;
+                    score(e1, e2);
                 }
                 if (selectedYear === "2015") {
-                    if (info2015ela.PCT_Passing > 0) {
-                        dom.byId("elaScore").innerHTML = info2015ela.PCT_Passing + "%";
-                        createChartELA(info2015ela);
+                    e1 = info2015ela;
+                    e2 = info2015math;
+                    score(e1, e2);
+                }
+
+                function score(e1, e2) {
+
+                    if (e1.PCT_Passing > 0) {
+                        dom.byId("elaScore").innerHTML = e1.PCT_Passing + "%";
+                        createChartELA(e1);
                     } else {
                         dom.byId("elaScore").innerHTML = "N/A";
-                        createChartELA(info2015ela);
+                        dom.byId("elaChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
+                        domClass.add("elaChart", "chartGoneNA");
                     }
-                    if (info2015math.PCT_Passing > 0) {
-                        dom.byId("mathScore").innerHTML = info2015math.PCT_Passing + "%";
-                        createChartMATH(info2015math);
+                    if (e2.PCT_Passing > 0) {
+                        dom.byId("mathScore").innerHTML = e2.PCT_Passing + "%";
+                        createChartMATH(e2);
                     } else {
                         dom.byId("mathScore").innerHTML = "N/A";
-                        createChartMATH(info2015math);
+                        dom.byId("mathChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
+                        domClass.add("mathChart", "chartGoneNA");
                     }
                 }
 
                 function diffScore() {
+
                     if (info2015ela.PCT_Passing < 0) {
                         info2015ela.PCT_Passing = 0;
                     }
@@ -930,9 +791,10 @@ function setup() {
                     }
 
                     var elaChange = info2016ela.PCT_Passing - info2015ela.PCT_Passing;
-                    // console.log("ELA " + elaChange);
                     var mathChange = info2016math.PCT_Passing - info2015math.PCT_Passing;
-                    // console.log("MATH " + mathChange);
+
+                    var ec1 = isNaN(elaChange);
+                    var mc1 = isNaN(mathChange);
 
                     var upARROW = '<img class="arrow" src="./app/images/arrowUp.png" alt="UP">';
                     var downARROW = '<img class="arrow" src="./app/images/arrowDown.png" alt="Down">';
@@ -945,6 +807,9 @@ function setup() {
                         } else if (elaChange === 0) {
                             dom.byId("elaChange").innerHTML = elaChange + "%";
                             dom.byId("elaArrow").innerHTML = noARROW;
+                        } else if (ec1 === true) {
+                            dc.empty("elaChange");
+                            dc.empty("elaArrow");
                         } else {
                             dom.byId("elaChange").innerHTML = elaChange + "%";
                             dom.byId("elaArrow").innerHTML = downARROW;
@@ -955,6 +820,9 @@ function setup() {
                         } else if (mathChange === 0) {
                             dom.byId("mathChange").innerHTML = mathChange + "%";
                             dom.byId("mathArrow").innerHTML = noARROW;
+                        } else if (mc1 === true) {
+                            dc.empty("mathChange");
+                            dc.empty("mathArrow");
                         } else {
                             dom.byId("mathChange").innerHTML = mathChange + "%";
                             dom.byId("mathArrow").innerHTML = downARROW;
@@ -1004,11 +872,208 @@ function setup() {
             };
 
             /**
+             * [schoolNames] - populates the dropdown menu for "Find a School"
+             * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
+             * @return
+             */
+            function schoolNames() {
+                // console.log(self.azSchools);
+
+                $("#schools").kendoDropDownList({
+                    dataTextField: "sName",
+                    dataValueField: "entityID",
+                    template: "${data.sName}" + " - <span style='font-size: 12px;'>${data.city}" + " (${data.entityID})</span>",
+                    dataSource: {
+                        data: self.azSchools,
+                        sort: {
+                            field: "sName",
+                            dir: "asc"
+                        }
+                        // filter: {
+                        //     field: "active",
+                        //     operator: "eq",
+                        //     value: "Y"
+                        // }
+                    },
+                    index: 0,
+                    change: onChange
+                });
+
+                var schoolData = $("#schools").data("kendoDropDownList");
+                self.dataItem = schoolData.dataItem();
+
+                // school name & district name
+                dom.byId("schoolName0").innerHTML = self.dataItem.sName;
+                dom.byId("districtName0").innerHTML = self.dataItem.dName;
+                dom.byId("sNUM0").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+                dom.byId("schoolName1").innerHTML = self.dataItem.sName;
+                dom.byId("districtName1").innerHTML = self.dataItem.dName;
+                dom.byId("sNUM1").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+                dom.byId("schoolName2").innerHTML = self.dataItem.sName;
+                dom.byId("districtName2").innerHTML = self.dataItem.dName;
+                dom.byId("sNUM2").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+
+                dom.byId("info1").innerHTML = self.dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.grades;
+                dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
+
+                var dID = dataItem.dID;
+                getSchoolScores();
+                getBreakDown();
+                getDistrictBreakDown(dID);
+                getStateBreakDown();
+                getDistrictData(dID);
+                // console.log(self.dataItem);
+
+                gradeBadge();
+                titleIBadge();
+                freeReducedBadge();
+
+                function onChange() {
+                    var value = $("#schools").val();
+                    var schoolData = $("#schools").data("kendoDropDownList");
+                    self.dataItem = schoolData.dataItem();
+
+                    var dID = dataItem.dID;
+
+                    // school name & district name
+                    dom.byId("schoolName0").innerHTML = self.dataItem.sName;
+                    dom.byId("districtName0").innerHTML = self.dataItem.dName;
+                    dom.byId("sNUM0").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+                    dom.byId("schoolName1").innerHTML = self.dataItem.sName;
+                    dom.byId("districtName1").innerHTML = self.dataItem.dName;
+                    dom.byId("sNUM1").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+                    dom.byId("schoolName2").innerHTML = self.dataItem.sName;
+                    dom.byId("districtName2").innerHTML = self.dataItem.dName;
+                    dom.byId("sNUM2").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
+
+                    dom.byId("info1").innerHTML = self.dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.grades;
+                    dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
+
+                    getSchoolScores();
+                    getSchoolLocation();
+                    getBreakDown();
+                    getDistrictBreakDown(dID);
+                    getStateBreakDown();
+                    getDistrictData(dID);
+
+                    gradeBadge();
+                    titleIBadge();
+                    freeReducedBadge();
+
+                    // toggles the Assessment Type back to ELA from MATH
+                    $("#option1").parents('.btn').button('toggle');
+
+                    // console.log(self.dataItem);
+                };
+            };
+
+            /**
+             * [gradeBadge description]
+             * @return {[type]} [description]
+             */
+            function gradeBadge() {
+                var emptyTEST = $("#info3").is(":empty");
+                if (emptyTEST === false) {
+                    dc.destroy("gradeBadge");
+                }
+
+                var schoolGrade = self.dataItem.grade;
+                // console.log(schoolGrade);
+                var gradeClass;
+                var grade;
+                var gradeInfo;
+
+                if (schoolGrade >= 80) {
+                    gradeClass = "letterGrade gradeA";
+                    grade = "class='grade'";
+                }
+                if (schoolGrade >= 60 && schoolGrade < 80) {
+                    gradeClass = "letterGrade gradeB";
+                    grade = "class='grade'";
+                }
+                if (schoolGrade >= 40 && schoolGrade < 60) {
+                    gradeClass = "letterGrade gradeC";
+                    grade = "class='grade2'";
+                }
+                if (schoolGrade >= 20 && schoolGrade < 40) {
+                    gradeClass = "letterGrade gradeD";
+                    grade = "class='grade'";
+                }
+                if (schoolGrade >= 0 && schoolGrade < 20) {
+                    gradeClass = "letterGrade gradeF";
+                    grade = "class='grade'";
+                }
+                gradeInfo = "2016</br>GRADE" + "<p " + grade + ">" + schoolGrade + "%</p>";
+
+                if (schoolGrade < 0) {
+                    gradeClass = "letterGrade gradeNA";
+                    schoolGrade = "N/A";
+                    grade = "class='grade'";
+                    gradeInfo = "2016</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
+                }
+
+                dc.create("span", {
+                    id: "gradeBadge",
+                    className: gradeClass,
+                    innerHTML: gradeInfo
+                }, "info3", "first");
+
+            };
+
+            /**
+             * Places title I badge if school is title I
+             * @return {[type]} [description]
+             */
+            function titleIBadge() {
+                var emptyTEST = $("#info4").is(":empty");
+                if (emptyTEST === false) {
+                    dc.destroy("titleIBadge");
+                }
+                // console.log(self.dataItem.titleI);
+                if (self.dataItem.titleI === "Y") {
+                    dc.create("span", {
+                        id: "titleIBadge",
+                        className: "titleI",
+                        innerHTML: "2016" + "<p class='t1'>Title I</br>School</p>"
+                    }, "info4", "first");
+                } else {
+                    dc.destroy("titleIBadge");
+                }
+            };
+
+            /**
+             * Places Free and Reduced badge for school info
+             * @return {[type]} [description]
+             */
+            function freeReducedBadge() {
+                var emptyTEST = $("#info4").is(":empty");
+                if (emptyTEST === false) {
+                    dc.destroy("freeBadge");
+                }
+                // console.log(self.dataItem.frl);
+                if (self.dataItem.frl !== "-9") {
+                    dc.create("span", {
+                        id: "freeBadge",
+                        className: "freeRed",
+                        innerHTML: "2016" + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>" + self.dataItem.frl + "</p>"
+                    }, "info4", "second");
+                } else if (self.dataItem.frl === "-9") {
+                    dc.create("span", {
+                        id: "freeBadge",
+                        className: "freeRed",
+                        innerHTML: "2016" + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>N/A</p>"
+                    }, "info4", "second");
+                } else {
+                    dc.destroy("freeBadge");
+                }
+            };
+
+            /**
              * [azMERITAllSchoolsChart] - Shows all schools and their AzMERIT score in scatter chart.
              * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
              * @return
              */
-            function azMERITAllSchoolsChart() {
+            function azMERITscatterChart() {
 
                 $("#azMERITchartSchools").kendoChart({
                     theme: "Silver",
@@ -1135,88 +1200,7 @@ function setup() {
                 });
             };
 
-            /**
-             * [schoolNames] - populates the dropdown menu for "Find a School"
-             * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
-             * @return
-             */
-            function schoolNames() {
-                // console.log(self.azSchools);
 
-                $("#schools").kendoDropDownList({
-                    dataTextField: "sName",
-                    dataValueField: "entityID",
-                    dataSource: {
-                        data: self.azSchools,
-                        filter: {
-                            field: "active",
-                            operator: "eq",
-                            value: "Y"
-                        }
-                    },
-                    index: 0,
-                    change: onChange
-                });
-
-                var schoolData = $("#schools").data("kendoDropDownList");
-                self.dataItem = schoolData.dataItem();
-
-                // school name & district name
-                dom.byId("schoolName0").innerHTML = self.dataItem.sName;
-                dom.byId("districtName0").innerHTML = self.dataItem.dName;
-                dom.byId("sNUM0").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-                dom.byId("schoolName1").innerHTML = self.dataItem.sName;
-                dom.byId("districtName1").innerHTML = self.dataItem.dName;
-                dom.byId("sNUM1").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-                dom.byId("schoolName2").innerHTML = self.dataItem.sName;
-                dom.byId("districtName2").innerHTML = self.dataItem.dName;
-                dom.byId("sNUM2").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-
-                dom.byId("info1").innerHTML = self.dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.grades;
-                dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
-
-                var dID = dataItem.dID;
-                getSchoolScores();
-                getBreakDown();
-                getDistrictBreakDown(dID);
-                getStateBreakDown();
-                getDistrictData(dID);
-                // console.log(self.dataItem);
-
-                function onChange() {
-                    var value = $("#schools").val();
-                    var schoolData = $("#schools").data("kendoDropDownList");
-                    self.dataItem = schoolData.dataItem();
-
-                    var dID = dataItem.dID;
-
-                    // school name & district name
-                    dom.byId("schoolName0").innerHTML = self.dataItem.sName;
-                    dom.byId("districtName0").innerHTML = self.dataItem.dName;
-                    dom.byId("sNUM0").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-                    dom.byId("schoolName1").innerHTML = self.dataItem.sName;
-                    dom.byId("districtName1").innerHTML = self.dataItem.dName;
-                    dom.byId("sNUM1").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-                    dom.byId("schoolName2").innerHTML = self.dataItem.sName;
-                    dom.byId("districtName2").innerHTML = self.dataItem.dName;
-                    dom.byId("sNUM2").innerHTML = "&nbsp;(" + self.dataItem.entityID + ")";
-
-                    dom.byId("info1").innerHTML = self.dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.grades;
-                    dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
-
-                    getSchoolScores();
-                    getSchoolLocation();
-                    getBreakDown();
-                    getDistrictBreakDown(dID);
-                    getStateBreakDown();
-                    getDistrictData(dID);
-
-                    // toggles the Assessment Type back to ELA from MATH
-                    $("#option1").parents('.btn').button('toggle');
-
-                    // console.log(self.dataItem);
-                };
-            };
 
             /**
              * [createChartELA - Pie Chart]
@@ -1243,7 +1227,7 @@ function setup() {
                     return element == 0;
                 }
                 var ddCheck = [e.PCT_PL1, e.PCT_PL2, e.PCT_PL3, e.PCT_PL4].every(isBigEnough);
-                //console.log(ddCheck);
+                // console.log(ddCheck);
 
                 if (ddCheck == true) {
                     dom.byId("elaChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
@@ -1486,14 +1470,15 @@ function setup() {
                         series: seriesINFO,
                         dataBound: function(e) {
                             // console.log(e);
-                            var R1 = e.sender.options.series[0].data[0].ELARDT;
-                            var R2 = e.sender.options.series[5].data[0].ELARDT;
-                            if (R1 == 0) {
-                                e.sender.options.series[0].labels.visible = false;
-                            }
-                            if (R2 == 0) {
-                                e.sender.options.series[5].labels.visible = false;
-                            }
+                            // var R1 = e.sender.options.series[0].data[0].ELARDT;
+                            // var R2 = e.sender.options.series[5].data[0].ELARDT;
+                            // // console.log("R1: "+ R1 +" & R2: "+ R2);
+                            // if (R1 == 0) {
+                            e.sender.options.series[0].labels.visible = false;
+                            // }
+                            // if (R2 == 0) {
+                            e.sender.options.series[5].labels.visible = false;
+                            // }
                         },
                         seriesDefaults: {
                             type: "column",
@@ -2062,6 +2047,7 @@ function setup() {
 
 
         });
+    // end main function
 }
 
 $(document).ready(function() {

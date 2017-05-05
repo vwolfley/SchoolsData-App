@@ -504,3 +504,104 @@ Header Section
     color: #fff;
     background-color: #5bc0de;
 }
+
+/*******************
+ Info Badges
+********************/
+.letterGrade {
+    width: 80px;
+    height: 100px;
+    padding: 10px 0 10px 0;
+    margin-top: 10px;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+}
+.grade {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #ffffff;
+}
+.grade2 {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #a0a0a0;
+}
+.gradeA {
+    background-color: #4ce600;
+}
+.gradeB {
+    background-color: #70a800;
+}
+.gradeC {
+    background-color: #ffffbf;
+}
+.gradeD {
+    background-color: #fdae61;
+}
+.gradeF {
+    background-color: #d7191c;
+}
+.gradeNA {
+    background-color: #787878;
+}
+.titleI {
+    width: 80px;
+    height: 100px;
+    padding: 10px 0 10px 0;
+    margin: 5px 5px 0 0;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    background-color: #cc66ff;
+    font-weight: bold;
+    vertical-align: middle;
+}
+.t1 {
+    margin: 8px 0 0 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+}
+.freeRed {
+    width: 80px;
+    height: 100px;
+    padding: 10px 0 10px 0;
+    margin: 5px 5px 0 0;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    background-color: #2e8b57;
+    font-weight: bold;
+    vertical-align: middle;
+}
+.r1 {
+    margin: 0 0 0 0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+.r2 {
+    margin: 8px 0 0 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+}
+#info4 {
+    display: inline-block;
+    vertical-align: middle;
+}
