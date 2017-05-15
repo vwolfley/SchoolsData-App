@@ -391,6 +391,13 @@ Header Section
     margin-bottom: 8px;
 }
 
+.nav-tabs>li>a {
+    background-color: #dfe1e2;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus {
+    background-color: #D2D5D7;
+}
+
 /*******************
  Popup
 ********************/
