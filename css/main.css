@@ -204,7 +204,7 @@ Header Section
 .k-grid-content {
     max-height: 500px;
 }
-#distName, #distName1 {
+#distName {
     display: inline-block;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
@@ -212,7 +212,7 @@ Header Section
     font-size: large;
     font-weight: bold;
 }
-#distNum, #distNum1 {
+#distNum {
     display: inline-block;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
 }
