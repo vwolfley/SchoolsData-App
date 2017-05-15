@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.bootstrap.min.css" />
     <!-- ArcGIS -->
     <link rel="stylesheet" href="https://js.arcgis.com/3.18/esri/css/esri.css">
-    <link rel="stylesheet" href="app/css/main.css" />
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
@@ -39,7 +39,6 @@
     </nav>
     <!-- MAIN Container -->
     <div class="container" role="main">
-    <!-- row 1 **Find A School -->
         <div class="row">
             <div class="col-md-10 field">
                 <h4 class="tDrop">Find a school</h4>
@@ -63,8 +62,6 @@
             </div>
         </div>
         <!-- / Modal Legal-->
-        <!-- /row 1 -->
-        <!-- row 2 **Info & Map -->
         <div class="separator"></div>
         <div class="row">
             <div class="col-md-6">
@@ -80,8 +77,7 @@
             </div>
         </div>
         <div class="separator"></div>
-        <!-- /row 2 -->
-        <!-- row 3 **AzMERIT Percent Passing -->
+        <!-- row 1 -->
         <h4 class="example-subtitle">Schools AzMERIT Percent Passing Scores</h4>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
@@ -120,10 +116,8 @@
                 </div>
             </div>
         </div>
-        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
+        <!-- /row 1 -->
         <div class="separator"></div>
-        <!-- /row 3 -->
-        <!-- row 4 **AzMERIT Student Breakdown -->
         <h4 class="example-subtitle">Schools AzMERIT Student Breakdown</h4>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
@@ -132,7 +126,7 @@
             <h5 id="districtName1" class="districtName"></h5>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <span><h4>Assessment Type</h4></span>
                 <div id="typeAssess" class="btn-group level" data-toggle="buttons">
                     <label class="btn btn-primary active">
@@ -145,50 +139,13 @@
                 <span><h4>Test Level</h4></span>
                 <div id="fradio" class="funkyradio"></div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-9">
                 <div id="allChart"></div>
-            </div>
-            <div class="col-md-5">
-                <div id="passChart"></div>
             </div>
         </div>
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
-        <!-- /row 4 -->
-
-
-        <!-- row 5 ** Percent Passing Breakdown-->
-        <!-- <h4 class="example-subtitle">Schools AzMERIT Percent Passed</h4>
-        <span class="metric">For <span class="selected-year"></span></span>
-        <div>
-            <h3 id="schoolName3" class="schoolName"></h3>
-            <h6 id="sNUM3" class="schoolName"></h6>
-            <h5 id="districtName3" class="districtName"></h5>
-        </div> -->
-       <!--  <div class="row">
-            <div class="col-md-3">
-                <span><h4>Assessment Type</h4></span>
-                <div id="typeAssess1" class="btn-group level" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="options1" id="option3" value="ELA1" autocomplete="off" checked> ELA
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options1" id="option4" value="MATH1" autocomplete="off"> MATH
-                    </label>
-                </div>
-                <span><h4>Test Level</h4></span>
-                <div id="fradio1" class="funkyradio"></div>
-            </div>
-            <div class="col-md-9">
-                <div id="passChart"></div>
-            </div>
-        </div>
-        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div> -->
-        <!-- <div class="separator"></div> -->
-        <!-- /row 5 -->
-
-
-        <!-- row 6 **District Summary Table-->
+        <!-- /row 2 -->
         <h4 class="example-subtitle">District Summary</h4>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
@@ -199,27 +156,29 @@
             </div>
         </div>
         <div class="separator"></div>
-        <!-- /row 6 -->
-        <!-- row 7 **District Scatter Chart-->
-        <h4 class="example-subtitle">District Schools AzMERIT Percent Passing Scores</h4>
-        <span class="metric">For <span class="selected-year"></span></span>
-        <div class="row">
-            <div class="col-md-12">
-                <h4 id="distName1"></h4>
-                <h6 id=distNum1></h6>
-                <div id="azMERITdistrictScatter"></div>
-            </div>
-        </div>
-        <div class="separator"></div>
-        <!-- /row 7 -->
-        <!-- row 8 **State Scatter Chart-->
         <h4 class="example-subtitle">All Schools AzMERIT Percent Passing Scores</h4>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div id="azMERITchartSchools" class="col-md-12"></div>
         </div>
         <div class="separator"></div>
-        <!-- /row 8 -->
+        <!-- <div class="row">
+            <h4 class="example-subtitle">State Summary</h4>
+            <span class="metric">For <span class="selected-year"></span></span>
+            <div class="col-md-4">
+                <div class="panel stateInfo">
+                    <div class="district-image"></div>
+                    <div id="districtInfo"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel stateInfo">
+                    <div class="school-image"></div>
+                    <div id="schoolInfo"></div>
+                </div>
+            </div>
+        </div>
+        <div class="separator"></div> -->
     </div>
     <!-- /container -->
     <footer class="blog-footer">
@@ -239,13 +198,13 @@
     var dojoConfig = {
         packages: [{
             name: "appConfig",
-            location: location.pathname.replace(/\/[^/]+$/, "") + "./app/js"
+            location: location.pathname.replace(/\/[^/]+$/, "") + "././js"
         }]
     };
     </script>
     <!-- ArcGIS JS 3.x -->
     <script src="https://js.arcgis.com/3.18/"></script>
-    <script src="app/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
