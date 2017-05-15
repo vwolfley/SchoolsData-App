@@ -111,8 +111,11 @@ Header Section
     padding-top: 15px;
 }
 #infoBtn {
-    padding-top: 40px;
+    /*padding-top: 40px;*/
     text-align: right;
+}
+.k-tabstrip-wrapper {
+
 }
 /*******************
  Footer
@@ -158,9 +161,6 @@ Header Section
     text-transform: uppercase;
     margin-bottom: 2px;
     padding-top: 15px;
-}
-.field {
-    padding-top: 10px;
 }
 /*******************
  State Panels
