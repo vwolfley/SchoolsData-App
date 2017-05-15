@@ -1,0 +1,48 @@
+{
+  "name": "AzMERIT-Project",
+  "version": "0.0.2",
+  "date": "11/22/2016",
+  "description": "MAG AzMERIT Data Visualization Project",
+  "keywords": [
+    "testing",
+    "standards",
+    "scores",
+    "AzMERIT",
+    "schools",
+    "Arizona",
+    "maps",
+    "MAG",
+    "ESRI",
+    "#MAGmaps"
+  ],
+  "main": "index.js",
+  "homepage": "http://geo.azmag.gov/maps//",
+  "author": "Vern Wolfley <vwolfley@azmag.gov>",
+  "contributors": [
+    {
+      "name": "Vern Wolfley",
+      "email": "vwolfley@azmag.gov"
+    },
+    {
+      "name": "Jack Fairfield",
+      "email": "jfairfield@azmag.gov"
+    }
+  ],
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "csslint-stylish": "",
+    "grunt": "^1.0.1",
+    "grunt-bootlint": "^0.10.1",
+    "grunt-contrib-csslint": "",
+    "grunt-contrib-cssmin": "",
+    "grunt-contrib-jshint": "",
+    "grunt-contrib-uglify": "",
+    "grunt-htmlhint": "",
+    "grunt-text-replace": "",
+    "jshint-stylish-ex": "",
+    "lodash": "",
+    "matchdep": ""
+  },
+  "license": "MIT"
+}
