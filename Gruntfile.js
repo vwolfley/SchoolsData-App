@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                     ' * @version    | version | <%= pkg.version %>\n' +
                     ' * @cssdoc     main.css \n' +
                     ' * @production | <%= pkg.date %>\n' +
-                    ' * @copyright  2016 MAG\n' +
+                    ' * @copyright  2017 MAG\n' +
                     ' * @license    Licensed under MIT\n' +
                     ' * ========================================================================== */\n',
 
@@ -153,7 +153,7 @@ module.exports = function(grunt) {
 
         replace: {
             update_Meta: {
-                src: ["app/index.html", "app/js/config.js", "app/humans.txt", "README.md", "app/css/main.css"], // source files array
+                src: ["index.html", "js/config.js", "humans.txt", "README.md", "css/main.css"], // source files array
                 // src: ["README.md"], // source files array
                 overwrite: true, // overwrite matched source files
                 replacements: [{

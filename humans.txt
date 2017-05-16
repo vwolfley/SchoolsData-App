@@ -47,8 +47,8 @@ humanstxt.org/
 
     Site Name: AzMERIT Test Scores Data Visualization Project
     Site URL: http://geo.azmag.gov/maps/test/azmerit
-    Version: 0.0.2
-	Last updated: 11/22/2016
+    Version: 0.0.3
+	Last updated: 05/16/2017
     Creation date: 10/03/2016
 	Language: English
 	Doctype: HTML5
