@@ -18,6 +18,11 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
+## Version 0.0.3 | 05/16/2017
+
+* changed the data link
+* added tabs to the Learn More button
+
 ## Version 0.0.2 | 11/22/2016
 
 * added version number/data/legal disclaimer/email contact

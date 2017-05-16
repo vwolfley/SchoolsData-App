@@ -1,26 +1,24 @@
 /* ========================================================================
  * Maricopa Association of Governments
- *
  * MAG AzMERIT Data Viewer
  * JS document for the MAG AzMERIT Data Viewer
- *
  * ========================================================================
  * @project     MAG AzMERIT Data Viewer
- * @version     0.0.2
+ * @version     0.0.3
  * @jsdoc       config.js
- * @copyright   2016 MAG
- * @license     Licensed under MIT
+ * @copyright   2017 Maricopa Association of Governments
+ * @license     MIT
  * ======================================================================== */
 
 define([], function() {
       return {
 
-            version: "0.0.2 | 11/22/2016",
+            version: "0.0.3 | 05/16/2017",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
             // mainURL: "http://geo.azmag.gov/gismag/rest/services/maps/ReadOn_test/MapServer/0",
-            mainURL: "http://geo.azmag.gov/gismag/rest/services/maps/AzMERIT_TEST/MapServer",
+            mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/AzMERIT_TEST/MapServer",
 
             _subGroups: ["State Average", "District Average", "School Average", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 
