@@ -1,7 +1,7 @@
 {
   "name": "AzMERIT-Project",
-  "version": "0.0.2",
-  "date": "11/22/2016",
+  "version": "0.0.3",
+  "date": "05/16/2017",
   "description": "MAG AzMERIT Data Visualization Project",
   "keywords": [
     "testing",
@@ -34,6 +34,7 @@
     "csslint-stylish": "",
     "grunt": "^1.0.1",
     "grunt-bootlint": "^0.10.1",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-csslint": "",
     "grunt-contrib-cssmin": "",
     "grunt-contrib-jshint": "",
