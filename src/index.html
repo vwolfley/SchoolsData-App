@@ -33,20 +33,32 @@
             <div class="navbar-header">
                 <h3 class="example-title">AzMERIT<span> Test Scores</span></h3>
                 <h4 class="example-description">Data Visualization Project</h4>
-                <div id="year-filtering-tabs" class="filtering-tabs"></div>
+
+                <div>
+                    <div id="year-filtering-tabs" class="iltering-tabs"></div>
+                    <div class="col-md-8"><span class="tDrop">Find a school</span><input id="schools" /></div>
+                    <div id="infoBtn" class="col-md-2">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
     <!-- MAIN Container -->
     <div class="container" role="main">
         <div class="row">
-            <div class="col-md-10 field">
+            <!-- <div class="col-md-10 field">
                 <h4 class="tDrop">Find a school</h4>
                 <input id="schools" />
             </div>
             <div id="infoBtn" class="col-md-2">
+<<<<<<< HEAD:src/index.html
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Learn more &raquo;</button>
             </div>
+=======
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+            </div> -->
+>>>>>>> 4ef0d5d16270eaff004962a61c00de0f896ee0d8:src/index.html
         </div>
         <!-- Modal Info-->
         <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modalInfo">
@@ -71,9 +83,14 @@
                 <br>
                 <div id="info1" class="info"></div>
                 <div id="info2" class="info"></div>
+                <div id="info3"></div>
+                <div id="info4"></div>
+
+
             </div>
             <div class="col-md-6">
                 <div id="mapDiv"></div>
+                <div id="BasemapToggle"></div>
             </div>
         </div>
         <div class="separator"></div>
