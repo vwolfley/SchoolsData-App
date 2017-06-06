@@ -2,13 +2,13 @@
 # AzMERIT Test Scores Data Visualization Project
 MAG application showing selected key data for Arizona Schools
 
-<!-- [![GitHub issues](https://img.shields.io/github/issues/AZMAG/map-ReadOnAZ.svg)](https://github.com/AZMAG/map-ReadOnAZ/issues) -->
-<!-- [![dependencies](https://david-dm.org/AZMAG/map-ReadOnAZ.png)](https://david-dm.org/AZMAG/map-ReadOnAZ)
-[![devDependency Status](https://david-dm.org/AZMAG/map-ReadOnAZ/dev-status.png)](https://david-dm.org/AZMAG/map-ReadOnAZ) -->
+[![GitHub version](https://badge.fury.io/gh/vwolfley%2SchoolsData-App.svg)](https://badge.fury.io/gh/vwolfley%2SchoolsData-App)
+[![GitHub issues](https://img.shields.io/github/issues/vwolfley/SchoolsData-App.svg)](https://github.com/vwolfley/SchoolsData-App/issues)
+[![dependencies](https://david-dm.org/vwolfley/SchoolsData-App.png)](https://david-dm.org/vwolfley/SchoolsData-App)
+[![devDependency Status](https://david-dm.org/vwolfley/SchoolsData-App/dev-status.png)](https://david-dm.org/vwolfley/SchoolsData-App)
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
 
 This web app viewer was developed by MAG staff for MAG member agencies and the public using ESRI's JavaScript API.
 
@@ -20,7 +20,7 @@ While every effort has been made to ensure the accuracy of this information, the
 
 ## Version
 
-#### version 0.0.3 ####
+### version 0.0.3 ###
 
  `Updated: 05/16/2017`
 
@@ -28,7 +28,7 @@ While every effort has been made to ensure the accuracy of this information, the
 
 Releases will be numbered with the following format:
 
-**`<major>.<minor>.<patch>`**
+### **`<major>.<minor>.<patch>`** ###
 
 And constructed with the following guidelines:
 
@@ -39,34 +39,34 @@ And constructed with the following guidelines:
 ## Credits
 
 * Maricopa Association of Governments (MAG) and the MAG member agencies
-* Read On Arizona
-* Virginia G. Piper Charitable Trust
-* Arizona Department of Education
-* First Things First
+* Read On Arizona - [Read On Arizona](http://readonarizona.org/)
+* Virginia G. Piper Charitable Trust - [Virginia G. Piper Charitable Trust](http://pipertrust.org/)
+* Arizona Department of Education - [Arizona Department of Education](http://www.azed.gov/)
+* First Things First - [First Things First](http://www.azftf.gov/Pages/default.aspx)
 
 ## Site URL's
 
-* [http://geo.azmag.gov/maps//] (http://geo.azmag.gov/maps//)
+* [TEST SITE](http://geo.azmag.gov/maps/test/azmerit/)
 
 ## Documentation
 
-A detailed list of the changes and fixes in each version update can be found in the CHANGELOG.md.
+A detailed list of the changes and fixes in each version update can be found in the `CHANGELOG.md`.
 
-* [CHANGELOG] (CHANGELOG.md)
+* [CHANGELOG](CHANGELOG.md)
 
 ## Resources
 
-* [Read On Arizona] (http://readonarizona.org/)
-* [First Things First] (http://www.azftf.gov/Pages/default.aspx)
-* [Arizona Department of Health Services] (http://www.azdhs.gov/hsd/data/maps.htm)
-* [Arizona Department of Education] (http://www.azed.gov/)
-* [Great Schools] (http://www.greatschools.org/)
-* [School Digger] (http://www.schooldigger.com/)
-* [Zillow] (http://www.zillow.com/phoenix-az/schools/)
+* [Read On Arizona](http://readonarizona.org/)
+* [First Things First](http://www.azftf.gov/Pages/default.aspx)
+* [Arizona Department of Health Services](http://www.azdhs.gov/hsd/data/maps.htm)
+* [Arizona Department of Education](http://www.azed.gov/)
+* [Great Schools](http://www.greatschools.org/)
+* [School Digger](http://www.schooldigger.com/)
+* [Zillow](http://www.zillow.com/phoenix-az/schools/)
 
 ## Examples
 
-* [Texas Map Example] (http://tea-texas.maps.arcgis.com/apps/Solutions/s2.html?appid=8b1d6f13310a49f48aa7052fe13f505a)
+* [Texas Map Example](http://tea-texas.maps.arcgis.com/apps/Solutions/s2.html?appid=8b1d6f13310a49f48aa7052fe13f505a)
 
 ## Legal Disclaimer
 
@@ -87,12 +87,6 @@ Please acknowledge the Maricopa Association of Governments (MAG) GIS as the sour
 
 Code released under the MIT license.
 
-* [LICENSE] (LICENSE)
+A copy of the license is available in the repository's `LICENSE` file.
 
-Copyright (c) 2017 Maricopa Association of Governments
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+* [LICENSE](LICENSE)

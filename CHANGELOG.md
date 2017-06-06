@@ -1,14 +1,13 @@
 # CHANGELOG #
-#### AzMERIT Data Visualization ####
+### AzMERIT Test Scores Data Visualization Project ###
 
-***************************************
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
 All notable changes to this project will be documented in this file.
 
 Releases will be numbered with the following format:
 
-**`<major>.<minor>.<patch>`**
+### **`<major>.<minor>.<patch>`** ###
 
 And constructed with the following guidelines:
 
@@ -31,5 +30,5 @@ And constructed with the following guidelines:
 
 ## Version 0.0.1 | 10/03/2016
 
-* updated Kendo UI v2016.3.914 `UI R3 2016` [UI R3 2016] (http://www.telerik.com/support/whats-new/kendo-ui/release-history/kendo-ui-r3-2016)
-* updated to ArcGIS API for JavaScript `v3.18` - [v3.18] (https://developers.arcgis.com/javascript/)
+* updated Kendo UI v2016.3.914 `UI R3 2016` [UI R3 2016](http://www.telerik.com/support/whats-new/kendo-ui/release-history/kendo-ui-r3-2016)
+* updated to ArcGIS API for JavaScript `v3.18` - [v3.18](https://developers.arcgis.com/javascript/)
