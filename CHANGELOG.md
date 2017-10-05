@@ -17,6 +17,9 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
+## Version 0.0.4 | 10/05/2017
+
+
 ## Version 0.0.3 | 05/16/2017
 
 * changed the data link
