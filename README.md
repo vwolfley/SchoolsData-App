@@ -68,6 +68,10 @@ A detailed list of the changes and fixes in each version update can be found in 
 
 * [Texas Map Example](http://tea-texas.maps.arcgis.com/apps/Solutions/s2.html?appid=8b1d6f13310a49f48aa7052fe13f505a)
 
+## Dependencies
+
+* [git-labelmaker](https://github.com/himynameisdave/git-labelmaker?utm_source=hashnode.com)
+
 ## Legal Disclaimer
 
 The Maricopa Association of Governments provides the data within these pages as a public resource of general information for use "as is." The TMaricopa Association of Governments GIS (Geographic Information System) departments provides this information with the understanding that it is not guaranteed to be accurate, correct or complete and any conclusions drawn from such information are the sole responsibility of the user. Further, the Maricopa Association of Governments GIS departments makes no warranty, representation or guaranty as to the content, sequence, accuracy, timeliness or completeness of any of the spatial or database information provided herein. While every effort has been made to ensure the content, sequence, accuracy, timeliness or completeness of materials presented within these pages, the Maricopa Association of Governments GIS Departments assumes no responsibility for errors or omissions, and explicitly disclaims any representations and warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose. The Maricopa Association of Governments GIS Departments shall assume no liability for:

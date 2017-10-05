@@ -220,3 +220,7 @@ module.exports = function(grunt) {
 // http://csslint.net/about.html
 // http://www.jshint.com/docs/options/
 // @use JSDoc - http://usejsdoc.org/index.html
+//
+// Github Labels
+// [Website info](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63)
+// [NPM git-labelmaker](https://github.com/himynameisdave/git-labelmaker)

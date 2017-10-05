@@ -1,67 +1,67 @@
 [{
-    "name": "issue-type-bug",
-    "color": "eb6420"
+  "name": "Issue: Bug",
+  "color": "#b60205"
 }, {
-    "name": "issue-type-enhancement",
-    "color": "eb6420"
+  "name": "Issue: Enhancement",
+  "color": "#1c82b4"
 }, {
-    "name": "issue-type-question",
-    "color": "eb6420"
+  "name": "Issue: Question",
+  "color": "#cc317c"
 }, {
-    "name": "issue-type-maintenance",
-    "color": "eb6420"
+  "name": "Issue: Maintenance",
+  "color": "#f37735"
 }, {
-    "name": "issue-type-discussion",
-    "color": "eb6420"
+  "name": "Issue: Discussion",
+  "color": "#cc317c"
 }, {
-    "name": "issue-type-feature",
-    "color": "eb6420"
+  "name": "Issue: Feature",
+  "color": "#5fb434"
 }, {
-    "name": "resolved",
-    "color": "fbca04"
+  "name": "Resolved",
+  "color": "#0e8a16"
 }, {
-    "name": "resolved-by-design",
-    "color": "fbca04"
+  "name": "Resolved: By-Design",
+  "color": "#3865a3"
 }, {
-    "name": "resolved-duplicate",
-    "color": "fbca04"
+  "name": "Resolved: Duplicate",
+  "color": "#87a2c7"
 }, {
-    "name": "resolved-not-repro",
-    "color": "fbca04"
+  "name": "Resolved: Not-Repro",
+  "color": "#93a4b0"
 }, {
-    "name": "resolved-wont-fix",
-    "color": "fbca04"
+  "name": "Resolved: Wont-Fix",
+  "color": "#cccccc"
 }, {
-    "name": "priority-high",
-    "color": "e11d21"
+  "name": "Priority: High",
+  "color": "#eb6841"
 }, {
-    "name": "priority-low",
-    "color": "207de5"
+  "name": "Priority: Low",
+  "color": "#00b068"
 }, {
-    "name": "priority-medium",
-    "color": "207de5"
+  "name": "Priority: Medium",
+  "color": "#edc951"
 }, {
-    "name": "priority-critical",
-    "color": "207de5"
+  "name": "Priority: Critical",
+  "color": "#cc2a36"
 }, {
-    "name": "help-wanted",
-    "color": "159818"
+  "name": "Info: help-wanted",
+  "color": "#5319e7"
 }, {
-    "name": "status-in-progress",
-    "color": "ededed"
+  "name": "Status: In-Progress",
+  "color": "#1d76db"
 }, {
-    "name": "status-ready",
-    "color": "ededed"
+  "name": "Status: Ready",
+  "color": "#006b75"
 }, {
-    "name": "status-blocked",
-    "color": "000000"
+  "name": "Status: Blocked",
+  "color": "#ee4035"
 }, {
-    "name": "status-on-hold",
-    "color": "000000"
+  "name": "Status: On-Hold",
+  "color": "#ee9d35"
 }, {
-    "name": "status-completed",
-    "color": "000000"
+  "name": "Status: Completed",
+  "color": "#0e8a16"
 }, {
-    "name": "status-review-needed",
-    "color": "000000"
+  "name": "Status: Review-Needed",
+  "color": "#fbca04"
 }]
