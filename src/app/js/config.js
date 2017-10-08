@@ -15,7 +15,7 @@
 define([], function() {
       return {
 
-            version: "0.0.2 | 11/22/2016",
+            version: "0.0.4 | 10/05/2017",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 

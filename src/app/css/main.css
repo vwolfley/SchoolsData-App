@@ -18,7 +18,7 @@
 
 body {
   min-height: 2000px;
-  padding-top: 90px;
+  padding-top: 180px;
 }
 /*******************
 Header Section
@@ -108,11 +108,14 @@ Header Section
     border-bottom-color: #2b8abe;
 }
 .navbar-fixed-top {
-    padding-top: 15px;
+    padding-top: 5px;
 }
 #infoBtn {
-    /*padding-top: 40px;*/
+    padding-top: 18px;
     text-align: right;
+}
+#pickSchools {
+    padding-bottom: 5px;
 }
 .k-tabstrip-wrapper {
 
@@ -160,7 +163,7 @@ Header Section
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     margin-bottom: 2px;
-    padding-top: 15px;
+    /* padding-top: 15px; */
 }
 /*******************
  State Panels
@@ -342,7 +345,7 @@ Header Section
 }
 
 .k-widget.k-dropdown.k-header {
-    width: 425px !important;
+    width: 485px !important;
 }
 
 

@@ -1817,7 +1817,7 @@ function setup() {
                         },
                         dataSource: TotalArray,
                         legend: {
-                            visible: true,
+                            visible: false,
                             position: "bottom"
                         },
                         seriesDefaults: {
