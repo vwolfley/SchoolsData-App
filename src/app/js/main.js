@@ -53,7 +53,7 @@ function setup() {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
-                dataSource: ["2015", "2016"],
+                dataSource: ["2015", "2016", "2017"],
                 change: function(e) {
                     selectedYear = this.value();
 
@@ -334,10 +334,11 @@ function setup() {
                         grade: item.attributes.Grade
                     });
                 });
-                // console.log(self.azSchools);
+                console.log(self.azSchools);
 
                 schoolNames();
                 getSchoolLocation();
+                azMERITscatterChart();
             };
 
             function azMERITdistQueryFault(error) {
@@ -1074,7 +1075,7 @@ function setup() {
              * @return
              */
             function azMERITscatterChart() {
-
+console.log(self.azMERITschools);
                 $("#azMERITchartSchools").kendoChart({
                     theme: "Silver",
                     title: {
