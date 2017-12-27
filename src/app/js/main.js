@@ -17,7 +17,7 @@ $(document).ready(function() {
 });
 
 function setup() {
-    var selectedYear = "2016";
+    var selectedYear = "2017";
     var dataURL;
     var self = this;
 
@@ -59,9 +59,9 @@ function setup() {
 
                     $(".selected-year").text(selectedYear);
 
-                    getSchoolsData();
+                    getSchoolsData(selectedYear);
                 }
-            }).data("kendoTabStrip").select(1);
+            }).data("kendoTabStrip").select(2);
             //=================================================================================>
 
             // add version and date to about.html, changed in config.js
@@ -87,16 +87,16 @@ function setup() {
              * @return {azSchoolsQueryHandler}
              * @return {azSchoolsQueryFault} [error]
              */
-            function getSchoolsData() {
+            function getSchoolsData(selectedYear) {
                 var queryTask;
                 var query;
+                var year = selectedYear;
 
                 queryTask = new QueryTask(appConfig.mainURL + "/0");
                 query = new Query();
-                query.where = "SchoolEntityID > 0";
+                query.where = "FY = '" + year + "' AND SchoolEntityID > 0";
                 query.returnGeometry = false;
                 query.outFields = ["*"];
-
                 queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault)
             }
 
@@ -127,19 +127,23 @@ function setup() {
                 var promises;
                 var s2015;
                 var s2016;
+                var s2017;
 
                 qt2015 = new QueryTask(appConfig.mainURL + "/1");
                 q2015 = new Query();
-                qt2016 = new QueryTask(appConfig.mainURL + "/2");
+                qt2016 = new QueryTask(appConfig.mainURL + "/1");
                 q2016 = new Query();
+                qt2017 = new QueryTask(appConfig.mainURL + "/1");
+                q2017 = new Query();
 
                 q2015.returnGeometry = q2016.returnGeometry = false;
                 q2015.outFields = q2016.outFields = ["*"];
-                q2015.where = q2016.where = "EntityID = " + self.dataItem.entityID + " AND Subgroup = 'X' AND TestLevel = 'All Students'";
+                q2015.where = q2016.where = "EntityID = " + self.dataItem.entityID + " AND Subgroup = 'All' AND TestLevel = 'All Students'";
 
                 s2015 = qt2015.execute(q2015);
                 s2016 = qt2016.execute(q2016);
-                promises = all([s2015, s2016]);
+                s2017 = qt2017.execute(q2017);
+                promises = all([s2015, s2016, s2017]);
                 promises.then(schoolScoresQueryHandler, schoolScoresQueryFault);
             }
 
@@ -153,20 +157,24 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
+                    qtask();
+                }
+                if (selectedYear === "2016") {
+                    qtask();
+                }
+                if (selectedYear === "2017") {
+                    qtask();
+                }
+
+                function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = " + self.dataItem.entityID;
                     query.returnGeometry = false;
                     query.outFields = ["*"];
+                    queryTask.execute(query, breakdownQueryHandler, breakdownQueryFault)
                 }
-                if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
-                    query = new Query();
-                    query.where = "EntityID = " + self.dataItem.entityID;
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
-                queryTask.execute(query, breakdownQueryHandler, breakdownQueryFault)
+
             }
 
             function getDistrictData(dID) {
@@ -191,22 +199,25 @@ function setup() {
                 // console.log(dID);
                 var queryTask;
                 var query;
-
                 if (selectedYear === "2015") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/1");
-                    query = new Query();
-                    query.where = "EntityID = " + dID + "AND Subgroup = 'X'";
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
+                    qtask();
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
+                    qtask();
+                }
+                if (selectedYear === "2017") {
+                    qtask();
+                }
+
+                function qtask() {
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = " + dID + "AND Subgroup = 'X'";
+                    query.where = "EntityID = " + dID + "AND Subgroup = 'All'";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
+                    queryTask.execute(query, districtBreakdownQueryHandler, districtBreakdownQueryFault)
                 }
-                queryTask.execute(query, districtBreakdownQueryHandler, districtBreakdownQueryFault)
+
             }
 
             /**
@@ -219,20 +230,24 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
+                    qtask();
+                }
+                if (selectedYear === "2016") {
+                    qtask();
+                }
+                if (selectedYear === "2017") {
+                    qtask();
+                }
+
+                function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = -1";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
+                    queryTask.execute(query, stateBreakdownQueryHandler, stateBreakdownQueryFault)
                 }
-                if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/2");
-                    query = new Query();
-                    query.where = "EntityID = -1";
-                    query.returnGeometry = false;
-                    query.outFields = ["*"];
-                }
-                queryTask.execute(query, stateBreakdownQueryHandler, stateBreakdownQueryFault)
+
             }
             //================================================================================================>
 
@@ -254,38 +269,33 @@ function setup() {
                 var feature = response.features[0];
                 // console.log(feature);
 
-                var symbol;
+                var pin;
+                // https://developers.arcgis.com/javascript/3/samples/portal_symbols/index.html
                 if (selectedYear === "2015") {
-                    symbol = new PictureMarkerSymbol({
-                        "angle": 0,
-                        "xoffset": 0,
-                        "yoffset": 10,
-                        "type": "esriPMS",
-                        "url": "http://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png",
-                        "contentType": "image/png",
-                        "width": 34,
-                        "height": 34
-                    });
-
+                    pin = "http://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png";
                 }
                 if (selectedYear === "2016") {
-                    symbol = new PictureMarkerSymbol({
-                        "angle": 0,
-                        "xoffset": 0,
-                        "yoffset": 10,
-                        "type": "esriPMS",
-                        "url": "http://static.arcgis.com/images/Symbols/Shapes/GreenPin1LargeB.png",
-                        "contentType": "image/png",
-                        "width": 34,
-                        "height": 34
-                    });
+                    pin = "http://static.arcgis.com/images/Symbols/Shapes/GreenPin1LargeB.png";
                 }
-                // https://developers.arcgis.com/javascript/3/samples/portal_symbols/index.html
+                if (selectedYear === "2017") {
+                    pin = "http://static.arcgis.com/images/Symbols/Shapes/PurplePin1LargeB.png";
+                }
+
+                var symbol = new PictureMarkerSymbol({
+                    "angle": 0,
+                    "xoffset": 0,
+                    "yoffset": 10,
+                    "type": "esriPMS",
+                    "url": pin,
+                    "contentType": "image/png",
+                    "width": 34,
+                    "height": 34
+                });
 
                 map.graphics.clear();
                 var infoTemplate = new InfoTemplate();
                 infoTemplate.setTitle("School");
-                infoTemplate.setContent("${SchoolName}<br>${Address}<br>${City}");
+                infoTemplate.setContent("${SchoolName}<br>${PAddress}<br>${PCity}");
 
                 feature.setSymbol(symbol);
                 feature.setInfoTemplate(infoTemplate);
@@ -311,7 +321,7 @@ function setup() {
              */
             function azSchoolsQueryHandler(results) {
                 var features = results.features;
-                // console.log(features);
+                console.log(features);
 
                 self.azSchools = [];
                 $.each(features, function(index, item) {
@@ -322,11 +332,11 @@ function setup() {
                         dID: item.attributes.DistrictEntityID,
                         entityID: item.attributes.EntityID,
                         FY: item.attributes.FY,
-                        address: item.attributes.Address,
-                        city: item.attributes.City,
+                        address: item.attributes.PAddress,
+                        city: item.attributes.PCity,
                         zip: item.attributes.ZIPcode,
-                        grades: item.attributes.Grades,
-                        sClass: item.attributes.SchoolClass,
+                        grades: item.attributes.GradesServed,
+                        sClass: item.attributes.EntityClass,
                         sType: item.attributes.SchoolType,
                         active: item.attributes.Active,
                         titleI: item.attributes.TitleI,
@@ -420,15 +430,15 @@ function setup() {
                 self.breakdownELA = [];
                 self.breakdownMATH = [];
                 $.each(features, function(index, item) {
-                    if (item.attributes.ContentArea === 675) {
+                    if (item.attributes.ContentArea === ELA) {
                         self.breakdownELA.push({
                             entityID: item.attributes.EntityID,
                             distID: item.attributes.DistrictEntityID,
                             countyID: item.attributes.CountyEntityID,
                             schoolID: item.attributes.SchoolEntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             ELA1: item.attributes.PCT_PL1,
                             ELA2: item.attributes.PCT_PL2,
@@ -438,15 +448,15 @@ function setup() {
                             REDACT: item.attributes.PCT_Redacted,
                         });
                     }
-                    if (item.attributes.ContentArea === 677) {
+                    if (item.attributes.ContentArea === MATH) {
                         self.breakdownMATH.push({
                             entityID: item.attributes.EntityID,
                             distID: item.attributes.DistrictEntityID,
                             countyID: item.attributes.CountyEntityID,
                             schoolID: item.attributes.SchoolEntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             MATH1: item.attributes.PCT_PL1,
                             MATH2: item.attributes.PCT_PL2,
@@ -464,16 +474,16 @@ function setup() {
                 self.elaLevels = [];
                 self.mathLevels = [];
                 $.each(features, function(index, item) {
-                    if (item.attributes.ContentArea === 675) {
+                    if (item.attributes.ContentArea === ELA) {
                         self.elaLevels.push({
                             level: item.attributes.TestLevel,
-                            sort: item.attributes.SORT
+                            sort: item.attributes.TestOrder
                         });
                     }
-                    if (item.attributes.ContentArea === 677) {
+                    if (item.attributes.ContentArea === MATH) {
                         self.mathLevels.push({
                             level: item.attributes.TestLevel,
-                            sort: item.attributes.SORT
+                            sort: item.attributes.TestOrder
                         });
                     }
                 });
@@ -546,12 +556,12 @@ function setup() {
                 var districtAZMERITela = [];
                 var districtAZMERITmath = [];
                 $.each(features, function(index, item) {
-                    if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === "All") {
+                    if (item.attributes.ContentArea === ELA && item.attributes.TestLevel === "All Students") {
                         self.districtELA.push({
                             entityID: item.attributes.EntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             ELA1: item.attributes.PCT_PL1,
                             ELA2: item.attributes.PCT_PL2,
@@ -571,12 +581,12 @@ function setup() {
                             });
                         }
                     }
-                    if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === "All") {
+                    if (item.attributes.ContentArea === MATH && item.attributes.TestLevel === "All Students") {
                         self.districtMATH.push({
                             entityID: item.attributes.EntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             MATH1: item.attributes.PCT_PL1,
                             MATH2: item.attributes.PCT_PL2,
@@ -620,12 +630,12 @@ function setup() {
                 var stateELAall = [];
                 var stateMATHall = [];
                 $.each(features, function(index, item) {
-                    if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === "All") {
+                    if (item.attributes.ContentArea === ELA && item.attributes.TestLevel === "All Students") {
                         self.stateELA.push({
                             entityID: item.attributes.EntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             ELA1: item.attributes.PCT_PL1,
                             ELA2: item.attributes.PCT_PL2,
@@ -645,12 +655,12 @@ function setup() {
                             });
                         }
                     }
-                    if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === "All") {
+                    if (item.attributes.ContentArea === MATH && item.attributes.TestLevel === "All Students") {
                         self.stateMATH.push({
                             entityID: item.attributes.EntityID,
                             FY: item.attributes.FY,
-                            area: item.attributes.ContentAreaDef,
-                            group: item.attributes.SubgroupDef,
+                            // area: item.attributes.ContentAreaDef,
+                            // group: item.attributes.SubgroupDef,
                             level: item.attributes.TestLevel,
                             MATH1: item.attributes.PCT_PL1,
                             MATH2: item.attributes.PCT_PL2,
@@ -978,6 +988,7 @@ function setup() {
                     dc.destroy("gradeBadge");
                 }
 
+                var year = self.dataItem.FY;
                 var schoolGrade = self.dataItem.grade;
                 // console.log(schoolGrade);
                 var gradeClass;
@@ -1004,13 +1015,13 @@ function setup() {
                     gradeClass = "letterGrade gradeF";
                     grade = "class='grade'";
                 }
-                gradeInfo = "2016</br>GRADE" + "<p " + grade + ">" + schoolGrade + "%</p>";
+                gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "%</p>";
 
                 if (schoolGrade < 0) {
                     gradeClass = "letterGrade gradeNA";
                     schoolGrade = "N/A";
                     grade = "class='grade'";
-                    gradeInfo = "2016</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
+                    gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
                 }
 
                 dc.create("span", {
@@ -1030,12 +1041,13 @@ function setup() {
                 if (emptyTEST === false) {
                     dc.destroy("titleIBadge");
                 }
+                var year = self.dataItem.FY;
                 // console.log(self.dataItem.titleI);
                 if (self.dataItem.titleI === "Y") {
                     dc.create("span", {
                         id: "titleIBadge",
                         className: "titleI",
-                        innerHTML: "2016" + "<p class='t1'>Title I</br>School</p>"
+                        innerHTML: year + "<p class='t1'>Title I</br>School</p>"
                     }, "info4", "first");
                 } else {
                     dc.destroy("titleIBadge");
@@ -1051,23 +1063,28 @@ function setup() {
                 if (emptyTEST === false) {
                     dc.destroy("freeBadge");
                 }
+                var year = self.dataItem.FY;
                 // console.log(self.dataItem.frl);
                 if (self.dataItem.frl !== "-9") {
                     dc.create("span", {
                         id: "freeBadge",
                         className: "freeRed",
-                        innerHTML: "2016" + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>" + self.dataItem.frl + "</p>"
+                        innerHTML: year + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>" + self.dataItem.frl + "</p>"
                     }, "info4", "second");
                 } else if (self.dataItem.frl === "-9") {
                     dc.create("span", {
                         id: "freeBadge",
                         className: "freeRed",
-                        innerHTML: "2016" + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>N/A</p>"
+                        innerHTML: year + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>N/A</p>"
                     }, "info4", "second");
                 } else {
                     dc.destroy("freeBadge");
                 }
             };
+
+            function chronicBadge() {
+
+            }
 
             /**
              * [azMERITAllSchoolsChart] - Shows all schools and their AzMERIT score in scatter chart.
@@ -1075,7 +1092,7 @@ function setup() {
              * @return
              */
             function azMERITscatterChart() {
-console.log(self.azMERITschools);
+                console.log(self.azMERITschools);
                 $("#azMERITchartSchools").kendoChart({
                     theme: "Silver",
                     title: {

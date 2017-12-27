@@ -20,7 +20,8 @@ define([], function() {
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
             // mainURL: "http://geo.azmag.gov/gismag/rest/services/maps/ReadOn_test/MapServer/0",
-            mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/SchoolsTestData/MapServer",
+            // mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/SchoolsTestData/MapServer",
+            mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/SchoolsData_2017/MapServer",
 
             _subGroups: ["State Average", "District Average", "School Average", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 

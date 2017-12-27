@@ -13,8 +13,8 @@
     <meta name="contact" content="www.azmag.gov">
     <meta name="url" content="http://geo.azmag.gov/maps//">
     <link rel="shortcut icon" type="image-favorites-icon" href="images/magfavicon.png">
-    <meta name="creation-date" content="10/03/2016">
-    <meta name="revision-date" content="10/31/2016">
+    <meta name="creation-date" content="2016-10-03">
+    <meta name="revision-date" content="2016-10-31">
     <meta name="version" content="0.0.1">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -29,18 +29,18 @@
 <body>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <h3 class="example-title">AzMERIT<span> Test Scores</span></h3>
-        <h4 class="example-description">Data Visualization Project</h4>
-        <div id="year-filtering-tabs" class="filtering-tabs"></div>
-        <div id="pickSchools" class="col-md-10 field">
-            <h4 class="tDrop">Find a school</h4>
-            <input id="schools" />
+        <div class="container">
+            <h3 class="example-title">AzMERIT<span> Test Scores</span></h3>
+            <h4 class="example-description">Data Visualization Project</h4>
+            <div id="year-filtering-tabs" class="filtering-tabs"></div>
+            <div id="pickSchools" class="col-md-10 field">
+                <h4 class="tDrop">Find a school</h4>
+                <input id="schools" />
+            </div>
+            <div id="infoBtn" class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+            </div>
         </div>
-        <div id="infoBtn" class="col-md-2">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
-        </div>
-    </div>
     </nav>
     <!-- MAIN Container -->
     <div class="container" role="main">
@@ -151,8 +151,6 @@
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
         <!-- /row 4 -->
-
-
         <!-- row 5 ** Percent Passing Breakdown-->
         <!-- <h4 class="example-subtitle">Schools AzMERIT Percent Passed</h4>
         <span class="metric">For <span class="selected-year"></span></span>
@@ -161,7 +159,7 @@
             <h6 id="sNUM3" class="schoolName"></h6>
             <h5 id="districtName3" class="districtName"></h5>
         </div> -->
-       <!--  <div class="row">
+        <!--  <div class="row">
             <div class="col-md-3">
                 <span><h4>Assessment Type</h4></span>
                 <div id="typeAssess1" class="btn-group level" data-toggle="buttons">
@@ -182,8 +180,6 @@
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div> -->
         <!-- <div class="separator"></div> -->
         <!-- /row 5 -->
-
-
         <!-- row 6 **District Summary Table-->
         <h4 class="example-subtitle">District Summary</h4>
         <span class="metric">For <span class="selected-year"></span></span>
@@ -238,6 +234,7 @@
             location: location.pathname.replace(/\/[^/]+$/, "") + "./app/js"
         }]
     };
+
     </script>
     <!-- ArcGIS JS 3.x -->
     <script src="https://js.arcgis.com/3.18/"></script>
