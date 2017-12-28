@@ -1,20 +1,10 @@
 /* ========================================================================
  * Maricopa Association of Governments
- *
- * MAG AzMERIT Data Viewer
- * CSS document guiding layout for the MAG AzMERIT Data Viewer
- *
- * ========================================================================
- * @project     MAG AzMERIT Data Viewer
- * @version     0.0.0
- * @cssdoc      main.css
- * @copyright   2016 MAG
- * @license     Licensed under MIT
+ * CSS document
+ * @project     MAG Schools Data Visualization Project
+ * @summary     CSS document guiding layout for the project
+ * @file        main.css
  * ======================================================================== */
-
-/*! ===============================================================
- *  @cssdoc main.css | @version 0.0.0 | @license Licensed under MIT
- *  =============================================================== */
 
 body {
   min-height: 2000px;

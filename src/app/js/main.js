@@ -1,15 +1,9 @@
 /* ========================================================================
  * Maricopa Association of Governments
- *
- * MAG AzMERIT Data Viewer
- * JS document for the MAG AzMERIT Data Viewer
- *
- * ========================================================================
- * @project     MAG AzMERIT Data Viewer
- * @version     0.0.2
- * @jsdoc       main.js
- * @copyright   2016 MAG
- * @license     Licensed under MIT
+ * JS document
+ * @project     MAG Schools Data Visualization Project
+ * @summary     main JavaScript file
+ * @file        main.js
  * ======================================================================== */
 
 $(document).ready(function() {

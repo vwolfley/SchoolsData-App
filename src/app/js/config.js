@@ -1,21 +1,15 @@
 /* ========================================================================
  * Maricopa Association of Governments
- *
- * MAG AzMERIT Data Viewer
- * JS document for the MAG AzMERIT Data Viewer
- *
- * ========================================================================
- * @project     MAG AzMERIT Data Viewer
- * @version     0.0.2
- * @jsdoc       config.js
- * @copyright   2016 MAG
- * @license     Licensed under MIT
+ * JS document
+ * @project     MAG Schools Data Visualization Project
+ * @summary     config file for project
+ * @file        config.js
  * ======================================================================== */
 
 define([], function() {
       return {
 
-            version: "0.0.4 | 10/05/2017",
+            version: "0.0.4 | 2017-10-05",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
