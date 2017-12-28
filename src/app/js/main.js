@@ -168,7 +168,6 @@ function setup() {
                     query.outFields = ["*"];
                     queryTask.execute(query, breakdownQueryHandler, breakdownQueryFault)
                 }
-
             }
 
             function getDistrictData(dID) {
@@ -340,9 +339,9 @@ function setup() {
                 });
                 console.log(self.azSchools);
 
-                schoolNames();
+                getschoolNames();
                 getSchoolLocation();
-                azMERITscatterChart();
+                // azMERITscatterChart();
             };
 
             function azMERITdistQueryFault(error) {
@@ -877,11 +876,11 @@ function setup() {
             };
 
             /**
-             * [schoolNames] - populates the dropdown menu for "Find a School"
+             * [getSchoolNames] - populates the dropdown menu for "Find a School"
              * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
              * @return
              */
-            function schoolNames() {
+            function getSchoolNames() {
                 // console.log(self.azSchools);
 
                 $("#schools").kendoDropDownList({
