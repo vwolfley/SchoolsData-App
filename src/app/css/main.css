@@ -230,9 +230,6 @@ Header Section
 /*******************
  Section
 ********************/
-#azMERITchartSchools {
-    /*box-shadow: 6px 6px 5px #ccc;*/
-}
 #grid {
     box-shadow: 6px 6px 5px #ccc;
 }
@@ -260,6 +257,7 @@ Header Section
 }
 #info{
     display: inline-block;
+    margin-left: 40px;
 }
 #ela{
     float: left;
@@ -282,10 +280,6 @@ Header Section
     background: #b3bbc5;
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-#info{
-    margin-left: 40px;
 }
 .arrow {
     width: 65px;
@@ -501,29 +495,56 @@ Header Section
 /*******************
  Info Badges
 ********************/
-.letterGrade {
+#infoBadge {
+    margin-top: 50px;
+    padding-left: 15px;
+}
+.badges {
     width: 80px;
     height: 100px;
     padding: 10px 0 10px 0;
-    margin-top: 10px;
+    margin: 5px 5px 0 0;
     border: 1px solid #333333;
     border-radius: 5px;
     text-align: center;
-    display: block;
+    display: inline-block;
     color: #333333;
-    font-size: 16px;
     font-weight: bold;
     line-height: 1;
+    vertical-align: middle;
+}
+.titleI {
+    background-color: #cc66ff;
+}
+.freeRed {
+    background-color: #2e8b57;
+}
+.chronic {
+    background-color: #E67E22;
+}
+.score {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #ffffff;
+}
+.score2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #a0a0a0;
 }
 .grade {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: bold;
     margin: 8px 0 0 0;
     padding: 0;
     color: #ffffff;
 }
 .grade2 {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: bold;
     margin: 8px 0 0 0;
     padding: 0;
@@ -547,54 +568,19 @@ Header Section
 .gradeNA {
     background-color: #787878;
 }
-.titleI {
-    width: 80px;
-    height: 100px;
-    padding: 10px 0 10px 0;
-    margin: 5px 5px 0 0;
-    border: 1px solid #333333;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    background-color: #cc66ff;
-    font-weight: bold;
-    vertical-align: middle;
-}
-.t1 {
-    margin: 8px 0 0 0;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1;
-}
-.freeRed {
-    width: 80px;
-    height: 100px;
-    padding: 10px 0 10px 0;
-    margin: 5px 5px 0 0;
-    border: 1px solid #333333;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    background-color: #2e8b57;
-    font-weight: bold;
-    vertical-align: middle;
-}
-.r1 {
+.r1, .c1 {
     margin: 0 0 0 0;
     color: #fff;
     font-size: 12px;
     font-weight: bold;
     line-height: 1;
 }
-.r2 {
+.t1, .r2, .c2 {
     margin: 8px 0 0 0;
     color: #fff;
     font-size: 18px;
     font-weight: bold;
     line-height: 1;
 }
-#info4 {
-    display: inline-block;
-    vertical-align: middle;
-}
+
+

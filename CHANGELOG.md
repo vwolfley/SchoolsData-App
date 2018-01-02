@@ -1,5 +1,5 @@
 # CHANGELOG #
-## Schools Data Visualization Project ##
+## Arizona Schools Data Visualization Project ##
 
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 

@@ -77,7 +77,7 @@ function setup() {
             toggle.startup();
 
             /**
-             * [getData]
+             * [getSchoolsData]
              * @return {azSchoolsQueryHandler}
              * @return {azSchoolsQueryFault} [error]
              */
@@ -314,7 +314,7 @@ function setup() {
              */
             function azSchoolsQueryHandler(results) {
                 var features = results.features;
-                console.log(features);
+                // console.log(features);
 
                 self.azSchools = [];
                 $.each(features, function(index, item) {
@@ -334,12 +334,14 @@ function setup() {
                         active: item.attributes.Active,
                         titleI: item.attributes.TitleI,
                         frl: item.attributes.FRL,
-                        grade: item.attributes.Grade
+                        score: item.attributes.Score,
+                        grade: item.attributes.ADE_Grade,
+                        chronic: item.attributes.ChronicAbsence
                     });
                 });
                 console.log(self.azSchools);
 
-                getschoolNames();
+                getSchoolNames();
                 getSchoolLocation();
                 // azMERITscatterChart();
             };
@@ -893,11 +895,6 @@ function setup() {
                             field: "sName",
                             dir: "asc"
                         }
-                        // filter: {
-                        //     field: "active",
-                        //     operator: "eq",
-                        //     value: "Y"
-                        // }
                     },
                     index: 0,
                     change: onChange
@@ -921,16 +918,18 @@ function setup() {
                 dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
 
                 var dID = dataItem.dID;
-                getSchoolScores();
-                getBreakDown();
-                getDistrictBreakDown(dID);
-                getStateBreakDown();
-                getDistrictData(dID);
+                // getSchoolScores();
+                // getBreakDown();
+                // getDistrictBreakDown(dID);
+                // getStateBreakDown();
+                // getDistrictData(dID);
                 // console.log(self.dataItem);
 
-                gradeBadge();
+                adeGradeBadge()
+                scoreBadge();
                 titleIBadge();
                 freeReducedBadge();
+                chronicBadge();
 
                 function onChange() {
                     var value = $("#schools").val();
@@ -953,16 +952,18 @@ function setup() {
                     dom.byId("info1").innerHTML = self.dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + self.dataItem.grades;
                     dom.byId("info2").innerHTML = self.dataItem.address + " " + self.dataItem.city + ", AZ " + self.dataItem.zip;
 
-                    getSchoolScores();
                     getSchoolLocation();
-                    getBreakDown();
-                    getDistrictBreakDown(dID);
-                    getStateBreakDown();
-                    getDistrictData(dID);
+                    // getSchoolScores();
+                    // getBreakDown();
+                    // getDistrictBreakDown(dID);
+                    // getStateBreakDown();
+                    // getDistrictData(dID);
 
-                    gradeBadge();
+                    adeGradeBadge()
+                    scoreBadge();
                     titleIBadge();
                     freeReducedBadge();
+                    chronicBadge();
 
                     // toggles the Assessment Type back to ELA from MATH
                     $("#option1").parents('.btn').button('toggle');
@@ -972,56 +973,105 @@ function setup() {
             };
 
             /**
-             * [gradeBadge description]
+             * Places grade badge showing the ADE Letter Grade
              * @return {[type]} [description]
              */
-            function gradeBadge() {
-                var emptyTEST = $("#info3").is(":empty");
+            function adeGradeBadge() {
+                var emptyTEST = $("#infoBadge").is(":empty");
                 if (emptyTEST === false) {
                     dc.destroy("gradeBadge");
                 }
 
                 var year = self.dataItem.FY;
                 var schoolGrade = self.dataItem.grade;
-                // console.log(schoolGrade);
                 var gradeClass;
                 var grade;
                 var gradeInfo;
 
-                if (schoolGrade >= 80) {
-                    gradeClass = "letterGrade gradeA";
+                if (schoolGrade === "A") {
+                    gradeClass = "badges gradeA";
                     grade = "class='grade'";
                 }
-                if (schoolGrade >= 60 && schoolGrade < 80) {
-                    gradeClass = "letterGrade gradeB";
+                if (schoolGrade === "B") {
+                    gradeClass = "badges gradeB";
                     grade = "class='grade'";
                 }
-                if (schoolGrade >= 40 && schoolGrade < 60) {
-                    gradeClass = "letterGrade gradeC";
+                if (schoolGrade === "C") {
+                    gradeClass = "badges gradeC";
                     grade = "class='grade2'";
                 }
-                if (schoolGrade >= 20 && schoolGrade < 40) {
-                    gradeClass = "letterGrade gradeD";
+                if (schoolGrade === "D") {
+                    gradeClass = "badges gradeD";
                     grade = "class='grade'";
                 }
-                if (schoolGrade >= 0 && schoolGrade < 20) {
-                    gradeClass = "letterGrade gradeF";
+                if (schoolGrade === "F") {
+                    gradeClass = "badges gradeF";
                     grade = "class='grade'";
                 }
-                gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "%</p>";
+                if (schoolGrade === "N/A") {
+                    gradeClass = "badges gradeNA";
+                    grade = "class='grade'";
+                }
 
-                if (schoolGrade < 0) {
-                    gradeClass = "letterGrade gradeNA";
-                    schoolGrade = "N/A";
-                    grade = "class='grade'";
-                    gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
-                }
+                gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
 
                 dc.create("span", {
                     id: "gradeBadge",
                     className: gradeClass,
                     innerHTML: gradeInfo
-                }, "info3", "first");
+                }, "infoBadge", 0);
+            }
+
+            /**
+             * Places score badge showing the AzMERIT combined score
+             * @return {[type]} [description]
+             */
+            function scoreBadge() {
+                var emptyTEST = $("#infoBadge").is(":empty");
+                if (emptyTEST === false) {
+                    dc.destroy("scoreBadge");
+                }
+
+                var year = self.dataItem.FY;
+                var schoolScore = self.dataItem.score;
+                var scoreClass;
+                var score;
+                var scoreInfo;
+
+                if (schoolScore >= 80) {
+                    scoreClass = "badges gradeA";
+                    score = "class='score'";
+                }
+                if (schoolScore >= 60 && schoolScore < 80) {
+                    scoreClass = "badges gradeB";
+                    score = "class='score'";
+                }
+                if (schoolScore >= 40 && schoolScore < 60) {
+                    scoreClass = "badges gradeC";
+                    score = "class='score2'";
+                }
+                if (schoolScore >= 20 && schoolScore < 40) {
+                    scoreClass = "badges gradeD";
+                    score = "class='score'";
+                }
+                if (schoolScore >= 0 && schoolScore < 20) {
+                    scoreClass = "badges gradeF";
+                    score = "class='score'";
+                }
+                scoreInfo = year + "</br>SCORE" + "<p " + score + ">" + schoolScore + "%</p>";
+
+                if (schoolScore < 0) {
+                    scoreClass = "badges gradeNA";
+                    schoolScore = "N/A";
+                    score = "class='score'";
+                    scoreInfo = year + "</br>SCORE" + "<p " + score + ">" + schoolScore + "</p>";
+                }
+
+                dc.create("span", {
+                    id: "scoreBadge",
+                    className: scoreClass,
+                    innerHTML: scoreInfo
+                }, "infoBadge", 1);
 
             };
 
@@ -1030,18 +1080,19 @@ function setup() {
              * @return {[type]} [description]
              */
             function titleIBadge() {
-                var emptyTEST = $("#info4").is(":empty");
+                var emptyTEST = $("#infoBadge").is(":empty");
                 if (emptyTEST === false) {
                     dc.destroy("titleIBadge");
                 }
+
                 var year = self.dataItem.FY;
-                // console.log(self.dataItem.titleI);
+
                 if (self.dataItem.titleI === "Y") {
                     dc.create("span", {
                         id: "titleIBadge",
-                        className: "titleI",
+                        className: "badges titleI",
                         innerHTML: year + "<p class='t1'>Title I</br>School</p>"
-                    }, "info4", "first");
+                    }, "infoBadge", 2);
                 } else {
                     dc.destroy("titleIBadge");
                 }
@@ -1052,32 +1103,49 @@ function setup() {
              * @return {[type]} [description]
              */
             function freeReducedBadge() {
-                var emptyTEST = $("#info4").is(":empty");
+                var emptyTEST = $("#infoBadge").is(":empty");
                 if (emptyTEST === false) {
                     dc.destroy("freeBadge");
                 }
+
                 var year = self.dataItem.FY;
-                // console.log(self.dataItem.frl);
-                if (self.dataItem.frl !== "-9") {
+                var FRL = self.dataItem.frl;
+
+                if (FRL !== "-9") {
                     dc.create("span", {
                         id: "freeBadge",
-                        className: "freeRed",
-                        innerHTML: year + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>" + self.dataItem.frl + "</p>"
-                    }, "info4", "second");
-                } else if (self.dataItem.frl === "-9") {
+                        className: "badges freeRed",
+                        innerHTML: year + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>" + FRL + "</p>"
+                    }, "infoBadge", 3);
+                } else if (FRL === "-9") {
                     dc.create("span", {
                         id: "freeBadge",
-                        className: "freeRed",
+                        className: "badges freeRed",
                         innerHTML: year + "<p class='r1'>Free & Reduced Lunch</p>" + "<p class='r2'>N/A</p>"
-                    }, "info4", "second");
+                    }, "infoBadge", 3);
                 } else {
                     dc.destroy("freeBadge");
                 }
             };
 
+            /**
+             * Places Chronic Absence badge for school info
+             * @return {[type]} [description]
+             */
             function chronicBadge() {
+                var emptyTEST = $("#infoBadge").is(":empty");
+                if (emptyTEST === false) {
+                    dc.destroy("chronicBadge");
+                }
+                var year = self.dataItem.FY;
+                var Chronic = self.dataItem.chronic;
 
-            }
+                dc.create("span", {
+                    id: "chronicBadge",
+                    className: "badges chronic",
+                    innerHTML: year + "<p class='c1'>Chronic Absence Rate</p>" + "<p class='c2'>" + Chronic + "</p>"
+                }, "infoBadge", 4);
+            };
 
             /**
              * [azMERITAllSchoolsChart] - Shows all schools and their AzMERIT score in scatter chart.

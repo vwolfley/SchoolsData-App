@@ -1,5 +1,5 @@
 ![](http://geo.azmag.gov/maps/readonaz/app/resources/img/maglogo_black.png)
-# Schools Data Visualization Project #
+# Arizona Schools Data Visualization Project #
 MAG application showing selected key data for Arizona Schools
 
 [![GitHub version](https://badge.fury.io/gh/vwolfley%2SchoolsData-App.svg)](https://badge.fury.io/gh/vwolfley%2SchoolsData-App)
@@ -16,7 +16,7 @@ While every effort has been made to ensure the accuracy of this information, the
 
 ## Keywords
 
-`schools` `testing` `data` `visualization` `enrollment` `AzMERIT` `testing` `education` `ADE` `Arizona` `maps` `MAG` `ESRI` `#MAGmaps`
+`schools` `education` `testing` `standards` `scores` `AzMERIT` `enrollment` `data` `visualization` `ADE` `Arizona` `maps` `MAG` `ESRI` `#MAGmaps`
 
 ## Version
 
