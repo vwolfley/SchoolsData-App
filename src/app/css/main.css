@@ -7,7 +7,7 @@
  * ======================================================================== */
 
 body {
-  min-height: 2000px;
+  /* min-height: 2000px; */
   padding-top: 180px;
 }
 /*******************
@@ -122,6 +122,11 @@ Header Section
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+}
+.modal-footer {
+    text-align: center;
+    background-color: #f9f9f9;
+    font-size: 12px;
 }
 /*******************
  School Titles
@@ -346,7 +351,7 @@ Header Section
  Modal Drop-down
 ********************/
 .modal-header {
-    background-color: #c0c3c6;
+    background-color: #f9f9f9;
 }
 
 .demo-section {
@@ -362,8 +367,6 @@ Header Section
         color: #727f8e;
         margin: 0;
     }
-
-
 
     #chart-type-chooser {
         float: right;
@@ -521,6 +524,9 @@ Header Section
 }
 .chronic {
     background-color: #E67E22;
+}
+.attend {
+    background-color: #005b96;
 }
 .score {
     font-size: 20px;

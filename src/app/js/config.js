@@ -10,6 +10,7 @@ define([], function() {
       return {
 
             version: "0.0.4 | 2017-10-05",
+            copyright: "2017",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
@@ -23,6 +24,8 @@ define([], function() {
 
             subGroups: ["All Students", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 
+            stateAzMERIT2017ela: [0,41,20,29,10],
+            stateAzMERIT2017math: [0,36,24,26,13],
             stateAzMERIT2016ela: [0,42,20,28,10],
             stateAzMERIT2016math: [0,38,25,26,11],
             stateAzMERIT2015ela: [0,42,23,28,7],
