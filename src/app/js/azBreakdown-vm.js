@@ -7,15 +7,16 @@
     define([
             "dojo/on",
             "dojo/dom-construct",
-            "dojo/dom"
+            "dojo/dom",
+            "appPackages/config"
         ],
-        function(on, dc, dom) {
+        function(on, dc, dom, appConfig) {
 
             var azBreakdownVM = new function() {
 
                 var self = this;
 
-                self.selectedYear = function(e) {
+                self.sYear = function(e) {
                     self.selectedYear = e;
                 };
 
@@ -76,13 +77,13 @@
                     $.each(features, function(index, item) {
                         if (item.attributes.ContentArea === 675) {
                             self.elaLevels.push({
-                                level: item.attributes.TestLevel,
+                                level: item.attributes.TestLevelName,
                                 sort: item.attributes.TestOrder
                             });
                         }
                         if (item.attributes.ContentArea === 677) {
                             self.mathLevels.push({
-                                level: item.attributes.TestLevel,
+                                level: item.attributes.TestLevelName,
                                 sort: item.attributes.TestOrder
                             });
                         }
@@ -136,6 +137,10 @@
 
                     self.typeA = "ELA";
                     self.tLevel = "All Students";
+
+                    self.testLevel();
+                    self.createAllMERITChart();
+                    return;
                 };
                 //end schoolBreakdownQueryHandler
 
@@ -216,8 +221,10 @@
                     // console.log(districtAZMERITmath);
                     self.districtAll = $.extend({}, districtAZMERITela[0], districtAZMERITmath[0]);
                     // console.log(self.districtAll);
-                    // createDistrictStateChart();
+
+                    return;
                 };
+
 
                 self.stateBreakdownQueryFault = function(error) {
                     console.log(error.messaege);
@@ -294,12 +301,8 @@
                     self.typeA = "ELA";
                     self.tLevel = "All Students";
 
-                    self.testLevel();
-                    self.createAllMERITChart();
-                    // createDistrictStateChart();
+                    return;
                 };
-
-
 
                 /**
                  * Used to change the Test Level
@@ -323,8 +326,7 @@
                     self.createAllMERITChart();
                 });
 
-                self.testLevel = function(e) {
-                    console.log(e);
+                self.testLevel = function() {
                     dc.empty("fradio");
                     var i;
                     var chk;
@@ -592,6 +594,7 @@
                      */
                     function buildChart() {
                         var seriesINFO;
+                        var title;
                         if (self.typeA === "ELA") {
                             title = self.selectedYear + " ELA Proficiency Results",
                                 seriesINFO = [{
@@ -696,6 +699,7 @@
                      */
                     function buildChart1() {
                         var seriesINFO;
+                        var title;
                         if (self.typeA === "ELA") {
                             title = self.selectedYear + " ELA Percent Passed",
 

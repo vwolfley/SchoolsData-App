@@ -43,10 +43,11 @@ function setup() {
             "appPackages/scatterChart-vm",
             "appPackages/azBreakdown-vm",
             "appPackages/infoBadges-vm",
+            "appPackages/passingCharts-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -57,7 +58,9 @@ function setup() {
                     $(".selected-year").text(selectedYear);
 
                     getSchoolsData(selectedYear);
-                    azBreakdownVM.selectedYear(selectedYear);
+
+                    passingChartsVM.sYear(selectedYear);
+                    azBreakdownVM.sYear(selectedYear);
                 }
             }).data("kendoTabStrip").select(2);
             //=================================================================================>
@@ -130,11 +133,11 @@ function setup() {
                 var s2016;
                 var s2017;
 
-                qt2015 = new QueryTask(appConfig.mainURL + "/6");
+                qt2015 = new QueryTask(appConfig.mainURL + "/1");
                 q2015 = new Query();
-                qt2016 = new QueryTask(appConfig.mainURL + "/6");
+                qt2016 = new QueryTask(appConfig.mainURL + "/1");
                 q2016 = new Query();
-                qt2017 = new QueryTask(appConfig.mainURL + "/6");
+                qt2017 = new QueryTask(appConfig.mainURL + "/1");
                 q2017 = new Query();
 
                 q2015.returnGeometry = q2016.returnGeometry = q2017.returnGeometry = false;
@@ -185,7 +188,7 @@ function setup() {
                 }
 
                 function qtask() {
-                    queryTask = new QueryTask(appConfig.mainURL + "/6");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = " + dataItem.entityID;
                     query.returnGeometry = false;
@@ -214,7 +217,7 @@ function setup() {
                 }
 
                 function qtask() {
-                    queryTask = new QueryTask(appConfig.mainURL + "/6");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = " + dataItem.dID + " AND Subgroup = 0";
                     query.returnGeometry = false;
@@ -244,7 +247,7 @@ function setup() {
                 }
 
                 function qtask() {
-                    queryTask = new QueryTask(appConfig.mainURL + "/6");
+                    queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
                     query.where = "EntityID = -1 AND Subgroup = 0";
                     query.returnGeometry = false;
@@ -499,120 +502,23 @@ function setup() {
                 if (selectedYear === "2015") {
                     e1 = info2015ela;
                     e2 = info2015math;
-                    score(e1, e2);
+                    passingChartsVM.score(e1, e2);
                 }
                 if (selectedYear === "2016") {
                     e1 = info2016ela;
                     e2 = info2016math;
-                    score(e1, e2);
+                    passingChartsVM.score(e1, e2);
                 }
                 if (selectedYear === "2017") {
                     e1 = info2017ela;
                     e2 = info2017math;
-                    score(e1, e2);
+                    passingChartsVM.score(e1, e2);
                 }
 
-                function score(e1, e2) {
-
-                    if (e1.PCT_Passing > 0) {
-                        dom.byId("elaScore").innerHTML = e1.PCT_Passing + "%";
-                        createChartELA(e1);
-                    } else {
-                        dom.byId("elaScore").innerHTML = "N/A";
-                        dom.byId("elaChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
-                        domClass.add("elaChart", "chartGoneNA");
-                    }
-                    if (e2.PCT_Passing > 0) {
-                        dom.byId("mathScore").innerHTML = e2.PCT_Passing + "%";
-                        createChartMATH(e2);
-                    } else {
-                        dom.byId("mathScore").innerHTML = "N/A";
-                        dom.byId("mathChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
-                        domClass.add("mathChart", "chartGoneNA");
-                    }
-                }
-
-                function diffScore() {
-
-                    if (info2015ela.PCT_Passing < 0) {
-                        info2015ela.PCT_Passing = 0;
-                    }
-                    if (info2016ela.PCT_Passing < 0) {
-                        info2016ela.PCT_Passing = 0;
-                    }
-                    if (info2017ela.PCT_Passing < 0) {
-                        info2017ela.PCT_Passing = 0;
-                    }
-                    if (info2015math.PCT_Passing < 0) {
-                        info2015math.PCT_Passing = 0;
-                    }
-                    if (info2016math.PCT_Passing < 0) {
-                        info2016math.PCT_Passing = 0;
-                    }
-                    if (info2017math.PCT_Passing < 0) {
-                        info2017math.PCT_Passing = 0;
-                    }
-
-                    var upARROW = '<img class="arrow" src="./app/images/arrowUp.png" alt="UP">';
-                    var downARROW = '<img class="arrow" src="./app/images/arrowDown.png" alt="Down">';
-                    var noARROW = '<img class="noarrow" src="./app/images/arrowSide.png" alt="Side">';
-
-                    if (selectedYear === "2017") {
-                        var elaChange = info2017ela.PCT_Passing - info2016ela.PCT_Passing;
-                        var mathChange = info2017math.PCT_Passing - info2016math.PCT_Passing;
-
-                        var ec1 = isNaN(elaChange);
-                        var mc1 = isNaN(mathChange);
-
-                        change();
-
-                    } else if (selectedYear === "2016") {
-                        var elaChange = info2016ela.PCT_Passing - info2015ela.PCT_Passing;
-                        var mathChange = info2016math.PCT_Passing - info2015math.PCT_Passing;
-
-                        var ec1 = isNaN(elaChange);
-                        var mc1 = isNaN(mathChange);
-
-                        change();
-
-                    } else {
-                        dc.empty("elaChange");
-                        dc.empty("elaArrow");
-                        dc.empty("mathChange");
-                        dc.empty("mathArrow");
-                    }
-
-                    function change() {
-                        if (elaChange > 0) {
-                            dom.byId("elaChange").innerHTML = elaChange + "%";
-                            dom.byId("elaArrow").innerHTML = upARROW;
-                        } else if (elaChange === 0) {
-                            dom.byId("elaChange").innerHTML = elaChange + "%";
-                            dom.byId("elaArrow").innerHTML = noARROW;
-                        } else if (ec1 === true) {
-                            dc.empty("elaChange");
-                            dc.empty("elaArrow");
-                        } else {
-                            dom.byId("elaChange").innerHTML = elaChange + "%";
-                            dom.byId("elaArrow").innerHTML = downARROW;
-                        }
-                        if (mathChange > 0) {
-                            dom.byId("mathChange").innerHTML = mathChange + "%";
-                            dom.byId("mathArrow").innerHTML = upARROW;
-                        } else if (mathChange === 0) {
-                            dom.byId("mathChange").innerHTML = mathChange + "%";
-                            dom.byId("mathArrow").innerHTML = noARROW;
-                        } else if (mc1 === true) {
-                            dc.empty("mathChange");
-                            dc.empty("mathArrow");
-                        } else {
-                            dom.byId("mathChange").innerHTML = mathChange + "%";
-                            dom.byId("mathArrow").innerHTML = downARROW;
-                        }
-                    }
-
-                }
-                diffScore();
+                var v2015 = [info2015ela, info2015math];
+                var v2016 = [info2016ela, info2016math];
+                var v2017 = [info2017ela, info2017math];
+                passingChartsVM.diffScore(v2015, v2016, v2017);
             };
             //============================================================================================================>
 
@@ -783,169 +689,7 @@ function setup() {
                 });
             };
 
-            /**
-             * [createChartELA - Pie Chart]
-             *  * Data from [schoolScoresQueryHandler] via [getSchoolScores();]
-             * @return {Pie Chart} [showing schools breakdown of AzMERIT scores for all students]
-             */
-            function createChartELA(e) {
-                // console.log(e);
 
-                if (e.PCT_PL1 < 0) {
-                    e.PCT_PL1 = 0;
-                }
-                if (e.PCT_PL2 < 0) {
-                    e.PCT_PL2 = 0;
-                }
-                if (e.PCT_PL3 < 0) {
-                    e.PCT_PL3 = 0;
-                }
-                if (e.PCT_PL4 < 0) {
-                    e.PCT_PL4 = 0;
-                }
-
-                function isBigEnough(element, index, array) {
-                    return element == 0;
-                }
-                var ddCheck = [e.PCT_PL1, e.PCT_PL2, e.PCT_PL3, e.PCT_PL4].every(isBigEnough);
-                // console.log(ddCheck);
-
-                if (ddCheck == true) {
-                    dom.byId("elaChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
-                    domClass.add("elaChart", "chartGoneNA");
-                } else {
-                    domClass.remove("elaChart", "chartGoneNA");
-                    buildChart();
-                }
-
-                function buildChart() {
-                    var azMERITcat = [{
-                        type: "Minimally Proficient",
-                        value: e.PCT_PL1,
-                    }, {
-                        type: "Partially Proficient",
-                        value: e.PCT_PL2,
-                    }, {
-                        type: "Proficient",
-                        value: e.PCT_PL3,
-                        explode: true
-                    }, {
-                        type: "Highly Proficient",
-                        value: e.PCT_PL4,
-                        explode: true
-                    }];
-
-                    $("#elaChart").kendoChart({
-                        title: {
-                            text: ""
-                        },
-                        legend: {
-                            visible: false
-                        },
-                        dataSource: {
-                            data: azMERITcat,
-                        },
-                        series: [{
-                            type: "pie",
-                            field: "value",
-                            categoryField: "type",
-                            explodeField: "explode"
-                        }],
-                        // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
-                        seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
-                        tooltip: {
-                            visible: true,
-                            template: "${ category } - ${ value }%"
-                        },
-                        chartArea: {
-                            margin: 1,
-                            height: 250
-                        }
-                    });
-                }
-            };
-
-            /**
-             * [createChartMATH - Pie Chart]
-             * * Data from [schoolScoresQueryHandler] via [getSchoolScores();]
-             * @return {Pie Chart} [showing schools breakdown of AzMERIT scores for all students]
-             */
-            function createChartMATH(e) {
-                // console.log(e);
-                if (e.PCT_PL1 < 0) {
-                    e.PCT_PL1 = 0;
-                }
-                if (e.PCT_PL2 < 0) {
-                    e.PCT_PL2 = 0;
-                }
-                if (e.PCT_PL3 < 0) {
-                    e.PCT_PL3 = 0;
-                }
-                if (e.PCT_PL4 < 0) {
-                    e.PCT_PL4 = 0;
-                }
-
-                function isBigEnough(element, index, array) {
-                    return element == 0;
-                }
-                var ddCheck = [e.PCT_PL1, e.PCT_PL2, e.PCT_PL3, e.PCT_PL4].every(isBigEnough);
-                // console.log(ddCheck);
-
-                if (ddCheck == true) {
-                    dom.byId("mathChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
-                    domClass.add("mathChart", "chartGoneNA");
-                } else {
-                    domClass.remove("mathChart", "chartGoneNA");
-                    buildChart();
-                }
-
-                function buildChart() {
-
-                    var azMERITcat = [{
-                        type: "Minimally Proficient",
-                        value: e.PCT_PL1,
-                    }, {
-                        type: "Partially Proficient",
-                        value: e.PCT_PL2,
-                    }, {
-                        type: "Proficient",
-                        value: e.PCT_PL3,
-                        explode: true
-                    }, {
-                        type: "Highly Proficient",
-                        value: e.PCT_PL4,
-                        explode: true
-                    }];
-
-                    $("#mathChart").kendoChart({
-                        title: {
-                            text: ""
-                        },
-                        legend: {
-                            visible: false
-                        },
-                        dataSource: {
-                            data: azMERITcat,
-                        },
-                        series: [{
-                            type: "pie",
-                            field: "value",
-                            categoryField: "type",
-                            explodeField: "explode"
-                        }],
-                        // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
-                        seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
-                        tooltip: {
-                            visible: true,
-                            template: "${ category } - ${ value }%"
-                        },
-                        chartArea: {
-                            margin: 1,
-                            height: 250
-                        }
-                    });
-                }
-            };
 
             /**
              * [createDistrictStateChart description]
@@ -1211,13 +955,12 @@ function setup() {
 
         });
     // end main function
-}
+};
 
 $(document).ready(function() {
     //*** Info binding
     $("#infoModal").load("app/views/info-view.html");
     $("#legalModal").load("app/views/legal-view.html");
-
 });
 
 /**
