@@ -16,6 +16,10 @@
 
                 var self = this;
 
+                var schoolDone = $.Deferred();
+                var districtDone = $.Deferred();
+                var stateDone = $.Deferred();
+
                 self.sYear = function(e) {
                     self.selectedYear = e;
                 };
@@ -138,8 +142,11 @@
                     self.typeA = "ELA";
                     self.tLevel = "All Students";
 
-                    self.testLevel();
-                    self.createAllMERITChart();
+                    // self.testLevel();
+                    // self.createAllMERITChart();
+
+                    var schoolDone1 = schoolDone.promise();
+                    self.allDone();
                 };
                 //end schoolBreakdownQueryHandler
 
@@ -194,6 +201,7 @@
                     // console.log(districtELA);
                     // console.log(districtMATH);
 
+                    var districtDone1 = districtDone.promise();
                     return districtELA, districtMATH;
                 };
 
@@ -243,8 +251,21 @@
                     // console.log(stateELA);
                     // console.log(stateMATH);
 
+                    var stateDone1 = stateDone.promise();
                     return stateELA, stateMATH;
                 };
+
+                self.allDone = function() {
+                    $.when(schoolDone, districtDone, stateDone).done(function() {
+                        console.log("YES DONE");
+                        self.testLevel();
+                    self.createAllMERITChart();
+                    });
+                };
+                schoolDone.resolve();
+                districtDone.resolve();
+                stateDone.resolve();
+
 
                 /**
                  * Used to change the Test Level
