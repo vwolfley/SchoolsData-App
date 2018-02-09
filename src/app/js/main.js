@@ -114,7 +114,7 @@ function setup() {
 
                 queryTask = new QueryTask(appConfig.mainURL + "/0");
                 query = new Query();
-                query.where = "EntityID = " + dataItem.entityID;
+                query.where = "EntityID = " + dataItem.entityID + " AND FY = '" + dataItem.FY + "'";
                 query.returnGeometry = true;
                 query.outFields = ["*"];
 
@@ -176,21 +176,25 @@ function setup() {
                 var dataItem = e;
                 var queryTask;
                 var query;
+                var year;
 
                 if (selectedYear === "2015") {
+                    year = 2015;
                     qtask();
                 }
                 if (selectedYear === "2016") {
+                    year = 2016;
                     qtask();
                 }
                 if (selectedYear === "2017") {
+                    year = 2017;
                     qtask();
                 }
 
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = " + dataItem.entityID;
+                    query.where = "EntityID = " + dataItem.entityID + "AND FY = " + year;
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.schoolBreakdownQueryHandler, azBreakdownVM.schoolBreakdownQueryFault)
@@ -207,19 +211,22 @@ function setup() {
                 var queryTask;
                 var query;
                 if (selectedYear === "2015") {
+                    year = 2015;
                     qtask();
                 }
                 if (selectedYear === "2016") {
+                    year = 2016;
                     qtask();
                 }
                 if (selectedYear === "2017") {
+                    year = 2017;
                     qtask();
                 }
 
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = " + dataItem.dID + " AND Subgroup = 0";
+                    query.where = "EntityID = " + dataItem.dID + "AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.districtBreakdownQueryHandler, azBreakdownVM.districtBreakdownQueryFault)
@@ -237,19 +244,22 @@ function setup() {
                 var query;
 
                 if (selectedYear === "2015") {
+                    year = 2015;
                     qtask();
                 }
                 if (selectedYear === "2016") {
+                    year = 2016;
                     qtask();
                 }
                 if (selectedYear === "2017") {
+                    year = 2017;
                     qtask();
                 }
 
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = -1 AND Subgroup = 0";
+                    query.where = "EntityID = -1" + " AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.stateBreakdownQueryHandler, azBreakdownVM.stateBreakdownQueryFault)

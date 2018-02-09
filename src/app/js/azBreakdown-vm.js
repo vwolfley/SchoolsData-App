@@ -38,9 +38,9 @@
                                 countyID: item.attributes.CountyEntityID,
                                 schoolID: item.attributes.SchoolEntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 ELA1: item.attributes.PCT_PL1,
                                 ELA2: item.attributes.PCT_PL2,
                                 ELA3: item.attributes.PCT_PL3,
@@ -56,9 +56,9 @@
                                 countyID: item.attributes.CountyEntityID,
                                 schoolID: item.attributes.SchoolEntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 MATH1: item.attributes.PCT_PL1,
                                 MATH2: item.attributes.PCT_PL2,
                                 MATH3: item.attributes.PCT_PL3,
@@ -140,7 +140,6 @@
 
                     self.testLevel();
                     self.createAllMERITChart();
-                    return;
                 };
                 //end schoolBreakdownQueryHandler
 
@@ -158,18 +157,16 @@
                     var features = results.features;
                     // console.log(features);
 
-                    self.districtELA = [];
-                    self.districtMATH = [];
-                    var districtAZMERITela = [];
-                    var districtAZMERITmath = [];
+                    var districtELA = [];
+                    var districtMATH = [];
                     $.each(features, function(index, item) {
                         if (item.attributes.ContentArea === 675 && item.attributes.TestLevel === 0) {
-                            self.districtELA.push({
+                            districtELA.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 ELA1: item.attributes.PCT_PL1,
                                 ELA2: item.attributes.PCT_PL2,
                                 ELA3: item.attributes.PCT_PL3,
@@ -177,24 +174,14 @@
                                 ELAP: item.attributes.PCT_Passing,
                                 ELARDT: item.attributes.PCT_Redacted
                             });
-                            if (item.attributes.TestLevel === 0) {
-                                districtAZMERITela.push({
-                                    ELA1: item.attributes.PCT_PL1,
-                                    ELA2: item.attributes.PCT_PL2,
-                                    ELA3: item.attributes.PCT_PL3,
-                                    ELA4: item.attributes.PCT_PL4,
-                                    ELAP: item.attributes.PCT_Passing,
-                                    ELARDT: item.attributes.PCT_Redacted
-                                });
-                            }
                         }
                         if (item.attributes.ContentArea === 677 && item.attributes.TestLevel === 0) {
-                            self.districtMATH.push({
+                            districtMATH.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 MATH1: item.attributes.PCT_PL1,
                                 MATH2: item.attributes.PCT_PL2,
                                 MATH3: item.attributes.PCT_PL3,
@@ -202,27 +189,12 @@
                                 MATHP: item.attributes.PCT_Passing,
                                 MATHRDT: item.attributes.PCT_Redacted
                             });
-                            if (item.attributes.TestLevel === 0) {
-                                districtAZMERITmath.push({
-                                    MATH1: item.attributes.PCT_PL1,
-                                    MATH2: item.attributes.PCT_PL2,
-                                    MATH3: item.attributes.PCT_PL3,
-                                    MATH4: item.attributes.PCT_PL4,
-                                    MATHP: item.attributes.PCT_Passing,
-                                    MATHRDT: item.attributes.PCT_Redacted
-                                });
-                            }
                         }
-
                     });
-                    // console.log(self.districtELA);
-                    // console.log(self.districtMATH);
-                    // console.log(districtAZMERITela);
-                    // console.log(districtAZMERITmath);
-                    self.districtAll = $.extend({}, districtAZMERITela[0], districtAZMERITmath[0]);
-                    // console.log(self.districtAll);
+                    // console.log(districtELA);
+                    // console.log(districtMATH);
 
-                    return;
+                    return districtELA, districtMATH;
                 };
 
 
@@ -234,18 +206,16 @@
                     var features = results.features;
                     // console.log(features);
 
-                    self.stateELA = [];
-                    self.stateMATH = [];
-                    var stateELAall = [];
-                    var stateMATHall = [];
+                    var stateELA = [];
+                    var stateMATH = [];
                     $.each(features, function(index, item) {
                         if (item.attributes.ContentArea === 675 && item.attributes.TestLevel === 0) {
-                            self.stateELA.push({
+                            stateELA.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 ELA1: item.attributes.PCT_PL1,
                                 ELA2: item.attributes.PCT_PL2,
                                 ELA3: item.attributes.PCT_PL3,
@@ -253,24 +223,14 @@
                                 ELAP: item.attributes.PCT_Passing,
                                 ELARDT: item.attributes.PCT_Redacted
                             });
-                            if (item.attributes.TestLevel === 0) {
-                                stateELAall.push({
-                                    ELA1: item.attributes.PCT_PL1,
-                                    ELA2: item.attributes.PCT_PL2,
-                                    ELA3: item.attributes.PCT_PL3,
-                                    ELA4: item.attributes.PCT_PL4,
-                                    ELAP: item.attributes.PCT_Passing,
-                                    ELARDT: item.attributes.PCT_Redacted
-                                });
-                            }
                         }
                         if (item.attributes.ContentArea === 677 && item.attributes.TestLevel === 0) {
-                            self.stateMATH.push({
+                            stateMATH.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
-                                // area: item.attributes.ContentAreaDef,
-                                // group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevel,
+                                area: item.attributes.ContentAreaDef,
+                                group: item.attributes.SubgroupDef,
+                                level: item.attributes.TestLevelName,
                                 MATH1: item.attributes.PCT_PL1,
                                 MATH2: item.attributes.PCT_PL2,
                                 MATH3: item.attributes.PCT_PL3,
@@ -278,30 +238,12 @@
                                 MATHP: item.attributes.PCT_Passing,
                                 MATHRDT: item.attributes.PCT_Redacted
                             });
-                            if (item.attributes.TestLevel === 0) {
-                                stateMATHall.push({
-                                    MATH1: item.attributes.PCT_PL1,
-                                    MATH2: item.attributes.PCT_PL2,
-                                    MATH3: item.attributes.PCT_PL3,
-                                    MATH4: item.attributes.PCT_PL4,
-                                    MATHP: item.attributes.PCT_Passing,
-                                    MATHRDT: item.attributes.PCT_Redacted
-                                });
-                            }
                         }
-
                     });
-                    // console.log(self.stateELA);
-                    // console.log(self.stateMATH);
-                    // console.log(stateELAall);
-                    // console.log(stateMATHall);
+                    // console.log(stateELA);
+                    // console.log(stateMATH);
 
-                    self.stateAll = $.extend({}, stateELAall[0], stateMATHall[0]);
-                    // console.log(self.stateAll);
-                    self.typeA = "ELA";
-                    self.tLevel = "All Students";
-
-                    return;
+                    return stateELA, stateMATH;
                 };
 
                 /**
@@ -364,9 +306,9 @@
                  * @return {[type]} [description]
                  */
                 self.createAllMERITChart = function() {
-                    // console.log(self.breakdownELA);
-                    // console.log(self.stateELA);
-                    // console.log(self.districtELA);
+                    console.log(self.breakdownELA);
+                    console.log(self.stateELA);
+                    console.log(self.districtELA);
                     // console.log(self.breakdownMATH);
                     // console.log(self.typeA);
                     // console.log(self.tLevel);

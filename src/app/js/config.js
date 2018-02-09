@@ -32,7 +32,7 @@ define([], function() {
             stateAzMERIT2015math: [0,38,27,24,11],
 
             subGroups1: [
-                  "All",
+                  "All Students",
                   "Male",
                   "Female",
                   "White",
