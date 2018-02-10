@@ -31,8 +31,8 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <h3 class="example-title">Arizona<span>&nbsp;Schools</span></h3>
-            <h4 class="example-description">Data Visualization Project</h4>
+            <h1 class="title">Arizona<span>&nbsp;Schools</span></h1>
+            <h4 class="subtitle">Data Visualization Project</h4>
             <div id="year-filtering-tabs" class="filtering-tabs"></div>
             <div id="pickSchools" class="col-md-10 field">
                 <h4 class="tDrop">Find a school</h4>
@@ -60,11 +60,13 @@
         </div>
         <!-- / Modal Legal-->
         <!-- row 1 **Info & Map -->
+        <h3 class="sectionTitle">Schools Details</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-6">
-                <h3 id="schoolName2" class="schoolName"></h3>
-                <h6 id="sNUM2" class="schoolName"></h6>
-                <h5 id="districtName2" class="districtName"></h5>
+                <h4 id="" class="schoolName"></h4>
+                <h6 id="" class="schoolID"></h6>
+                <h5 id="" class="districtName"></h5>
                 <br>
                 <div id="info1" class="info"></div>
                 <div id="info2" class="info"></div>
@@ -80,16 +82,16 @@
         <div class="separator"></div>
         <!-- /row 1 -->
         <!-- row 3 **AzMERIT Percent Passing -->
-        <h4 class="example-subtitle">Schools AzMERIT Percent Passing Scores</h4>
+        <h3 class="sectionTitle">Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h3 id="schoolName0" class="schoolName"></h3>
-            <h6 id="sNUM0" class="schoolName"></h6>
-            <h5 id="districtName0" class="districtName"></h5>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div id="ela" class="sectionHeader">
+                <div id="ela" class="infoHeader">
                     <h4>ELA Score</h4>
                     <span id="elaScore" class="stat"></span>
                     <div class="diff">
@@ -100,7 +102,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div id="math" class="sectionHeader">
+                <div id="math" class="infoHeader">
                     <h4>MATH Score</h4>
                     <span id="mathScore" class="stat"></span>
                     <div class="diff">
@@ -111,7 +113,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div id="comp" class="sectionHeader">
+                <div id="comp" class="infoHeader">
                     <h4>Comparison Scores</h4>
                     <div id="compChart"></div>
                     <span id="cName"></span>
@@ -122,12 +124,12 @@
         <div class="separator"></div>
         <!-- /row 3 -->
         <!-- row 4 **AzMERIT Student Breakdown -->
-        <h4 class="example-subtitle">Schools AzMERIT Student Breakdown</h4>
+        <h3 class="sectionTitle">Schools AzMERIT Student Breakdown</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h3 id="schoolName1" class="schoolName"></h3>
-            <h6 id="sNUM1" class="schoolName"></h6>
-            <h5 id="districtName1" class="districtName"></h5>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -154,10 +156,10 @@
         <div class="separator"></div>
         <!-- /row 4 -->
         <!-- row 5 ** Percent Passing Breakdown-->
-        <!-- <h4 class="example-subtitle">Schools AzMERIT Percent Passed</h4>
+        <!-- <h3 class="sectionTitle">Schools AzMERIT Percent Passed</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h3 id="schoolName3" class="schoolName"></h3>
+            <h4 id="schoolName3" class="schoolName"></h4>
             <h6 id="sNUM3" class="schoolName"></h6>
             <h5 id="districtName3" class="districtName"></h5>
         </div> -->
@@ -183,7 +185,7 @@
         <!-- <div class="separator"></div> -->
         <!-- /row 5 -->
         <!-- row 6 **District Summary Table-->
-        <h4 class="example-subtitle">District Summary</h4>
+        <!-- <h3 class="sectionTitle">District Summary</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-12">
@@ -192,10 +194,10 @@
                 <div id="grid"></div>
             </div>
         </div>
-        <div class="separator"></div>
+        <div class="separator"></div> -->
         <!-- /row 6 -->
         <!-- row 7 **District Scatter Chart-->
-        <h4 class="example-subtitle">District Schools AzMERIT Percent Passing Scores</h4>
+        <!-- <h3 class="sectionTitle">District Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-12">
@@ -204,10 +206,29 @@
                 <div id="azMERITdistrictScatter"></div>
             </div>
         </div>
-        <div class="separator"></div>
+        <div class="separator"></div> -->
         <!-- /row 7 -->
+
+        <!-- new row **Chronic Absence Chart-->
+        <h3 class="sectionTitle">Chronic Absence Chart by SubGroup</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div class="row">
+            <div id="groupChart" class="chartStyle"></div>
+            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+
+
+
         <!-- row 8 **State Scatter Chart-->
-        <h4 class="example-subtitle">All Schools AzMERIT Percent Passing Scores</h4>
+        <h3 class="sectionTitle">All Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div id="azMERITchartSchools" class="col-md-12"></div>

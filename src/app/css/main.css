@@ -13,38 +13,39 @@ body {
 /*******************
 Header Section
 ********************/
-.example-title,
-.example-subtitle,
+.title,
+.subtitle,
 .metric,
-.example-description,
+.subtitle,
 .stat dd {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
 }
-.example-title,
-.example-subtitle {
+.title,
+.sectionTitle {
+    color: #2b8abe;
     text-transform: uppercase;
 }
-.example-title {
+.title {
     color: #2b8abe;
     font-size: 48px;
     font-weight: 300;
 }
-.example-title span,
+.title span,
 .first dd {
     font-weight: 700;
 }
-.example-description {
+.subtitle {
     font-size: 18px;
-    font-weight: 300;
-    color: #1a364a;
+    font-weight: bold;
+    color: #708090;
 }
-.example-subtitle {
-    font-size: 13px;
+.sectionTitle {
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 0;
 }
-.example-title,
-.example-description {
+.title,
+.subtitle {
     display: inline-block;
     margin: 0;
 }
@@ -131,7 +132,7 @@ Header Section
 /*******************
  School Titles
 ********************/
-.schoolName {
+.schoolName, .schoolID {
     display: inline-block;
     font-weight: bold;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
@@ -239,21 +240,16 @@ Header Section
     box-shadow: 6px 6px 5px #ccc;
 }
 
-#example {
-    width: auto;
-    background: none;
-    color: #454447;
-}
-.title {
+/* .title {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     color: #708090;
     margin-bottom: 1px;
 
-}
+} */
 
-.sectionHeader{
+.infoHeader{
     font-size: 11px;
     color: #35373d;
     text-transform: uppercase;

@@ -383,6 +383,7 @@ function setup() {
 
                 getSchoolNames();
                 scatterChartVM.azMERITscatterChart(azSchoolsScatter, selectedYear);
+
             };
 
             function azMERITdistQueryFault(error) {
@@ -559,15 +560,9 @@ function setup() {
                 var dataItem = schoolData.dataItem();
 
                 // school name & district name
-                dom.byId("schoolName0").innerHTML = dataItem.sName;
-                dom.byId("districtName0").innerHTML = dataItem.dName;
-                dom.byId("sNUM0").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
-                dom.byId("schoolName1").innerHTML = dataItem.sName;
-                dom.byId("districtName1").innerHTML = dataItem.dName;
-                dom.byId("sNUM1").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
-                dom.byId("schoolName2").innerHTML = dataItem.sName;
-                dom.byId("districtName2").innerHTML = dataItem.dName;
-                dom.byId("sNUM2").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
+                $(".schoolName").text(dataItem.sName);
+                $(".schoolID").text("  (" + dataItem.entityID + ")");
+                $(".districtName").text(dataItem.dName);
 
                 dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
                 dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
@@ -588,21 +583,18 @@ function setup() {
                 infoBadgesVM.chronicBadge(dataItem);
                 infoBadgesVM.attendanceBadge(dataItem);
 
+
+
                 function onChange() {
                     var value = $("#schools").val();
                     var schoolData = $("#schools").data("kendoDropDownList");
                     var dataItem = schoolData.dataItem();
 
                     // school name & district name
-                    dom.byId("schoolName0").innerHTML = dataItem.sName;
-                    dom.byId("districtName0").innerHTML = dataItem.dName;
-                    dom.byId("sNUM0").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
-                    dom.byId("schoolName1").innerHTML = dataItem.sName;
-                    dom.byId("districtName1").innerHTML = dataItem.dName;
-                    dom.byId("sNUM1").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
-                    dom.byId("schoolName2").innerHTML = dataItem.sName;
-                    dom.byId("districtName2").innerHTML = dataItem.dName;
-                    dom.byId("sNUM2").innerHTML = "&nbsp;(" + dataItem.entityID + ")";
+                    $(".schoolName").text(dataItem.sName);
+                    $(".schoolID").text("  (" + dataItem.entityID + ")");
+                    $(".districtName").text(dataItem.dName);
+
 
                     dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
                     dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
@@ -622,6 +614,7 @@ function setup() {
                     infoBadgesVM.freeReducedBadge(dataItem);
                     infoBadgesVM.chronicBadge(dataItem);
                     infoBadgesVM.attendanceBadge(dataItem);
+
 
                     // toggles the Assessment Type back to ELA from MATH
                     $("#option1").parents('.btn').button('toggle');
