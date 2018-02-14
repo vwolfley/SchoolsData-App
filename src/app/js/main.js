@@ -44,10 +44,12 @@ function setup() {
             "appPackages/azBreakdown-vm",
             "appPackages/infoBadges-vm",
             "appPackages/passingCharts-vm",
+            "appPackages/chronicCharts-vm",
+            "appPackages/enrollmentCharts-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -63,6 +65,7 @@ function setup() {
                     azBreakdownVM.sYear(selectedYear);
                 }
             }).data("kendoTabStrip").select(2);
+            // console.log(selectedYear);
             //=================================================================================>
 
             // add version and date to about.html, changed in config.js
@@ -163,7 +166,7 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
 
-                queryTask.execute(query, azMERITdistQueryHandler, azMERITdistQueryFault)
+                queryTask.execute(query, azMERITdistQueryHandler, azMERITdistQueryFault);
             };
 
             /**
@@ -266,6 +269,45 @@ function setup() {
                 }
 
             };
+
+
+            /**
+             * [getChronicData]
+             * @param  {data} schoolSelected
+             * @return {chronicDataQueryHandler}
+             * @return {chronicDataQueryFault} [error]
+             */
+            function getChronicData(e) {
+                var dataItem = e;
+                var queryTask;
+                var query;
+
+                queryTask = new QueryTask(appConfig.mainURL + "/9");
+                query = new Query();
+                query.where = "EntityID = " + dataItem.entityID + " AND FY = " + selectedYear;
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                // console.log(query.where);
+
+                queryTask.execute(query, chronicDataQueryHandler, chronicDataQueryFault);
+            };
+
+            function getEnrollmentData(e) {
+                var dataItem = e;
+                var queryTask;
+                var query;
+
+                queryTask = new QueryTask(appConfig.mainURL + "/3");
+                query = new Query();
+                query.where = "EntityID = " + dataItem.entityID;
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                // console.log(query.where);
+
+                queryTask.execute(query, enrollmentDataQueryHandler, enrollmentDataQueryFault);
+            };
+
+
             //================================================================================================>
 
             /**
@@ -531,7 +573,82 @@ function setup() {
                 var v2017 = [info2017ela, info2017math];
                 passingChartsVM.diffScore(v2015, v2016, v2017);
             };
-            //============================================================================================================>
+
+            /**
+             * [chronicDataQueryFault]
+             * @param  getChronicData2()
+             * @return {error}
+             */
+            function chronicDataQueryFault(error) {
+                console.log(error.messaege);
+            };
+
+            /**
+             * [chronicDataQueryHandler]
+             * @param  getChronicData()
+             * @return {}
+             */
+            function chronicDataQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var chronicInfo = [];
+                if (features.length > 0) {
+                    $.each(features, function(index, item) {
+                        chronicInfo.push({
+                            fy: item.attributes.FY,
+                            entityID: item.attributes.EntityID,
+                            gradeLevel: item.attributes.GradeLevel,
+                            gradeLevelDef: item.attributes.GradeLevelDef,
+                            subGroup: item.attributes.Subgroup,
+                            subGroupDef: item.attributes.SubgroupDef,
+                            PCT_Absences: item.attributes.PCT_18plus_Absences_num,
+                            PCT_AbsencesText: item.attributes.PCT_18plus_Absences_text
+                        });
+                    });
+                } else {
+                    chronicInfo;
+                }
+                // console.log(chronicInfo);
+                chronicChartsVM.chronicAbsenceChart(chronicInfo, selectedYear);
+            };
+
+            /**
+             * [enrollmentDataQueryFault]
+             * @param  getEnrollmentData()
+             * @return {error}
+             */
+            function enrollmentDataQueryFault(error) {
+                console.log(error.messaege);
+            };
+
+            /**
+             * [enrollmentDataQueryHandler]
+             * @param  getEnrollmentData()
+             * @return {}
+             */
+            function enrollmentDataQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var enrollmentData = [];
+                    $.each(features, function(index, item) {
+                        enrollmentData.push({
+                            fy: item.attributes.FY,
+                            entityID: item.attributes.EntityID,
+                            ps: item.attributes.PS,
+                            kg: item.attributes.KG,
+                            g1: item.attributes.G1,
+                            g2: item.attributes.G2,
+                            g3: item.attributes.G3,
+                            total: item.attributes.Total,
+                        });
+                    });
+
+                // console.log(enrollmentData);
+                enrollmentChartsVM.enrollmentChart(enrollmentData, selectedYear);
+            };
+//============================================================================================================>
 
             /**
              * [getSchoolNames] - populates the dropdown menu for "Find a School"
@@ -552,7 +669,7 @@ function setup() {
                             dir: "asc"
                         }
                     },
-                    index: 0,
+                    index: 1,
                     change: onChange
                 });
 
@@ -573,6 +690,8 @@ function setup() {
                 getSchoolBreakDown(dataItem);
                 getDistrictBreakDown(dataItem);
                 getStateBreakDown();
+                getChronicData(dataItem);
+                getEnrollmentData(dataItem);
 
                 // getDistrictData(dataItem);
 
@@ -605,6 +724,8 @@ function setup() {
                     getSchoolBreakDown(dataItem);
                     getDistrictBreakDown(dataItem);
                     getStateBreakDown();
+                    getChronicData(dataItem);
+                    getEnrollmentData(dataItem);
 
                     // getDistrictData(dataItem);
 

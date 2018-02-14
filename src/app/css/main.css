@@ -333,14 +333,35 @@ Header Section
     width: 485px !important;
 }
 
-
-
 .btn-group-justified {
     width: 195px;
 }
 
 .note{
     font-size: smaller;
+}
+
+/*******************
+ Miscellaneous
+********************/
+.bar {
+  color: #cc0000;
+  font-size: 250%;
+  vertical-align: sub;
+}
+.legd {
+  margin: 0 0 0 35px;
+}
+
+.replaceDiv {
+    text-align: center;
+}
+
+.replace {
+    font-weight: bold;
+    font-size: 32px;
+    margin: 0;
+    color: red;
 }
 
 /*******************

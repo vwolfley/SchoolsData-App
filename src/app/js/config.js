@@ -31,6 +31,13 @@ define([], function() {
             stateAzMERIT2015ela: [0,42,23,28,7],
             stateAzMERIT2015math: [0,38,27,24,11],
 
+            // Chronic Absent Rate for State
+            // All Students, All Grades
+            stateChronicRate2014: 13,
+            stateChronicRate2015: 14,
+            stateChronicRate2016: 14,
+            stateChronicRate2017: 0,
+
             subGroups1: [
                   "All Students",
                   "Male",
