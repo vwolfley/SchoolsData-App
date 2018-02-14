@@ -71,7 +71,7 @@
                             title: {
                                 text: "Student Enrollment"
                             },
-                            theme: "bootstrap",
+                            theme: "Silver",
                             seriesDefaults: {},
                             dataSource: {
                                 data: enrollmentData
@@ -111,7 +111,8 @@
                             },
                             valueAxis: [{
                                 title: {
-                                    text: "Students"
+                                    text: "Students",
+                                    font: "bold 14px Arial, Helvetica, sans-serif"
                                 },
                                 min: 0,
                                 labels: {
@@ -124,7 +125,8 @@
                             }, {
                                 name: "change",
                                 title: {
-                                    text: "Percent Change %"
+                                    text: "Percent Change %",
+                                    font: "bold 14px Arial, Helvetica, sans-serif"
                                 },
                                 min: cmin,
                                 max: cmax,
@@ -134,6 +136,9 @@
                             }],
                             categoryAxis: {
                                 field: "fy",
+                                labels: {
+                                    font: "bold 12px Arial, Helvetica, sans-serif"
+                                },
                                 line: {
                                     visible: false
                                 },

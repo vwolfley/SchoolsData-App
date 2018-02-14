@@ -64,7 +64,8 @@
                         xAxis: {
                             max: 100,
                             title: {
-                                text: "ELA Percent Passing"
+                                text: "ELA Percent Passing",
+                                font: "bold 14px Arial, Helvetica, sans-serif"
                             },
                             labels: {
                                 template: "${ value }%"
@@ -74,7 +75,8 @@
                             min: 0,
                             max: 100,
                             title: {
-                                text: "Math Percent Passing"
+                                text: "Math Percent Passing",
+                                font: "bold 14px Arial, Helvetica, sans-serif"
                             },
                             labels: {
                                 template: "${ value }%"

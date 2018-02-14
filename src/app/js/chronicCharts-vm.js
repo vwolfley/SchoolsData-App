@@ -96,7 +96,7 @@
                             title: {
                                 text: "Student Chronic Absence Rates by Subgroup"
                             },
-                            theme: "bootstrap",
+                            theme: "Silver",
                             legend: {
                                 position: "bottom",
                                 visible: false
@@ -172,7 +172,7 @@
                             title: {
                                 text: "Student Chronic Absence Rates by Grade"
                             },
-                            theme: "bootstrap",
+                            theme: "Silver",
                             legend: {
                                 position: "bottom",
                                 visible: false
