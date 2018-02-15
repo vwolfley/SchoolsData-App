@@ -55,13 +55,13 @@
                     }
                     // console.log(cmin, cmax);
 
-                    var enrollmentTotals = [];
-                    $.each(enrollmentData, function(index, item) {
-                        enrollmentTotals.push({
-                            FY: item.fy,
-                            Total: item.total
-                        });
-                    });
+                    // var enrollmentTotals = [];
+                    // $.each(enrollmentData, function(index, item) {
+                    //     enrollmentTotals.push({
+                    //         FY: item.fy,
+                    //         Total: item.total
+                    //     });
+                    // });
                     // console.log(enrollmentTotals);
 
                     buildChart();

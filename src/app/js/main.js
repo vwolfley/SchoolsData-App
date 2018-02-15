@@ -46,10 +46,11 @@ function setup() {
             "appPackages/passingCharts-vm",
             "appPackages/chronicCharts-vm",
             "appPackages/enrollmentCharts-vm",
+            "appPackages/enrollmentTables-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -296,15 +297,30 @@ function setup() {
                 var dataItem = e;
                 var queryTask;
                 var query;
+                gradeEnroll();
+                raceEnroll()
 
-                queryTask = new QueryTask(appConfig.mainURL + "/3");
-                query = new Query();
-                query.where = "EntityID = " + dataItem.entityID;
-                query.returnGeometry = false;
-                query.outFields = ["*"];
-                // console.log(query.where);
+                function gradeEnroll() {
+                    queryTask = new QueryTask(appConfig.mainURL + "/3");
+                    query = new Query();
+                    query.where = "EntityID = " + dataItem.entityID;
+                    query.returnGeometry = false;
+                    query.outFields = ["*"];
+                    // console.log(query.where);
 
-                queryTask.execute(query, enrollmentDataQueryHandler, enrollmentDataQueryFault);
+                    queryTask.execute(query, enrollmentGradeQueryHandler, enrollmentDataQueryFault);
+                };
+
+                function raceEnroll() {
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    query = new Query();
+                    query.where = "EntityID = " + dataItem.entityID + " AND FY = '" + selectedYear + "'";
+                    query.returnGeometry = false;
+                    query.outFields = ["*"];
+                    console.log(query.where);
+
+                    queryTask.execute(query, enrollmentRaceQueryHandler, enrollmentDataQueryFault);
+                }
             };
 
 
@@ -623,32 +639,51 @@ function setup() {
             };
 
             /**
-             * [enrollmentDataQueryHandler]
+             * [enrollmentGradeQueryHandler]
              * @param  getEnrollmentData()
              * @return {}
              */
-            function enrollmentDataQueryHandler(results) {
+            function enrollmentGradeQueryHandler(results) {
                 var features = results.features;
                 // console.log(features);
 
                 var enrollmentData = [];
-                    $.each(features, function(index, item) {
-                        enrollmentData.push({
-                            fy: item.attributes.FY,
-                            entityID: item.attributes.EntityID,
-                            ps: item.attributes.PS,
-                            kg: item.attributes.KG,
-                            g1: item.attributes.G1,
-                            g2: item.attributes.G2,
-                            g3: item.attributes.G3,
-                            total: item.attributes.Total,
-                        });
+                var enrollmentInfo = [];
+                $.each(features, function(index, item) {
+                    enrollmentData.push({
+                        fy: item.attributes.FY,
+                        entityID: item.attributes.EntityID,
+                        ps: item.attributes.PS,
+                        kg: item.attributes.KG,
+                        g1: item.attributes.G1,
+                        g2: item.attributes.G2,
+                        g3: item.attributes.G3,
+                        total: item.attributes.Total,
                     });
-
+                    enrollmentInfo.push(item.attributes);
+                });
                 // console.log(enrollmentData);
+                // console.log(enrollmentInfo);
                 enrollmentChartsVM.enrollmentChart(enrollmentData, selectedYear);
+                enrollmentTablessVM.enrollmentTableGrade(enrollmentInfo);
             };
-//============================================================================================================>
+
+            /**
+             * [enrollmentRaceQueryHandler]
+             * @param  getEnrollmentData()
+             * @return {}
+             */
+            function enrollmentRaceQueryHandler(results) {
+                var features = results.features;
+                console.log(features);
+
+                var raceEnrollment = [];
+                $.each(features, function(index, item) {
+                    raceEnrollment.push(item.attributes);
+                });
+                enrollmentTablessVM.enrollmentTableRace(raceEnrollment);
+            };
+            //============================================================================================================>
 
             /**
              * [getSchoolNames] - populates the dropdown menu for "Find a School"
@@ -999,7 +1034,7 @@ function setup() {
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
-                        width: 70
+                        width: 60
 
                     }, {
                         field: "entityID",
@@ -1007,7 +1042,7 @@ function setup() {
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
-                        width: 70
+                        width: 60
                     }, {
                         field: "sName",
                         title: "School Name",
