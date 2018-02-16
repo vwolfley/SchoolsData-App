@@ -85,7 +85,6 @@
                                 color: "#ff0000",
                                 axis: "change",
                                 tooltip: {
-                                    // format: "{0:N0}%"
                                     template: "#= series.name #: #= kendo.format('{0:N0}', value) #%"
                                 },
                                 labels: {
@@ -148,17 +147,22 @@
                  */
                 self.enrollmentCohorts = function(e) {
                     var enrollmentData = e;
-                    console.log(enrollmentData);
+                    // console.log(enrollmentData);
 
                     var cohorts = [];
                     $.each(enrollmentData, function(index, item) {
 
+                        var c1 = (item.KG + item.G1 + item.G2);
+                        var c2 = (item.G3 + item.G4 + item.G5);
+                        var c3 = (item.G6 + item.G7 + item.G8);
+                        var c4 = (item.G9 + item.G10 + item.G11 + item.G12);
+
                         cohorts.push({
                             fy: item.FY,
-                            ck2: (item.KG + item.G1 + item.G2),
-                            c35: (item.G3 + item.G4 + item.G5),
-                            c68: (item.G6 + item.G7 + item.G8),
-                            c912: (item.G9 + item.G10 + item.G11 + item.G12)
+                            ck2: (c1 != 0) ? c1 : null,
+                            c35: (c2 != 0) ? c2 : null,
+                            c68: (c3 != 0) ? c3 : null,
+                            c912: (c4 != 0) ? c4 : null,
                         });
                     });
                     console.log(cohorts);
@@ -204,7 +208,6 @@
                                     text: "Students",
                                     font: "bold 14px Arial, Helvetica, sans-serif"
                                 },
-                                min: 0,
                                 labels: {
                                     format: "{0:N0}"
                                 },
@@ -220,11 +223,11 @@
                                 },
                                 line: {
                                     visible: false
-                                },
-                                axisCrossingValues: [0, 10]
+                                }
                             },
                             tooltip: {
-                                visible: true
+                                visible: true,
+                                template: "Cohort: #=series.name#<br />#= kendo.format('{0:N0}',value) #"
                             }
                         });
                     }
