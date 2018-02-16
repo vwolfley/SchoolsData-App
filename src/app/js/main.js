@@ -314,10 +314,10 @@ function setup() {
                 function raceEnroll() {
                     queryTask = new QueryTask(appConfig.mainURL + "/4");
                     query = new Query();
-                    query.where = "EntityID = " + dataItem.entityID + " AND FY = '" + selectedYear + "'";
+                    query.where = "EntityID = " + dataItem.entityID + " AND FY = " + selectedYear;
                     query.returnGeometry = false;
                     query.outFields = ["*"];
-                    console.log(query.where);
+                    // console.log(query.where);
 
                     queryTask.execute(query, enrollmentRaceQueryHandler, enrollmentDataQueryFault);
                 }
@@ -664,7 +664,8 @@ function setup() {
                 });
                 // console.log(enrollmentData);
                 // console.log(enrollmentInfo);
-                enrollmentChartsVM.enrollmentChart(enrollmentData, selectedYear);
+                enrollmentChartsVM.enrollmentChart(enrollmentData);
+                enrollmentChartsVM.enrollmentCohorts(enrollmentInfo)
                 enrollmentTablessVM.enrollmentTableGrade(enrollmentInfo);
             };
 
@@ -675,7 +676,7 @@ function setup() {
              */
             function enrollmentRaceQueryHandler(results) {
                 var features = results.features;
-                console.log(features);
+                // console.log(features);
 
                 var raceEnrollment = [];
                 $.each(features, function(index, item) {

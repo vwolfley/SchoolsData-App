@@ -15,11 +15,10 @@
                  * Data from [enrollmentDataQueryHandler] via [getEnrollmentData();]
                  * @return
                  */
-                self.enrollmentChart = function(e, year) {
+                self.enrollmentChart = function(e) {
                     // console.log(e);
                     var enrollmentData = e;
                     var edata = e;
-                    var selectedYear = year;
 
                     var change = [null, ];
                     var p1 = [];
@@ -54,15 +53,6 @@
                         cmax = 10;
                     }
                     // console.log(cmin, cmax);
-
-                    // var enrollmentTotals = [];
-                    // $.each(enrollmentData, function(index, item) {
-                    //     enrollmentTotals.push({
-                    //         FY: item.fy,
-                    //         Total: item.total
-                    //     });
-                    // });
-                    // console.log(enrollmentTotals);
 
                     buildChart();
 
@@ -151,6 +141,94 @@
                     }
                 };
 
+                /**
+                 * [enrollmentCohorts] - Shows school enrollment by .
+                 * Data from [enrollmentDataQueryHandler] via [getEnrollmentData();]
+                 * @return
+                 */
+                self.enrollmentCohorts = function(e) {
+                    var enrollmentData = e;
+                    console.log(enrollmentData);
+
+                    var cohorts = [];
+                    $.each(enrollmentData, function(index, item) {
+
+                        cohorts.push({
+                            fy: item.FY,
+                            ck2: (item.KG + item.G1 + item.G2),
+                            c35: (item.G3 + item.G4 + item.G5),
+                            c68: (item.G6 + item.G7 + item.G8),
+                            c912: (item.G9 + item.G10 + item.G11 + item.G12)
+                        });
+                    });
+                    console.log(cohorts);
+
+                    buildCohortChart();
+
+                    function buildCohortChart() {
+                        $("#enrollmentCohorts").kendoChart({
+                            title: {
+                                text: "Student Enrollment by Cohorts"
+                            },
+                            theme: "Silver",
+                            seriesDefaults: {
+                                type: "line",
+                                style: "smooth"
+                            },
+                            dataSource: {
+                                data: cohorts,
+                                sort: {
+                                    field: "fy",
+                                    dir: "asc"
+                                }
+                            },
+                            series: [{
+                                field: "ck2",
+                                name: "KG-2"
+                            }, {
+                                field: "c35",
+                                name: "3-5"
+                            }, {
+                                field: "c68",
+                                name: "6-8"
+                            }, {
+                                field: "c912",
+                                name: "9-12"
+                            }],
+                            legend: {
+                                position: "bottom",
+                                visible: true
+                            },
+                            valueAxis: [{
+                                title: {
+                                    text: "Students",
+                                    font: "bold 14px Arial, Helvetica, sans-serif"
+                                },
+                                min: 0,
+                                labels: {
+                                    format: "{0:N0}"
+                                },
+                                line: {
+                                    visible: false
+                                },
+                                axisCrossingValue: 0
+                            }],
+                            categoryAxis: {
+                                field: "fy",
+                                labels: {
+                                    font: "bold 12px Arial, Helvetica, sans-serif"
+                                },
+                                line: {
+                                    visible: false
+                                },
+                                axisCrossingValues: [0, 10]
+                            },
+                            tooltip: {
+                                visible: true
+                            }
+                        });
+                    }
+                };
 
             }; // end enrollmentChartVM
             return enrollmentChartVM;

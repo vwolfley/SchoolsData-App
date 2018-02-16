@@ -360,7 +360,7 @@
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
-                            field: "Subgroup",
+                            field: "SubgroupDef",
                             title: "Subgroup",
                             width: 58,
                             attributes: {
