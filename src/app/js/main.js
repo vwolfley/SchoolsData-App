@@ -230,7 +230,8 @@ function setup() {
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = " + dataItem.dID + "AND FY = " + year + " AND Subgroup = 0";
+                    query.where = "EntityID = " + dataItem.dID + "AND FY = " + year;
+                    // query.where = "EntityID = " + dataItem.dID + "AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.districtBreakdownQueryHandler, azBreakdownVM.districtBreakdownQueryFault)
@@ -263,7 +264,8 @@ function setup() {
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = -1" + " AND FY = " + year + " AND Subgroup = 0";
+                    query.where = "EntityID = -1" + " AND FY = " + year;
+                    // query.where = "EntityID = -1" + " AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.stateBreakdownQueryHandler, azBreakdownVM.stateBreakdownQueryFault)

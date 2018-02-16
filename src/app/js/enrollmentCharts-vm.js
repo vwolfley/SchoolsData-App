@@ -165,7 +165,7 @@
                             c912: (c4 != 0) ? c4 : null,
                         });
                     });
-                    console.log(cohorts);
+                    // console.log(cohorts);
 
                     buildCohortChart();
 

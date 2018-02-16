@@ -15,12 +15,21 @@
             var azBreakdownVM = new function() {
 
                 var self = this;
+                self.typeA = "ELA";
+                self.tLevel = "All Students";
+                self.gLevel = "All Students";
 
                 self.sYear = function(e) {
                     self.selectedYear = e;
                 };
 
                 self.schoolBreakdownQueryFault = function(error) {
+                    console.log(error.messaege);
+                };
+                self.districtBreakdownQueryFault = function(error) {
+                    console.log(error.messaege);
+                };
+                self.stateBreakdownQueryFault = function(error) {
                     console.log(error.messaege);
                 };
 
@@ -135,32 +144,25 @@
                     self.distinctMATH.sort(compare);
                     // console.log(self.distinctMATH);
 
-                    self.typeA = "ELA";
-                    self.tLevel = "All Students";
 
-                    return;
+                    self.allDone();
                 };
                 //end schoolBreakdownQueryHandler
 
-
-                self.districtBreakdownQueryFault = function(error) {
-                    console.log(error.messaege);
-                };
-
                 /**
                  * [districtBreakdownQueryHandler description]
-                 * @param  {[type]} results [description]
+                 * @param  {[type]} results [description],
                  * @return {[type]}         [description]
                  */
                 self.districtBreakdownQueryHandler = function(results) {
                     var features = results.features;
                     // console.log(features);
 
-                    var districtELA = [];
-                    var districtMATH = [];
+                    self.districtELA = [];
+                    self.districtMATH = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675 && item.attributes.TestLevel === 0) {
-                            districtELA.push({
+                        if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === self.gLevel) {
+                            self.districtELA.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
                                 area: item.attributes.ContentAreaDef,
@@ -174,8 +176,8 @@
                                 ELARDT: item.attributes.PCT_Redacted
                             });
                         }
-                        if (item.attributes.ContentArea === 677 && item.attributes.TestLevel === 0) {
-                            districtMATH.push({
+                        if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === self.gLevel) {
+                            self.districtMATH.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
                                 area: item.attributes.ContentAreaDef,
@@ -190,26 +192,21 @@
                             });
                         }
                     });
-                    // console.log(districtELA);
-                    // console.log(districtMATH);
-
-                    return;
+                    // console.log(self.districtELA);
+                    // console.log(self.districtMATH);
+                    self.allDone();
                 };
 
-
-                self.stateBreakdownQueryFault = function(error) {
-                    console.log(error.messaege);
-                };
 
                 self.stateBreakdownQueryHandler = function(results) {
                     var features = results.features;
                     // console.log(features);
 
-                    var stateELA = [];
-                    var stateMATH = [];
+                    self.stateELA = [];
+                    self.stateMATH = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675 && item.attributes.TestLevel === 0) {
-                            stateELA.push({
+                        if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === self.gLevel) {
+                            self.stateELA.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
                                 area: item.attributes.ContentAreaDef,
@@ -223,8 +220,8 @@
                                 ELARDT: item.attributes.PCT_Redacted
                             });
                         }
-                        if (item.attributes.ContentArea === 677 && item.attributes.TestLevel === 0) {
-                            stateMATH.push({
+                        if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === self.gLevel) {
+                            self.stateMATH.push({
                                 entityID: item.attributes.EntityID,
                                 FY: item.attributes.FY,
                                 area: item.attributes.ContentAreaDef,
@@ -239,26 +236,23 @@
                             });
                         }
                     });
-                    // console.log(stateELA);
-                    // console.log(stateMATH);
+                    // console.log(self.stateELA);
+                    // console.log(self.stateMATH);
 
-
-                    return;
+                    self.allDone();
                 };
 
-
-
-
+                var numCalls = 0;
                 self.allDone = function() {
-                    console.log("YES ALL DONE");
-                    // self.testLevel();
-                    // self.createAllMERITChart();
+                    if (numCalls === 2) {
+                        // console.log("YES ALL DONE");
+                        self.testLevel();
+                        self.createAllMERITChart();
+                    } else {
+                        numCalls ++;
+                        // console.log(numCalls);
+                    }
                 };
-
-
-
-
-
 
 
                 /**
@@ -321,9 +315,9 @@
                  * @return {[type]} [description]
                  */
                 self.createAllMERITChart = function() {
-                    console.log(self.breakdownELA);
-                    console.log(self.stateELA);
-                    console.log(self.districtELA);
+                    // console.log(self.breakdownELA);
+                    // console.log(self.stateELA);
+                    // console.log(self.districtELA);
                     // console.log(self.breakdownMATH);
                     // console.log(self.typeA);
                     // console.log(self.tLevel);
@@ -540,10 +534,10 @@
                     // console.log(TotalArray);
 
                     var TotalArray = self.sbd.concat(self.dbd, self.studentBreakDown);
-                    // console.log(TotalArray);
+                    console.log(TotalArray);
 
                     buildChart();
-                    // buildChart1();
+                    buildChart1();
 
                     /**
                      * [buildChart - Bar Chart showing four categories of Proficiency]
@@ -634,7 +628,6 @@
                                 }
                             },
                             categoryAxis: {
-                                // field: "group",
                                 categories: appConfig.subGroupsAll,
                                 line: {
                                     visible: true
@@ -645,7 +638,7 @@
                             },
                             tooltip: {
                                 visible: true,
-                                template: "${ series.name }: ${ value }%"
+                                template: "${ category }<br />${ series.name }: ${ value }%"
                             }
                         });
                     };
@@ -730,8 +723,7 @@
                             },
                             tooltip: {
                                 visible: true,
-                                // template: "${ series.name }: ${ value }%"
-                                template: "#if (value < 100) {# ${ series.name }: ${ value }% #} else {# Redacted #}#"
+                                template: "#if (value < 100) {# ${ category }<br />${ series.name }: ${ value }% #} else {# ${ category }<br />Redacted #}#"
                             }
                         });
                     };

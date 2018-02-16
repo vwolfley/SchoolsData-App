@@ -57,7 +57,7 @@ define([], function() {
             ],
 
             sortOrder: {
-                  "All": 0,
+                  "All Students": 0,
                   "Male": 1,
                   "Female": 2,
                   "White": 3,
