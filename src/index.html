@@ -5,17 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MAG | AzMERIT Data</title>
-    <meta name="description" content="MAG AzMERIT Data Visualization  #MAGmaps">
+    <title>MAG | Schools Data</title>
+    <meta name="description" content="MAG Arizona schools data visualization project">
+    <meta name="keywords" content="  schools, education, testing, standards, scores, AzMERIT, enrollment, data, visualization, ADE, Arizona, maps, MAG, ESRI, #MAGmaps">
     <meta name="subject" content="School data for the State of Arizona">
     <meta name="author" content="Maricopa Association of Governments">
     <link type="text/plain" rel="author" href="http://geo.azmag.gov/maps//humans.txt">
     <meta name="contact" content="www.azmag.gov">
     <meta name="url" content="http://geo.azmag.gov/maps//">
     <link rel="shortcut icon" type="image-favorites-icon" href="images/magfavicon.png">
-    <meta name="creation-date" content="10/03/2016">
-    <meta name="revision-date" content="05/16/2017">
-    <meta name="version" content="0.0.3">
+    <meta name="creation-date" content="2016-10-03">
+    <meta name="revision-date" content="2016-10-31">
+    <meta name="version" content="0.0.1">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <!-- Kendo UI Bootstrap -->
@@ -23,31 +24,27 @@
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.bootstrap.min.css" />
     <!-- ArcGIS -->
     <link rel="stylesheet" href="https://js.arcgis.com/3.18/esri/css/esri.css">
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="app/css/main.css" />
 </head>
 
 <body>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <h3 class="example-title">AzMERIT<span> Test Scores</span></h3>
-                <h4 class="example-description">Data Visualization Project</h4>
-                <div id="year-filtering-tabs" class="filtering-tabs"></div>
+            <h1 class="title">Arizona<span>&nbsp;Schools</span></h1>
+            <h4 class="subtitle">Data Visualization Project</h4>
+            <div id="year-filtering-tabs" class="filtering-tabs"></div>
+            <div id="pickSchools" class="col-md-10 field">
+                <h4 class="tDrop">Find a school</h4>
+                <input id="schools" />
+            </div>
+            <div id="infoBtn" class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
             </div>
         </div>
     </nav>
     <!-- MAIN Container -->
     <div class="container" role="main">
-        <div class="row">
-            <div class="col-md-10 field">
-                <h4 class="tDrop">Find a school</h4>
-                <input id="schools" />
-            </div>
-            <div id="infoBtn" class="col-md-2">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Learn more &raquo;</button>
-            </div>
-        </div>
         <!-- Modal Info-->
         <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modalInfo">
             <div class="modal-dialog" role="document">
@@ -62,32 +59,39 @@
             </div>
         </div>
         <!-- / Modal Legal-->
-        <div class="separator"></div>
+        <!-- row 1 **Info & Map -->
+        <h3 class="sectionTitle">Schools Details</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-6">
-                <h3 id="schoolName2" class="schoolName"></h3>
-                <h6 id="sNUM2" class="schoolName"></h6>
-                <h5 id="districtName2" class="districtName"></h5>
+                <h4 id="" class="schoolName"></h4>
+                <h6 id="" class="schoolID"></h6>
+                <h5 id="" class="districtName"></h5>
                 <br>
                 <div id="info1" class="info"></div>
                 <div id="info2" class="info"></div>
+                <div class="row">
+                    <div id="infoBadge" class=""></div>
+                </div>
             </div>
             <div class="col-md-6">
                 <div id="mapDiv"></div>
+                <div id="BasemapToggle"></div>
             </div>
         </div>
         <div class="separator"></div>
-        <!-- row 1 -->
-        <h4 class="example-subtitle">Schools AzMERIT Percent Passing Scores</h4>
+        <!-- /row 1 -->
+        <!-- row 3 **AzMERIT Percent Passing -->
+        <h3 class="sectionTitle">Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h3 id="schoolName0" class="schoolName"></h3>
-            <h6 id="sNUM0" class="schoolName"></h6>
-            <h5 id="districtName0" class="districtName"></h5>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div id="ela" class="sectionHeader">
+                <div id="ela" class="infoHeader">
                     <h4>ELA Score</h4>
                     <span id="elaScore" class="stat"></span>
                     <div class="diff">
@@ -98,7 +102,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div id="math" class="sectionHeader">
+                <div id="math" class="infoHeader">
                     <h4>MATH Score</h4>
                     <span id="mathScore" class="stat"></span>
                     <div class="diff">
@@ -109,24 +113,26 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div id="comp" class="sectionHeader">
+                <div id="comp" class="infoHeader">
                     <h4>Comparison Scores</h4>
                     <div id="compChart"></div>
                     <span id="cName"></span>
                 </div>
             </div>
         </div>
-        <!-- /row 1 -->
+        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
-        <h4 class="example-subtitle">Schools AzMERIT Student Breakdown</h4>
+        <!-- /row 3 -->
+        <!-- row 4 **AzMERIT Student Breakdown -->
+        <h3 class="sectionTitle">Schools AzMERIT Student Breakdown</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h3 id="schoolName1" class="schoolName"></h3>
-            <h6 id="sNUM1" class="schoolName"></h6>
-            <h5 id="districtName1" class="districtName"></h5>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span><h4>Assessment Type</h4></span>
                 <div id="typeAssess" class="btn-group level" data-toggle="buttons">
                     <label class="btn btn-primary active">
@@ -139,14 +145,47 @@
                 <span><h4>Test Level</h4></span>
                 <div id="fradio" class="funkyradio"></div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-5">
                 <div id="allChart"></div>
+            </div>
+            <div class="col-md-5">
+                <div id="passChart"></div>
             </div>
         </div>
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
-        <!-- /row 2 -->
-        <h4 class="example-subtitle">District Summary</h4>
+        <!-- /row 4 -->
+        <!-- row 5 ** Percent Passing Breakdown-->
+        <!-- <h3 class="sectionTitle">Schools AzMERIT Percent Passed</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div>
+            <h4 id="schoolName3" class="schoolName"></h4>
+            <h6 id="sNUM3" class="schoolName"></h6>
+            <h5 id="districtName3" class="districtName"></h5>
+        </div> -->
+        <!--  <div class="row">
+            <div class="col-md-3">
+                <span><h4>Assessment Type</h4></span>
+                <div id="typeAssess1" class="btn-group level" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="options1" id="option3" value="ELA1" autocomplete="off" checked> ELA
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options1" id="option4" value="MATH1" autocomplete="off"> MATH
+                    </label>
+                </div>
+                <span><h4>Test Level</h4></span>
+                <div id="fradio1" class="funkyradio"></div>
+            </div>
+            <div class="col-md-9">
+                <div id="passChart"></div>
+            </div>
+        </div>
+        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div> -->
+        <!-- <div class="separator"></div> -->
+        <!-- /row 5 -->
+        <!-- row 6 **District Summary Table-->
+        <!-- <h3 class="sectionTitle">District Summary</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-12">
@@ -155,35 +194,124 @@
                 <div id="grid"></div>
             </div>
         </div>
+        <div class="separator"></div> -->
+        <!-- /row 6 -->
+        <!-- row 7 **District Scatter Chart-->
+        <!-- <h3 class="sectionTitle">District Schools AzMERIT Percent Passing Scores</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 id="distName1"></h4>
+                <h6 id=distNum1></h6>
+                <div id="azMERITdistrictScatter"></div>
+            </div>
+        </div>
+        <div class="separator"></div> -->
+        <!-- /row 7 -->
+
+        <!-- new row **Enrollment by Grade Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentChart" class="chartStyle"></div>
+        </div>
         <div class="separator"></div>
-        <h4 class="example-subtitle">All Schools AzMERIT Percent Passing Scores</h4>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Grade Cohort Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment by Cohorts</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentCohorts" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Grade Table-->
+        <h3 class="sectionTitle">Total Student Enrollment Table by Grade</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentTable-Grade" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Race Table-->
+        <h3 class="sectionTitle">Total Student Enrollment Table by Race</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentTable-Race" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+
+        <!-- new row **Chronic Absence Subgroup Chart-->
+        <h3 class="sectionTitle">Chronic Absence by SubGroup</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="chronicAbsenceChart1" class="row">
+            <div id="chronicSubChart" class="chartStyle"></div>
+            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Chronic Absence Grade Chart-->
+        <h3 class="sectionTitle">Chronic Absence by Grade</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName"></h4>
+            <h6 id="" class="schoolID"></h6>
+            <h5 id="" class="districtName"></h5>
+        </div>
+        <div id="chronicAbsenceChart2" class="row">
+            <div id="chronicGradeChart" class="chartStyle"></div>
+            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+
+
+
+        <!-- row 8 **State Scatter Chart-->
+        <h3 class="sectionTitle">All Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div id="azMERITchartSchools" class="col-md-12"></div>
         </div>
         <div class="separator"></div>
-        <!-- <div class="row">
-            <h4 class="example-subtitle">State Summary</h4>
-            <span class="metric">For <span class="selected-year"></span></span>
-            <div class="col-md-4">
-                <div class="panel stateInfo">
-                    <div class="district-image"></div>
-                    <div id="districtInfo"></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel stateInfo">
-                    <div class="school-image"></div>
-                    <div id="schoolInfo"></div>
-                </div>
-            </div>
-        </div>
-        <div class="separator"></div> -->
+        <!-- /row 8 -->
     </div>
     <!-- /container -->
     <footer class="blog-footer">
-        <p>&copy; 2016 Maricopa Association of Governments</p>
-        <p>version <span id="version"></span> | <a href="#" data-toggle="modal" data-target="#modal2">Legal Disclaimer</a></p>
+        <p>Copyright&nbsp;&copy;&nbsp;<span class="copyright"></span>&nbsp;<a class="" title="Visit MAG Website" role="navigation" target="_blank" href="https://www.azmag.gov">Maricopa Association of Governments</a></p>
+        <p>version <span class="version"></span> | <a href="#" data-toggle="modal" data-target="#modal2">Legal Disclaimer</a></p>
         <p>
             <a href="#">Back to top</a>
         </p>
@@ -197,14 +325,14 @@
     <script>
     var dojoConfig = {
         packages: [{
-            name: "appConfig",
-            location: location.pathname.replace(/\/[^/]+$/, "") + "././js"
+            name: "appPackages",
+            location: location.pathname.replace(/\/[^/]+$/, "") + "./app/js"
         }]
     };
     </script>
     <!-- ArcGIS JS 3.x -->
     <script src="https://js.arcgis.com/3.18/"></script>
-    <script src="js/main.js"></script>
+    <script src="app/js/main.js"></script>
 </body>
 
 </html>
