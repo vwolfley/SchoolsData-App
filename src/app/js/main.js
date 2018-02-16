@@ -47,10 +47,11 @@ function setup() {
             "appPackages/chronicCharts-vm",
             "appPackages/enrollmentCharts-vm",
             "appPackages/enrollmentTables-vm",
+            "appPackages/frlScatterChart-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -402,6 +403,7 @@ function setup() {
 
                 self.azSchools = [];
                 var azSchoolsScatter = [];
+                var azSchoolsFRL = [];
                 $.each(features, function(index, item) {
 
                     self.azSchools.push({
@@ -437,13 +439,21 @@ function setup() {
                         rankSort: item.attributes.RankNum
                     });
 
+                    azSchoolsFRL.push({
+                        sName: item.attributes.SchoolName,
+                        entityID: item.attributes.EntityID,
+                        FY: item.attributes.FY,
+                        frl: item.attributes.FRL_CALC,
+                        score: item.attributes.Score
+                    });
+
                 });
                 // console.log(self.azSchools);
                 // console.log(azSchoolsScatter);
 
                 getSchoolNames();
                 scatterChartVM.azMERITscatterChart(azSchoolsScatter, selectedYear);
-
+                frlScatterChartVM.frlScatterChart(azSchoolsFRL, selectedYear);
             };
 
             function azMERITdistQueryFault(error) {
