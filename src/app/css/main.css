@@ -337,8 +337,11 @@ Header Section
     width: 195px;
 }
 
-.note{
+.note {
     font-size: smaller;
+}
+#footNote0 {
+    margin: 45px 0 0 15px;
 }
 
 /*******************

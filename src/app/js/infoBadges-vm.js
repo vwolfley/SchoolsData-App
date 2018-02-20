@@ -55,6 +55,14 @@
                         gradeClass = "badges gradeNA";
                         grade = "class='grade'";
                     }
+                    if (schoolGrade === "UR") {
+                        gradeClass = "badges gradeNA";
+                        grade = "class='grade'";
+                    }
+                    if (schoolGrade === "NR") {
+                        gradeClass = "badges gradeNA";
+                        grade = "class='grade'";
+                    }
 
                     gradeInfo = year + "</br>GRADE" + "<p " + grade + ">" + schoolGrade + "</p>";
 

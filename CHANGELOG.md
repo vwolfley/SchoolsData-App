@@ -28,8 +28,16 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
-## Version 0.0.4 | 201-10-05
+## Version 0.0.4 | 2018-02-20
 
+* changed info badges
+* added new info badges
+* updated header style
+* added enrollment chart with enrollment change
+* added enrollment tables
+* added enrollment cohorts
+* added chronic Absence charts by subgroup and grade
+* added scatter chart of scores vs free and reduced lunch
 
 ## Version 0.0.3 | 2017-05-16
 

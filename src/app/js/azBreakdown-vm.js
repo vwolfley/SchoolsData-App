@@ -534,7 +534,7 @@
                     // console.log(TotalArray);
 
                     var TotalArray = self.sbd.concat(self.dbd, self.studentBreakDown);
-                    console.log(TotalArray);
+                    // console.log(TotalArray);
 
                     buildChart();
                     buildChart1();
@@ -599,6 +599,7 @@
                             title: {
                                 text: title
                             },
+                            theme: "Silver",
                             dataSource: TotalArray,
                             legend: {
                                 visible: false,
@@ -686,6 +687,7 @@
                             title: {
                                 text: title
                             },
+                            theme: "Silver",
                             dataSource: TotalArray,
                             legend: {
                                 visible: false,

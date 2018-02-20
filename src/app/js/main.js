@@ -48,10 +48,11 @@ function setup() {
             "appPackages/enrollmentCharts-vm",
             "appPackages/enrollmentTables-vm",
             "appPackages/frlScatterChart-vm",
+            "appPackages/demographicsChart-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM, demographicsChartVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -298,10 +299,12 @@ function setup() {
 
             function getEnrollmentData(e) {
                 var dataItem = e;
+                // console.log(dataItem);
                 var queryTask;
                 var query;
                 gradeEnroll();
-                raceEnroll()
+                raceEnroll();
+                raceEnrollDistrict();
 
                 function gradeEnroll() {
                     queryTask = new QueryTask(appConfig.mainURL + "/3");
@@ -323,6 +326,17 @@ function setup() {
                     // console.log(query.where);
 
                     queryTask.execute(query, enrollmentRaceQueryHandler, enrollmentDataQueryFault);
+                }
+
+                function raceEnrollDistrict() {
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    query = new Query();
+                    query.where = "EntityID = " + dataItem.dID + " AND FY = " + selectedYear;
+                    query.returnGeometry = false;
+                    query.outFields = ["*"];
+                    // console.log(query.where);
+
+                    queryTask.execute(query, enrollmentRaceDistrictQueryHandler, enrollmentDataQueryFault);
                 }
             };
 
@@ -695,7 +709,29 @@ function setup() {
                     raceEnrollment.push(item.attributes);
                 });
                 enrollmentTablessVM.enrollmentTableRace(raceEnrollment);
+                demographicsChartVM.studentDemoChart(raceEnrollment);
             };
+
+            /**
+             * [enrollmentRaceDistrictQueryHandler]
+             * @param  getEnrollmentData()
+             * @return {}
+             */
+            function enrollmentRaceDistrictQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var raceEnrollment = [];
+                $.each(features, function(index, item) {
+                    if(item.attributes.Subgroup === 0) {
+                        raceEnrollment.push(item.attributes);
+                    }
+                });
+                demographicsChartVM.districtDemoChart(raceEnrollment);
+            };
+
+
+
             //============================================================================================================>
 
             /**
