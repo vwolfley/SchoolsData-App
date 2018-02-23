@@ -135,6 +135,9 @@
                             },
                             tooltip: {
                                 visible: true
+                            },
+                            chartArea: {
+                                height: 350
                             }
                         });
                     }
@@ -165,7 +168,7 @@
                             c912: (c4 != 0) ? c4 : null,
                         });
                     });
-                    console.log(cohorts);
+                    // console.log(cohorts);
 
                     buildCohortChart();
 
@@ -228,6 +231,9 @@
                             tooltip: {
                                 visible: true,
                                 template: "Cohort: #=series.name#<br />#= kendo.format('{0:N0}',value) #"
+                            },
+                            chartArea: {
+                                height: 350
                             }
                         });
                     }

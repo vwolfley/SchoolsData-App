@@ -47,10 +47,14 @@ function setup() {
             "appPackages/chronicCharts-vm",
             "appPackages/enrollmentCharts-vm",
             "appPackages/enrollmentTables-vm",
+            "appPackages/frlScatterChart-vm",
+            "appPackages/demographicsChart-vm",
+            "appPackages/azMeritTrends-vm",
+            "appPackages/districtTable-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM, demographicsChartVM, azMeritTrendsVM, districtTableVM) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -78,6 +82,7 @@ function setup() {
                 minZoom: 5,
                 maxZoom: 19,
                 basemap: "streets",
+                // basemap: "gray",
                 showAttribution: false,
                 logo: false
             });
@@ -90,6 +95,7 @@ function setup() {
 
             /**
              * [getSchoolsData]
+             * @param  {schoolSelected} e [SchoolEntityID, FY]
              * @return {azSchoolsQueryHandler}
              * @return {azSchoolsQueryFault} [error]
              */
@@ -103,11 +109,12 @@ function setup() {
                 query.where = "FY = '" + year + "' AND SchoolEntityID > 0";
                 query.returnGeometry = false;
                 query.outFields = ["*"];
-                queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault)
+                queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault);
             };
 
             /**
              * [getSchoolLocation]
+             * @param  {schoolSelected} e [EntityID, FY]
              * @return {schoolPointQueryHandler}
              * @return {schoolPointQueryFault} [error]
              */
@@ -122,13 +129,14 @@ function setup() {
                 query.returnGeometry = true;
                 query.outFields = ["*"];
 
-                queryTask.execute(query, schoolPointQueryHandler, schoolPointQueryFault)
+                queryTask.execute(query, schoolPointQueryHandler, schoolPointQueryFault);
             };
 
             /**
              * [getSchoolScores]
+             * @param  {schoolSelected} e [EntityID, Subgroup, TestLevel]
              * @return {schoolScoresQueryHandler}
-             * @return {schoolsQueryFault} [error]
+             * @return {schoolScoresQueryFault} [error]
              */
             function getSchoolScores(e) {
                 var dataItem = e;
@@ -156,6 +164,12 @@ function setup() {
                 promises.then(schoolScoresQueryHandler, schoolScoresQueryFault);
             };
 
+            /**
+             * [getDistrictData]
+             * @param  {schoolSelected} e [DistrictEntityID, FY]
+             * @return {districtDataQueryHandler}
+             * @return {districtDataQueryFault} [error]
+             */
             function getDistrictData(e) {
                 var dataItem = e;
                 var queryTask;
@@ -163,18 +177,38 @@ function setup() {
 
                 queryTask = new QueryTask(appConfig.mainURL + "/0");
                 query = new Query();
-                query.where = "DistrictEntityID = " + dataItem.dID;
+                query.where = "DistrictEntityID = " + dataItem.dID + " AND FY = '" + dataItem.FY + "'";
                 query.returnGeometry = false;
                 query.outFields = ["*"];
+                queryTask.execute(query, districtDataQueryHandler, districtDataQueryFault);
 
-                queryTask.execute(query, azMERITdistQueryHandler, azMERITdistQueryFault);
+            };
+
+            /**
+             * [getDistrictScores]
+             * @param  {schoolSelected} e [DistrictEntityID]
+             * @return {districtScoresQueryHandler}   [description]
+             * @return {districtScoresQueryFault} [error]
+             */
+            function getDistrictScores(e) {
+                var dataItem = e;
+                var queryTask;
+                var query;
+
+                queryTask = new QueryTask(appConfig.mainURL + "/1");
+                query = new Query();
+                query.where = "EntityID = " + dataItem.dID + " AND FY = " + dataItem.FY + " AND Subgroup = 0 AND TestLevel = 0";
+                // console.log(query.where);
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                queryTask.execute(query, districtScoresQueryHandler, districtScoresQueryFault);
             };
 
             /**
              * [getSchoolBreakDown]
-             *
-             * @return {breakdownQueryHandler}
-             * @return {breakdownQueryFault} [error]
+             * @param  {schoolSelected} e [EntityID & selectedYear]
+             * @return {schoolBreakdownQueryHandler}
+             * @return {schoolBreakdownQueryFault} [error]
              */
             function getSchoolBreakDown(e) {
                 var dataItem = e;
@@ -201,12 +235,33 @@ function setup() {
                     query.where = "EntityID = " + dataItem.entityID + "AND FY = " + year;
                     query.returnGeometry = false;
                     query.outFields = ["*"];
-                    queryTask.execute(query, azBreakdownVM.schoolBreakdownQueryHandler, azBreakdownVM.schoolBreakdownQueryFault)
+                    queryTask.execute(query, azBreakdownVM.schoolBreakdownQueryHandler, azBreakdownVM.schoolBreakdownQueryFault);
                 }
             };
 
             /**
+             * [getgetTestTrends]
+             * @param  {schoolSelected} e [EntityID & TestLevel]
+             * @return {azMeritTrendsQueryHandler}
+             * @return {azMeritTrendsQueryFault} [error]
+             */
+            function getTestTrends(e) {
+                var dataItem = e;
+                var queryTask;
+                var query;
+
+                queryTask = new QueryTask(appConfig.mainURL + "/1");
+                query = new Query();
+                query.where = "EntityID = " + dataItem.entityID + " AND TestLevel = 0";
+                // console.log(query.where);
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                queryTask.execute(query, azMeritTrendsVM.azMeritTrendsQueryHandler, azMeritTrendsVM.azMeritTrendsQueryFault);
+            };
+
+            /**
              * [getDistrictBreakDown]
+             * @param  {schoolSelected} e [EntityID & selectedYear]
              * @return {districtBreakdownQueryHandler}
              * @return {districtBreakdownQueryFault} [error]
              */
@@ -230,16 +285,17 @@ function setup() {
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = " + dataItem.dID + "AND FY = " + year + " AND Subgroup = 0";
+                    query.where = "EntityID = " + dataItem.dID + "AND FY = " + year;
+                    // query.where = "EntityID = " + dataItem.dID + "AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
-                    queryTask.execute(query, azBreakdownVM.districtBreakdownQueryHandler, azBreakdownVM.districtBreakdownQueryFault)
+                    queryTask.execute(query, azBreakdownVM.districtBreakdownQueryHandler, azBreakdownVM.districtBreakdownQueryFault);
                 }
-
             };
 
             /**
              * [getStateBreakDown]
+             * @param  {state data} [EntityID & selectedYear]
              * @return {stateBreakdownQueryHandler}
              * @return {stateBreakdownQueryFault} [error]
              */
@@ -263,18 +319,18 @@ function setup() {
                 function qtask() {
                     queryTask = new QueryTask(appConfig.mainURL + "/1");
                     query = new Query();
-                    query.where = "EntityID = -1" + " AND FY = " + year + " AND Subgroup = 0";
+                    query.where = "EntityID = -1" + " AND FY = " + year;
+                    // query.where = "EntityID = -1" + " AND FY = " + year + " AND Subgroup = 0";
                     query.returnGeometry = false;
                     query.outFields = ["*"];
-                    queryTask.execute(query, azBreakdownVM.stateBreakdownQueryHandler, azBreakdownVM.stateBreakdownQueryFault)
+                    queryTask.execute(query, azBreakdownVM.stateBreakdownQueryHandler, azBreakdownVM.stateBreakdownQueryFault);
                 }
-
             };
 
 
             /**
              * [getChronicData]
-             * @param  {data} schoolSelected
+             * @param  {schoolSelected}  e [EntityID & selectedYear]
              * @return {chronicDataQueryHandler}
              * @return {chronicDataQueryFault} [error]
              */
@@ -293,12 +349,20 @@ function setup() {
                 queryTask.execute(query, chronicDataQueryHandler, chronicDataQueryFault);
             };
 
+            /**
+             * [getEnrollmentData]
+             * @param  {schoolSelected} e [EntityID]
+             * @return {enrollmentGradeQueryHandler}   [description]
+             * @return {enrollmentDataQueryFault} [error]
+             */
             function getEnrollmentData(e) {
                 var dataItem = e;
+                // console.log(dataItem);
                 var queryTask;
                 var query;
                 gradeEnroll();
-                raceEnroll()
+                raceEnroll();
+                raceEnrollDistrict();
 
                 function gradeEnroll() {
                     queryTask = new QueryTask(appConfig.mainURL + "/3");
@@ -321,6 +385,17 @@ function setup() {
 
                     queryTask.execute(query, enrollmentRaceQueryHandler, enrollmentDataQueryFault);
                 }
+
+                function raceEnrollDistrict() {
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
+                    query = new Query();
+                    query.where = "EntityID = " + dataItem.dID + " AND FY = " + selectedYear;
+                    query.returnGeometry = false;
+                    query.outFields = ["*"];
+                    // console.log(query.where);
+
+                    queryTask.execute(query, enrollmentRaceDistrictQueryHandler, enrollmentDataQueryFault);
+                }
             };
 
 
@@ -328,7 +403,7 @@ function setup() {
 
             /**
              * [schoolPointQueryFault]
-             * @param  getSchoolPoint()
+             * @param  {getSchoolPoint()}
              * @return {error}
              */
             function schoolPointQueryFault(error) {
@@ -337,8 +412,8 @@ function setup() {
 
             /**
              * [schoolPointQueryHandler]
-             * @param  getSchoolPoint()
-             * @return {error}
+             * @param  {getSchoolPoint()}
+             * @return {[map]}
              */
             function schoolPointQueryHandler(response) {
                 var feature = response.features[0];
@@ -377,12 +452,11 @@ function setup() {
                 map.graphics.add(feature);
                 // map.centerAt(feature.geometry);
                 map.centerAndZoom(feature.geometry, 14);
-
             };
 
             /**
              * [azSchoolsQueryFault]
-             * @param  getSchoolsData()
+             * @param  {getSchoolsData()}
              * @return {error}
              */
             function azSchoolsQueryFault(error) {
@@ -391,8 +465,8 @@ function setup() {
 
             /**
              * [azSchoolsQueryHandler]
-             * @param  getSchoolsData()
-             * @return {self.azMERITschools}
+             * @param  {getSchoolsData()}
+             * @return {[scatterChartVM, frlScatterChartVM]}
              */
             function azSchoolsQueryHandler(results) {
                 var features = results.features;
@@ -400,6 +474,7 @@ function setup() {
 
                 self.azSchools = [];
                 var azSchoolsScatter = [];
+                var azSchoolsFRL = [];
                 $.each(features, function(index, item) {
 
                     self.azSchools.push({
@@ -435,92 +510,92 @@ function setup() {
                         rankSort: item.attributes.RankNum
                     });
 
+                    azSchoolsFRL.push({
+                        sName: item.attributes.SchoolName,
+                        entityID: item.attributes.EntityID,
+                        FY: item.attributes.FY,
+                        frl: item.attributes.FRL_CALC,
+                        score: item.attributes.Score
+                    });
+
                 });
                 // console.log(self.azSchools);
                 // console.log(azSchoolsScatter);
 
                 getSchoolNames();
                 scatterChartVM.azMERITscatterChart(azSchoolsScatter, selectedYear);
-
+                frlScatterChartVM.frlScatterChart(azSchoolsFRL, selectedYear);
             };
 
-            function azMERITdistQueryFault(error) {
+            /**
+             * [districtDataQueryFault]
+             * @param  {getDistrictData()}
+             * @return {error}
+             */
+            function districtDataQueryFault(error) {
                 console.log(error.messaege);
             };
+
             /**
-             * [azMERITdistQueryHandler description]
-             * @param  getDistrictData
-             * @return
+             * [districtDataQueryHandler]
+             * @param  {getDistrictData()}
+             * @return {[districtTableVM]}
+             * @return {districtDataQueryFault} [error]
              */
-            function azMERITdistQueryHandler(results) {
+            function districtDataQueryHandler(results) {
                 var features = results.features;
                 // console.log(features);
 
-                self.distInfo = [];
+                var distInfo = [];
                 $.each(features, function(index, item) {
-                    var groupScore, vColor;
-                    if (item.attributes.GROUP1 === "A") {
-                        groupScore = "Very High";
-                        vColor = "#028900";
-                    }
-                    if (item.attributes.GROUP1 === "B") {
-                        groupScore = "High";
-                        vColor = "#0057e7";
-                    }
-                    if (item.attributes.GROUP1 === "C") {
-                        groupScore = "Middle";
-                        vColor = "#9e379f";
-                    }
-                    if (item.attributes.GROUP1 === "D") {
-                        groupScore = "Low";
-                        vColor = "#ffa700";
-                    }
-                    if (item.attributes.GROUP1 === "F") {
-                        groupScore = "Very Low";
-                        vColor = "#d62d20";
-                    }
-                    self.distInfo.push({
-                        sName: item.attributes.SchoolName,
-                        dName: item.attributes.DistrictName,
-                        dID: item.attributes.DistrictEntityID,
-                        entityID: item.attributes.EntityID,
-                        FY: item.attributes.FY,
-                        address: item.attributes.Address,
-                        city: item.attributes.City,
-                        zip: item.attributes.ZIPcode,
-                        grades: item.attributes.Grades,
-                        sClass: item.attributes.SchoolClass,
-                        sType: item.attributes.SchoolType,
-                        ELA1: item.attributes.ELA1,
-                        ELA2: item.attributes.ELA2,
-                        ELA3: item.attributes.ELA3,
-                        ELA4: item.attributes.ELA4,
-                        ELAP: item.attributes.ELAP,
-                        MATH1: item.attributes.MATH1,
-                        MATH2: item.attributes.MATH2,
-                        MATH3: item.attributes.MATH3,
-                        MATH4: item.attributes.MATH4,
-                        MATHP: item.attributes.MATHP,
-                        group: groupScore,
-                        sort: item.attributes.GROUP1,
-                        active: item.attributes.Active,
-                        vColor: vColor
-                    });
+                    var x = item.attributes;
+                    distInfo.push(x);
                 });
-                // console.log(self.distInfo);
-                buildDgrid();
-                azMERITdistrictScatter();
+                // console.log(distInfo);
+
+                districtTableVM.districtTable(distInfo);
             };
 
+            /**
+             * [districtDataQueryFault]
+             * @param  {getDistrictScores()}
+             * @return {error}
+             */
+            function districtScoresQueryFault(error) {
+                console.log(error.messaege);
+            };
+
+            /**
+             * [districtScoresQueryHandler]
+             * @param  {getDistrictScores()}
+             * @return {[passingChartsVM]}
+             */
+            function districtScoresQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var distScores = [];
+                $.each(features, function(index, item) {
+                    var x = item.attributes;
+                    distScores.push(x);
+                });
+                // console.log(distScores);
+                passingChartsVM.createComparisonChart(distScores);
+            };
+
+            /**
+             * [schoolScoresQueryFault]
+             * @param  {getSchoolsData()}
+             * @return {error}
+             */
             function schoolScoresQueryFault(error) {
                 console.log(error.messaege);
             };
 
             /**
-             * AzMERIT Schools Scores
-             * Data from getSchoolScores()
-             * @param  {[type]} results [description]
-             * @return {[type]}         [description]
+             * [schoolScoresQueryHandler] - AzMERIT Schools Scores
+             * @param  {getSchoolScores()}
+             * @return {[passingChartsVM]}
              */
             function schoolScoresQueryHandler(results) {
                 // console.log(results);
@@ -592,7 +667,7 @@ function setup() {
 
             /**
              * [chronicDataQueryFault]
-             * @param  getChronicData2()
+             * @param  {getChronicData2()}
              * @return {error}
              */
             function chronicDataQueryFault(error) {
@@ -601,8 +676,8 @@ function setup() {
 
             /**
              * [chronicDataQueryHandler]
-             * @param  getChronicData()
-             * @return {}
+             * @param  {getChronicData()}
+             * @return {[chronicChartsVM]}
              */
             function chronicDataQueryHandler(results) {
                 var features = results.features;
@@ -629,9 +704,10 @@ function setup() {
                 chronicChartsVM.chronicAbsenceChart(chronicInfo, selectedYear);
             };
 
+
             /**
              * [enrollmentDataQueryFault]
-             * @param  getEnrollmentData()
+             * @param  {getEnrollmentData()}
              * @return {error}
              */
             function enrollmentDataQueryFault(error) {
@@ -640,7 +716,7 @@ function setup() {
 
             /**
              * [enrollmentGradeQueryHandler]
-             * @param  getEnrollmentData()
+             * @param  {getEnrollmentData()}
              * @return {}
              */
             function enrollmentGradeQueryHandler(results) {
@@ -671,8 +747,8 @@ function setup() {
 
             /**
              * [enrollmentRaceQueryHandler]
-             * @param  getEnrollmentData()
-             * @return {}
+             * @param  {getEnrollmentData()}
+             * @return {[enrollmentTablessVM, demographicsChartVM]}
              */
             function enrollmentRaceQueryHandler(results) {
                 var features = results.features;
@@ -683,7 +759,27 @@ function setup() {
                     raceEnrollment.push(item.attributes);
                 });
                 enrollmentTablessVM.enrollmentTableRace(raceEnrollment);
+                demographicsChartVM.studentDemoChart(raceEnrollment);
             };
+
+            /**
+             * [enrollmentRaceDistrictQueryHandler]
+             * @param  {getEnrollmentData()}
+             * @return {[demographicsChartVM]}
+             */
+            function enrollmentRaceDistrictQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var raceEnrollment = [];
+                $.each(features, function(index, item) {
+                    if (item.attributes.Subgroup === 0) {
+                        raceEnrollment.push(item.attributes);
+                    }
+                });
+                demographicsChartVM.districtDemoChart(raceEnrollment);
+            };
+
             //============================================================================================================>
 
             /**
@@ -716,6 +812,7 @@ function setup() {
                 $(".schoolName").text(dataItem.sName);
                 $(".schoolID").text("  (" + dataItem.entityID + ")");
                 $(".districtName").text(dataItem.dName);
+                $(".districtID").text("  (" + dataItem.dID + ")");
 
                 dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
                 dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
@@ -728,8 +825,10 @@ function setup() {
                 getStateBreakDown();
                 getChronicData(dataItem);
                 getEnrollmentData(dataItem);
+                getTestTrends(dataItem);
 
-                // getDistrictData(dataItem);
+                getDistrictData(dataItem);
+                getDistrictScores(dataItem);
 
                 infoBadgesVM.adeGradeBadge(dataItem);
                 infoBadgesVM.scoreBadge(dataItem);
@@ -737,8 +836,6 @@ function setup() {
                 infoBadgesVM.freeReducedBadge(dataItem);
                 infoBadgesVM.chronicBadge(dataItem);
                 infoBadgesVM.attendanceBadge(dataItem);
-
-
 
                 function onChange() {
                     var value = $("#schools").val();
@@ -762,8 +859,10 @@ function setup() {
                     getStateBreakDown();
                     getChronicData(dataItem);
                     getEnrollmentData(dataItem);
+                    getTestTrends(dataItem);
 
-                    // getDistrictData(dataItem);
+                    getDistrictData(dataItem);
+                    getDistrictScores(dataItem);
 
                     infoBadgesVM.adeGradeBadge(dataItem);
                     infoBadgesVM.scoreBadge(dataItem);
@@ -848,269 +947,6 @@ function setup() {
                     }
                 });
             };
-
-
-
-            /**
-             * [createDistrictStateChart description]
-             * * Data from countyQueryHandler via [getCountyData();]
-             * @return {[type]} [Bar Chart] self.districtELA
-             */
-            function createDistrictStateChart() {
-                // console.log(self.districtAll);
-                // console.log(self.stateAll);
-
-                var districtAll = self.districtAll;
-                var stateAll = self.stateAll;
-
-                var dataStack = [];
-                dataStack.push(districtAll, stateAll);
-
-                seriesINFO = [{
-                    name: "Redacted",
-                    field: "ELARDT",
-                    stack: {
-                        group: "ELA"
-                    },
-                    color: "#c0c0c0"
-                }, {
-                    name: "Minimally Proficient",
-                    field: "ELA1",
-                    stack: {
-                        group: "ELA"
-                    },
-                    color: "#910000"
-                }, {
-                    name: "Partially Proficient",
-                    field: "ELA2",
-                    stack: {
-                        group: "ELA"
-                    },
-                    color: "#d9900a"
-                }, {
-                    name: "Proficient",
-                    field: "ELA3",
-                    stack: {
-                        group: "ELA"
-                    },
-                    color: "#2995e0"
-                }, {
-                    name: "Highly Proficient",
-                    field: "ELA4",
-                    stack: {
-                        group: "ELA"
-                    },
-                    color: "#50be09"
-                }, {
-                    name: "Redacted",
-                    field: "MATHRDT",
-                    stack: {
-                        group: "MATH"
-                    },
-                    color: "#c0c0c0"
-                }, {
-                    name: "Minimally Proficient",
-                    field: "MATH1",
-                    stack: {
-                        group: "MATH"
-                    },
-                    color: "#910000"
-                }, {
-                    name: "Partially Proficient",
-                    field: "MATH2",
-                    stack: {
-                        group: "MATH"
-                    },
-                    color: "#d9900a"
-                }, {
-                    name: "Proficient",
-                    field: "MATH3",
-                    stack: {
-                        group: "MATH"
-                    },
-                    color: "#2995e0"
-                }, {
-                    name: "Highly Proficient",
-                    field: "MATH4",
-                    stack: {
-                        group: "MATH"
-                    },
-                    color: "#50be09"
-                }];
-
-                buildChart();
-
-                function buildChart() {
-                    $("#compChart").kendoChart({
-                        // title: {
-                        //     text: "Sample"
-                        // },
-                        legend: {
-                            visible: false,
-                            position: "bottom"
-                        },
-                        dataSource: {
-                            data: dataStack
-                        },
-                        series: seriesINFO,
-                        dataBound: function(e) {
-                            // console.log(e);
-                            // var R1 = e.sender.options.series[0].data[0].ELARDT;
-                            // var R2 = e.sender.options.series[5].data[0].ELARDT;
-                            // // console.log("R1: "+ R1 +" & R2: "+ R2);
-                            // if (R1 == 0) {
-                            e.sender.options.series[0].labels.visible = false;
-                            // }
-                            // if (R2 == 0) {
-                            e.sender.options.series[5].labels.visible = false;
-                            // }
-                        },
-                        seriesDefaults: {
-                            type: "column",
-                            stack: {
-                                type: "100%"
-                            },
-                            labels: {
-                                visible: true,
-                                background: "transparent",
-                                format: "{0}%",
-                                font: "bold italic 12px Open Sans Condensed,Verdana,sans-serif",
-                                padding: -25
-                            },
-                            gap: 0.5,
-                            spacing: 0.10
-                        },
-                        valueAxis: {
-                            visible: true,
-                            max: 1,
-                            labels: {
-                                format: "{0}%",
-                                template: "${ value * 100}%"
-                            },
-                            majorGridLines: {
-                                visible: false
-                            },
-                            line: {
-                                visible: true
-                            }
-                        },
-                        categoryAxis: {
-                            categories: ["District", "State"],
-                            majorGridLines: {
-                                visible: false
-                            },
-                            line: {
-                                visible: true
-                            }
-                        },
-                        tooltip: {
-                            visible: true,
-                            template: "${ series.stack.group }<br/>${ series.name }<br/>${ value }%"
-                        }
-                    });
-                }
-            };
-
-
-
-            /**
-             * [buildDgrid] - District Summary Grid
-             * @return {[type]} [description]
-             */
-            function buildDgrid() {
-                dom.byId("distName").innerHTML = self.distInfo[0].dName;
-                dom.byId("distNum").innerHTML = "(" + self.distInfo[0].dID + ")";
-
-                $("#grid").kendoGrid({
-                    dataSource: {
-                        data: self.distInfo
-                    },
-                    // height: 550,
-                    groupable: false,
-                    sortable: true,
-                    pageable: false,
-                    columns: [{
-                        field: "dID",
-                        title: "District ID",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 60
-
-                    }, {
-                        field: "entityID",
-                        title: "School ID",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 60
-                    }, {
-                        field: "sName",
-                        title: "School Name",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 260
-                    }, {
-                        field: "sClass",
-                        title: "School Class",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 70
-                    }, {
-                        field: "sType",
-                        title: "School Type",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 80
-                    }, {
-                        field: "grades",
-                        title: "Grades",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        width: 150
-                    }, {
-                        field: "active",
-                        title: "Active",
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        attributes: {
-                            "class": "kendoGridCenter"
-                        },
-                        width: 60
-                    }, {
-                        field: "ELAP",
-                        title: "% Passing ELA",
-                        format: "{0:p0 %}",
-                        template: '#= kendo.format("{0:p0}", ELAP / 100) #',
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        attributes: {
-                            "class": "kendoGridCenter"
-                        },
-                        width: 80
-                    }, {
-                        field: "MATHP",
-                        title: "% Passing MATH",
-                        format: "{0:p0 %}",
-                        template: '#= kendo.format("{0:p0}", MATHP / 100) #',
-                        headerAttributes: {
-                            "class": "grid-header-style"
-                        },
-                        attributes: {
-                            "class": "kendoGridCenter"
-                        },
-                        width: 80
-                    }]
-                });
-
-            }
-
 
 
         });

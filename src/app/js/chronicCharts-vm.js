@@ -87,7 +87,7 @@
                         dc.create("span", {
                             id: id,
                             className: "replaceDiv",
-                            innerHTML: "<p class='replace'>Currently no data available.</p>"
+                            innerHTML: "<p class='replace'>Currently no data available for 2017.</p>"
                         }, divName, "after");
                     }
 

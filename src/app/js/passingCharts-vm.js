@@ -8,18 +8,30 @@
             "dojo/on",
             "dojo/dom-construct",
             "dojo/dom",
-            "dojo/dom-class"
+            "dojo/dom-class",
+            "appPackages/config"
         ],
-        function(on, dc, dom, domClass) {
+        function(on, dc, dom, domClass, appConfig) {
 
             var passingChartsVM = new function() {
 
                 var self = this;
 
+                /**
+                 * [sYear description]
+                 * @param  {[type]} e [description]
+                 * @return {[type]}   [description]
+                 */
                 self.sYear = function(e) {
                     self.selectedYear = e;
                 };
 
+                /**
+                 * [score description]
+                 * @param  {[type]} e1 [description]
+                 * @param  {[type]} e2 [description]
+                 * @return {[type]}    [description]
+                 */
                 self.score = function(e1, e2) {
 
                     if (e1.PCT_Passing > 0) {
@@ -40,6 +52,13 @@
                     }
                 };
 
+                /**
+                 * [diffScore description]
+                 * @param  {[type]} v2015 [description]
+                 * @param  {[type]} v2016 [description]
+                 * @param  {[type]} v2017 [description]
+                 * @return {[type]}       [description]
+                 */
                 self.diffScore = function(v2015, v2016, v2017) {
 
                     var ela2015 = v2015[0];
@@ -129,7 +148,7 @@
 
                 /**
                  * [createChartELA - Pie Chart]
-                 *  * Data from [schoolScoresQueryHandler] via [getSchoolScores();]
+                 * Data from [schoolScoresQueryHandler] via [getSchoolScores();]
                  * @return {Pie Chart} [showing schools breakdown of AzMERIT scores for all students]
                  */
                 self.createChartELA = function(e) {
@@ -286,6 +305,329 @@
                             chartArea: {
                                 margin: 1,
                                 height: 250
+                            }
+                        });
+                    }
+                };
+
+                /**
+                 * [createDistrictStateChart - bar charts]
+                 * Data from countyQueryHandler via [getCountyData();]
+                 * @return {[type]} [Bar Chart] self.districtELA
+                 */
+                self.createComparisonChart = function(e) {
+                    var info = e;
+                    // console.log(info);
+
+                    var districtScores = [];
+                    $.each(info, function(index, item) {
+                        var data = {
+                            fy: item.FY,
+                            content: item.ContentAreaDef,
+                            PL1: item.PCT_PL1,
+                            PL2: item.PCT_PL2,
+                            PL3: item.PCT_PL3,
+                            PL4: item.PCT_PL4,
+                            Passing: item.PCT_Passing
+                        }
+                        districtScores.push(data);
+                    });
+                    // console.log(districtScores);
+
+                    var ela, math, state;
+                    switch (self.selectedYear) {
+                        case "2015":
+                            ela = appConfig.stateAzMERIT2015ela;
+                            math = appConfig.stateAzMERIT2015math;
+                            state = [ela,math];
+                            break;
+                        case "2016":
+                            ela = appConfig.stateAzMERIT2016ela;
+                            math =appConfig.stateAzMERIT2016math;
+                            state = [ela,math];
+                            break;
+                        case "2017":
+                            ela = appConfig.stateAzMERIT2017ela;
+                            math =appConfig.stateAzMERIT2017math;
+                            state = [ela,math];
+                            break;
+                    }
+                    console.log(state);
+
+                    buildDistPieChart();
+                    function buildDistPieChart() {
+                        var e = districtScores;
+
+                        var elaScores;
+                        var mathScores;
+                        $.each(e, function(index, item) {
+                            var azMERITcat = [{
+                                type: "Minimally Proficient",
+                                value: item.PL1,
+                            }, {
+                                type: "Partially Proficient",
+                                value: item.PL2,
+                            }, {
+                                type: "Proficient",
+                                value: item.PL3,
+                                explode: true
+                            }, {
+                                type: "Highly Proficient",
+                                value: item.PL4,
+                                explode: true
+                            }];
+                            if (item.content === "ELA") {
+                                elaScores = azMERITcat;
+                            }
+                            if (item.content === "MATH") {
+                                mathScores = azMERITcat;
+                            }
+                        });
+                        // console.log(elaScores);
+
+                        elaPieChart();
+                        mathPieChart();
+
+                        function elaPieChart() {
+                            $("#distELAChart").kendoChart({
+                                title: {
+                                    text: "ELA",
+                                    font: "bold 11px Arial, Helvetica, sans-serif",
+                                    margin: 1,
+                                    padding: 1,
+                                    position: "bottom",
+                                    visible: true
+                                },
+                                legend: {
+                                    visible: false
+                                },
+                                dataSource: {
+                                    data: elaScores,
+                                },
+                                series: [{
+                                    type: "pie",
+                                    field: "value",
+                                    categoryField: "type",
+                                    explodeField: "explode"
+                                }],
+                                // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
+                                seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
+                                tooltip: {
+                                    visible: true,
+                                    template: "${ category } - ${ value }%"
+                                },
+                                chartArea: {
+                                    margin: 1,
+                                    height: 125,
+                                    width: 125
+                                }
+                            });
+                        }
+
+                        function mathPieChart() {
+                            $("#distMATHChart").kendoChart({
+                                title: {
+                                    text: "MATH",
+                                    font: "bold 11px Arial, Helvetica, sans-serif",
+                                    margin: 1,
+                                    padding: 1,
+                                    position: "bottom",
+                                    visible: true
+                                },
+                                legend: {
+                                    visible: false
+                                },
+                                dataSource: {
+                                    data: mathScores,
+                                },
+                                series: [{
+                                    type: "pie",
+                                    field: "value",
+                                    categoryField: "type",
+                                    explodeField: "explode"
+                                }],
+                                // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
+                                seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
+                                tooltip: {
+                                    visible: true,
+                                    template: "${ category } - ${ value }%"
+                                },
+                                chartArea: {
+                                    margin: 1,
+                                    height: 125,
+                                    width: 125
+                                }
+                            });
+                        }
+                    }
+                    // end buildDistPieChart
+
+                    buildStatePieChart();
+                    function buildStatePieChart() {
+                        var e = state;
+
+                        var elaScores;
+                        var mathScores;
+                        $.each(e, function(index, item) {
+                            var azMERITcat = [{
+                                type: "Minimally Proficient",
+                                value: item[1],
+                            }, {
+                                type: "Partially Proficient",
+                                value: item[2],
+                            }, {
+                                type: "Proficient",
+                                value: item[3],
+                                explode: true
+                            }, {
+                                type: "Highly Proficient",
+                                value: item[4],
+                                explode: true
+                            }];
+                            if (index === 0) {
+                                elaScores = azMERITcat;
+                            }
+                            if (index === 1) {
+                                mathScores = azMERITcat;
+                            }
+                        });
+                        console.log(elaScores);
+
+                        elaPieChart();
+                        mathPieChart();
+
+                        function elaPieChart() {
+                            $("#stateELAChart").kendoChart({
+                                title: {
+                                    text: "ELA",
+                                    font: "bold 11px Arial, Helvetica, sans-serif",
+                                    margin: 1,
+                                    padding: 1,
+                                    position: "bottom",
+                                    visible: true
+                                },
+                                legend: {
+                                    visible: false
+                                },
+                                dataSource: {
+                                    data: elaScores,
+                                },
+                                series: [{
+                                    type: "pie",
+                                    field: "value",
+                                    categoryField: "type",
+                                    explodeField: "explode"
+                                }],
+                                // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
+                                seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
+                                tooltip: {
+                                    visible: true,
+                                    template: "${ category } - ${ value }%"
+                                },
+                                chartArea: {
+                                    margin: 1,
+                                    height: 125,
+                                    width: 125
+                                }
+                            });
+                        }
+
+                        function mathPieChart() {
+                            $("#stateMATHChart").kendoChart({
+                                title: {
+                                    text: "MATH",
+                                    font: "bold 11px Arial, Helvetica, sans-serif",
+                                    margin: 1,
+                                    padding: 1,
+                                    position: "bottom",
+                                    visible: true
+                                },
+                                legend: {
+                                    visible: false
+                                },
+                                dataSource: {
+                                    data: mathScores,
+                                },
+                                series: [{
+                                    type: "pie",
+                                    field: "value",
+                                    categoryField: "type",
+                                    explodeField: "explode"
+                                }],
+                                // seriesColors: ["#d62d20", "#ffa700", "#0057e7", "#028900"],
+                                seriesColors: ["#910000", "#d9900a", "#2995e0", "#50be09"],
+                                tooltip: {
+                                    visible: true,
+                                    template: "${ category } - ${ value }%"
+                                },
+                                chartArea: {
+                                    margin: 1,
+                                    height: 125,
+                                    width: 125
+                                }
+                            });
+                        }
+
+
+                    }
+
+
+
+
+                    // buildChart();
+                    function buildChart() {
+                        $("#compChart").kendoChart({
+                            title: {
+                                visible: false,
+                                text: "Sample"
+                            },
+                            legend: {
+                                visible: false,
+                                position: "bottom"
+                            },
+                            dataSource: {
+                                data: districtScores
+                            },
+                            series: [{
+                                field: "Passing",
+                                categoryField: "content",
+                                name: "content"
+                            }],
+                            seriesDefaults: {
+                                type: "column",
+                                labels: {
+                                    visible: true,
+                                    background: "transparent",
+                                    format: "{0}%",
+                                    font: "bold italic 12px Open Sans Condensed,Verdana,sans-serif",
+                                    padding: -25
+                                },
+                                gap: 0.10,
+                                spacing: 0.10
+                            },
+                            valueAxis: {
+                                visible: true,
+                                max: 100,
+                                min: 0,
+                                majorGridLines: {
+                                    visible: false
+                                },
+                                line: {
+                                    visible: true
+                                }
+                            },
+                            categoryAxis: {
+                                categories: ["District"],
+                                majorGridLines: {
+                                    visible: false
+                                },
+                                line: {
+                                    visible: true
+                                }
+                            },
+                            tooltip: {
+                                visible: true,
+                                template: "District <br/>${ category }<br/>${ value }%"
                             }
                         });
                     }

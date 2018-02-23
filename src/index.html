@@ -64,14 +64,20 @@
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
             <div class="col-md-6">
-                <h4 id="" class="schoolName"></h4>
-                <h6 id="" class="schoolID"></h6>
-                <h5 id="" class="districtName"></h5>
+                <h4 id="" class="schoolName schoolTitle"></h4>
+                <h6 id="" class="schoolID sID"></h6>
+                <h5 id="" class="districtName districtTitle"></h5>
                 <br>
                 <div id="info1" class="info"></div>
                 <div id="info2" class="info"></div>
                 <div class="row">
                     <div id="infoBadge" class=""></div>
+                    <div id="footNote0" class="note">
+                        <p><strong>School Letter Grades</strong><br>
+                        A-F = School has received a preliminary letter grade based on initial calculation and methodologies<br>
+                        UR = Under Review: school has a non-typical school configuration or has filed an appeal<br>
+                        NR = Not rated: school is not rated due to insufficient data</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -85,9 +91,9 @@
         <h3 class="sectionTitle">Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -115,8 +121,19 @@
             <div class="col-md-4">
                 <div id="comp" class="infoHeader">
                     <h4>Comparison Scores</h4>
-                    <div id="compChart"></div>
-                    <span id="cName"></span>
+                    <!-- <div id="compChart"></div> -->
+
+                    <div id="stateGroup" class="col-md-2 groupPie">
+                        <h5>State Scores</h5>
+                        <div id="stateELAChart"></div>
+                        <div id="stateMATHChart"></div>
+                    </div>
+
+                    <div id="districtGroup" class="col-md-2 groupPie">
+                        <h5>District Scores</h5>
+                        <div id="distELAChart"></div>
+                        <div id="distMATHChart"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,9 +144,9 @@
         <h3 class="sectionTitle">Schools AzMERIT Student Breakdown</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -155,47 +172,162 @@
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
         <!-- /row 4 -->
-        <!-- row 5 ** Percent Passing Breakdown-->
-        <!-- <h3 class="sectionTitle">Schools AzMERIT Percent Passed</h3>
+
+        <!-- new row **AzMERIT Scores over time-->
+        <h3 class="sectionTitle">Schools AzMERIT Score Trends</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="azMeritTrendsELA" class="chartStyle"></div>
+            <br>
+            <div id="azMeritTrendsMATH" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Grade Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentChart" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Grade Cohort Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment by Cohorts</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentCohorts" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Race & Ethnicity Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment by Race & Ethnicity</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div class="col-md-6">
+                <div id="enrollmentRaceSchool" class="chartStyle"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="enrollmentRaceDistrict" class="chartStyle"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Grade Table-->
+        <h3 class="sectionTitle">Total Student Enrollment Table by Grade</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentTable-Grade" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Enrollment by Race Table-->
+        <h3 class="sectionTitle">Total Student Enrollment Table by Race</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div id="enrollmentTable-Race" class="chartStyle"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+
+        <!-- new row **Chronic Absence Subgroup Chart-->
+        <h3 class="sectionTitle">Chronic Absence by SubGroup</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="chronicAbsenceChart1" class="row">
+            <div id="chronicSubChart" class="chartStyle"></div>
+            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- new row **Chronic Absence Grade Chart-->
+        <h3 class="sectionTitle">Chronic Absence by Grade</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+         <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="chronicAbsenceChart2" class="row">
+            <div id="chronicGradeChart" class="chartStyle"></div>
+            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+
+        <!-- row 6 **District Summary Table-->
+        <h3 class="sectionTitle">District Summary Table</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div>
-            <h4 id="schoolName3" class="schoolName"></h4>
-            <h6 id="sNUM3" class="schoolName"></h6>
-            <h5 id="districtName3" class="districtName"></h5>
-        </div> -->
-        <!--  <div class="row">
-            <div class="col-md-3">
-                <span><h4>Assessment Type</h4></span>
-                <div id="typeAssess1" class="btn-group level" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="options1" id="option3" value="ELA1" autocomplete="off" checked> ELA
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options1" id="option4" value="MATH1" autocomplete="off"> MATH
-                    </label>
-                </div>
-                <span><h4>Test Level</h4></span>
-                <div id="fradio1" class="funkyradio"></div>
-            </div>
-            <div class="col-md-9">
-                <div id="passChart"></div>
-            </div>
+            <h4 id="" class="districtName dTitle"></h4>
+            <h6 id="" class="districtID dID"></h6>
         </div>
-        <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div> -->
-        <!-- <div class="separator"></div> -->
-        <!-- /row 5 -->
-        <!-- row 6 **District Summary Table-->
-        <!-- <h3 class="sectionTitle">District Summary</h3>
+        <div class="row">
+            <div id="grid"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 6 -->
+
+        <!-- row 8 **State Scatter Chart-->
+        <h3 class="sectionTitle">All Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
-            <div class="col-md-12">
-                <h4 id="distName"></h4>
-                <h6 id=distNum></h6>
-                <div id="grid"></div>
-            </div>
+            <div id="azMERITchartSchools" class="col-md-12"></div>
         </div>
-        <div class="separator"></div> -->
-        <!-- /row 6 -->
+        <div class="separator"></div>
+        <!-- /row 8 -->
+
+        <!-- row 8 **State Scatter Chart-->
+        <h3 class="sectionTitle">All Schools AzMERIT Average Scores vs Free & Reduced Lunch</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div class="row">
+            <div id="frlScatterChart" class="col-md-12"></div>
+        </div>
+        <div class="separator"></div>
+        <!-- /row 8 -->
+
+
+
         <!-- row 7 **District Scatter Chart-->
         <!-- <h3 class="sectionTitle">District Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
@@ -209,104 +341,7 @@
         <div class="separator"></div> -->
         <!-- /row 7 -->
 
-        <!-- new row **Enrollment by Grade Chart-->
-        <h3 class="sectionTitle">Total Student Enrollment</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="" class="row">
-            <div id="enrollmentChart" class="chartStyle"></div>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
 
-        <!-- new row **Enrollment by Grade Cohort Chart-->
-        <h3 class="sectionTitle">Total Student Enrollment by Cohorts</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="" class="row">
-            <div id="enrollmentCohorts" class="chartStyle"></div>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
-
-        <!-- new row **Enrollment by Grade Table-->
-        <h3 class="sectionTitle">Total Student Enrollment Table by Grade</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="" class="row">
-            <div id="enrollmentTable-Grade" class="chartStyle"></div>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
-
-        <!-- new row **Enrollment by Race Table-->
-        <h3 class="sectionTitle">Total Student Enrollment Table by Race</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="" class="row">
-            <div id="enrollmentTable-Race" class="chartStyle"></div>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
-
-
-        <!-- new row **Chronic Absence Subgroup Chart-->
-        <h3 class="sectionTitle">Chronic Absence by SubGroup</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="chronicAbsenceChart1" class="row">
-            <div id="chronicSubChart" class="chartStyle"></div>
-            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
-
-        <!-- new row **Chronic Absence Grade Chart-->
-        <h3 class="sectionTitle">Chronic Absence by Grade</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-         <div>
-            <h4 id="" class="schoolName"></h4>
-            <h6 id="" class="schoolID"></h6>
-            <h5 id="" class="districtName"></h5>
-        </div>
-        <div id="chronicAbsenceChart2" class="row">
-            <div id="chronicGradeChart" class="chartStyle"></div>
-            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
-        </div>
-        <div class="separator"></div>
-        <!-- /new row -->
-
-
-
-
-        <!-- row 8 **State Scatter Chart-->
-        <h3 class="sectionTitle">All Schools AzMERIT Percent Passing Scores</h3>
-        <span class="metric">For <span class="selected-year"></span></span>
-        <div class="row">
-            <div id="azMERITchartSchools" class="col-md-12"></div>
-        </div>
-        <div class="separator"></div>
-        <!-- /row 8 -->
     </div>
     <!-- /container -->
     <footer class="blog-footer">

@@ -16,8 +16,8 @@
                  * @return
                  */
                 self.azMERITscatterChart = function(e, selectedYear) {
-                    // console.log(e);
                     var info = e;
+                    // console.log(info);
 
                     $.each(info, function(index, item) {
 

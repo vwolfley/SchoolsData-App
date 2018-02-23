@@ -9,8 +9,8 @@
 define([], function() {
       return {
 
-            version: "0.0.4 | 2017-10-05",
-            copyright: "2017",
+            version: "0.0.4 | 2018-02-23",
+            copyright: "2018",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
@@ -30,6 +30,9 @@ define([], function() {
             stateAzMERIT2016math: [0,38,25,26,11],
             stateAzMERIT2015ela: [0,42,23,28,7],
             stateAzMERIT2015math: [0,38,27,24,11],
+
+            stateELAPassing: [34, 38, 39],
+            stateMATHPassing: [35, 38, 40],
 
             // Chronic Absent Rate for State
             // All Students, All Grades
@@ -57,7 +60,7 @@ define([], function() {
             ],
 
             sortOrder: {
-                  "All": 0,
+                  "All Students": 0,
                   "Male": 1,
                   "Female": 2,
                   "White": 3,

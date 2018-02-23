@@ -132,13 +132,13 @@ Header Section
 /*******************
  School Titles
 ********************/
-.schoolName, .schoolID {
+.schoolTitle, .sID, .dTitle, .dID{
     display: inline-block;
     font-weight: bold;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     margin-bottom: 0;
 }
-.districtName {
+.districtTitle {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     color: #727f8e;
@@ -337,8 +337,11 @@ Header Section
     width: 195px;
 }
 
-.note{
+.note {
     font-size: smaller;
+}
+#footNote0 {
+    margin: 45px 0 0 15px;
 }
 
 /*******************
@@ -606,4 +609,23 @@ Header Section
     line-height: 1;
 }
 
+/****************************
+ District & State Pie Charts
+*****************************/
+ .groupPie {
+    /* display: inline-block; */
+    text-align: center;
+    margin: auto;
+    width: 85%;
+    /* padding: 5px; */
+
+ }
+ #distELAChart, #stateELAChart {
+    float: left;
+    padding-right: 5px;
+ }
+ #distMATHChart, #stateMATHChart {
+    float: right;
+    padding-left: 5px;
+ }
 
