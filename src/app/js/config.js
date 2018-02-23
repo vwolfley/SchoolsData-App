@@ -9,8 +9,8 @@
 define([], function() {
       return {
 
-            version: "0.0.4 | 2017-10-05",
-            copyright: "2017",
+            version: "0.0.4 | 2018-02-23",
+            copyright: "2018",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 

@@ -38,6 +38,8 @@ And constructed with the following guidelines:
 * added enrollment cohorts
 * added chronic Absence charts by subgroup and grade
 * added scatter chart of scores vs free and reduced lunch
+* added pie charts for Race and Ethnicity
+* added AzMERIT school score trends charts
 
 ## Version 0.0.3 | 2017-05-16
 
