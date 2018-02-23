@@ -37,7 +37,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -61,7 +61,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -73,7 +73,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -109,7 +109,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -121,7 +121,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -145,7 +145,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -157,7 +157,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -169,7 +169,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -181,7 +181,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -205,7 +205,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -217,7 +217,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -229,7 +229,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -253,7 +253,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }, {
@@ -278,7 +278,7 @@
                                 style: "text-align: center; font-size: 11px"
                             },
                             headerAttributes: {
-                                "class": "grid-header-style",
+                                class: "grid-header-style",
                                 style: "text-align: center; font-size: 12px"
                             }
                         }]
@@ -294,7 +294,6 @@
                         dataSource: {
                             data: info
                         },
-                        // height: 550,
                         groupable: false,
                         sortable: true,
                         resizable: true,

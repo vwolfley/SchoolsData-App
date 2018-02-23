@@ -135,6 +135,9 @@
                             },
                             tooltip: {
                                 visible: true
+                            },
+                            chartArea: {
+                                height: 350
                             }
                         });
                     }
@@ -228,6 +231,9 @@
                             tooltip: {
                                 visible: true,
                                 template: "Cohort: #=series.name#<br />#= kendo.format('{0:N0}',value) #"
+                            },
+                            chartArea: {
+                                height: 350
                             }
                         });
                     }
