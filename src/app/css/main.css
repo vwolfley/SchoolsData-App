@@ -1,54 +1,51 @@
 /* ========================================================================
  * Maricopa Association of Governments
- * MAG AzMERIT Data Viewer
- * CSS document guiding layout for the MAG AzMERIT Data Viewer
- * ========================================================================
- * @project     MAG AzMERIT Data Viewer
- * @version     0.0.3
- * @cssdoc      main.css
- * @copyright   2017 Maricopa Association of Governments
- * @license     MIT
+ * CSS document
+ * @project     MAG Schools Data Visualization Project
+ * @summary     CSS document guiding layout for the project
+ * @file        main.css
  * ======================================================================== */
 
 body {
-  min-height: 2000px;
-  padding-top: 90px;
+  /* min-height: 2000px; */
+  padding-top: 180px;
 }
 /*******************
 Header Section
 ********************/
-.example-title,
-.example-subtitle,
+.title,
+.subtitle,
 .metric,
-.example-description,
+.subtitle,
 .stat dd {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
 }
-.example-title,
-.example-subtitle {
+.title,
+.sectionTitle {
+    color: #2b8abe;
     text-transform: uppercase;
 }
-.example-title {
+.title {
     color: #2b8abe;
     font-size: 48px;
     font-weight: 300;
 }
-.example-title span,
+.title span,
 .first dd {
     font-weight: 700;
 }
-.example-description {
+.subtitle {
     font-size: 18px;
-    font-weight: 300;
-    color: #1a364a;
+    font-weight: bold;
+    color: #708090;
 }
-.example-subtitle {
-    font-size: 13px;
+.sectionTitle {
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 0;
 }
-.example-title,
-.example-description {
+.title,
+.subtitle {
     display: inline-block;
     margin: 0;
 }
@@ -102,11 +99,17 @@ Header Section
     border-bottom-color: #2b8abe;
 }
 .navbar-fixed-top {
-    padding-top: 15px;
+    padding-top: 5px;
 }
 #infoBtn {
-    padding-top: 40px;
+    padding-top: 18px;
     text-align: right;
+}
+#pickSchools {
+    padding-bottom: 5px;
+}
+.k-tabstrip-wrapper {
+
 }
 /*******************
  Footer
@@ -121,16 +124,21 @@ Header Section
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+.modal-footer {
+    text-align: center;
+    background-color: #f9f9f9;
+    font-size: 12px;
+}
 /*******************
  School Titles
 ********************/
-.schoolName {
+.schoolTitle, .sID, .dTitle, .dID{
     display: inline-block;
     font-weight: bold;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     margin-bottom: 0;
 }
-.districtName {
+.districtTitle {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     color: #727f8e;
@@ -151,10 +159,7 @@ Header Section
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     margin-bottom: 2px;
-    padding-top: 15px;
-}
-.field {
-    padding-top: 10px;
+    /* padding-top: 15px; */
 }
 /*******************
  State Panels
@@ -198,7 +203,7 @@ Header Section
 .k-grid-content {
     max-height: 500px;
 }
-#distName {
+#distName, #distName1 {
     display: inline-block;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
@@ -206,7 +211,7 @@ Header Section
     font-size: large;
     font-weight: bold;
 }
-#distNum {
+#distNum, #distNum1 {
     display: inline-block;
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
 }
@@ -231,28 +236,20 @@ Header Section
 /*******************
  Section
 ********************/
-#azMERITchartSchools {
-    /*box-shadow: 6px 6px 5px #ccc;*/
-}
 #grid {
     box-shadow: 6px 6px 5px #ccc;
 }
 
-#example {
-    width: auto;
-    background: none;
-    color: #454447;
-}
-.title {
+/* .title {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     color: #708090;
     margin-bottom: 1px;
 
-}
+} */
 
-.sectionHeader{
+.infoHeader{
     font-size: 11px;
     color: #35373d;
     text-transform: uppercase;
@@ -261,6 +258,7 @@ Header Section
 }
 #info{
     display: inline-block;
+    margin-left: 40px;
 }
 #ela{
     float: left;
@@ -283,10 +281,6 @@ Header Section
     background: #b3bbc5;
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-#info{
-    margin-left: 40px;
 }
 .arrow {
     width: 65px;
@@ -336,24 +330,48 @@ Header Section
 }
 
 .k-widget.k-dropdown.k-header {
-    width: 425px !important;
+    width: 485px !important;
 }
-
-
 
 .btn-group-justified {
     width: 195px;
 }
 
-.note{
+.note {
     font-size: smaller;
+}
+#footNote0 {
+    margin: 45px 0 0 15px;
+}
+
+/*******************
+ Miscellaneous
+********************/
+.bar {
+  color: #cc0000;
+  font-size: 250%;
+  vertical-align: sub;
+}
+.legd {
+  margin: 0 0 0 35px;
+}
+
+.replaceDiv {
+    text-align: center;
+}
+
+.replace {
+    font-weight: bold;
+    font-size: 32px;
+    margin: 0;
+    color: red;
 }
 
 /*******************
  Modal Drop-down
 ********************/
 .modal-header {
-    background-color: #c0c3c6;
+    background-color: #f9f9f9;
 }
 
 .demo-section {
@@ -370,8 +388,6 @@ Header Section
         margin: 0;
     }
 
-
-
     #chart-type-chooser {
         float: right;
         margin-right: .2%;
@@ -385,13 +401,23 @@ Header Section
     margin-bottom: 8px;
 }
 
-.nav-tabs>li>a {
-    background-color: #dfe1e2;
+/*******************
+ Map
+********************/
+#BasemapToggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 50;
 }
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus {
-    background-color: #D2D5D7;
+.BasemapToggle .basemapTitle {
+    width: 100%;
 }
-
+.BasemapToggle .basemapImage {
+    width: 55px;
+    height: 65px;
+    overflow: hidden;
+}
 /*******************
  Popup
 ********************/
@@ -488,3 +514,118 @@ Header Section
     color: #fff;
     background-color: #5bc0de;
 }
+
+/*******************
+ Info Badges
+********************/
+#infoBadge {
+    margin-top: 50px;
+    padding-left: 15px;
+}
+.badges {
+    width: 80px;
+    height: 100px;
+    padding: 10px 0 10px 0;
+    margin: 5px 5px 0 0;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    color: #333333;
+    font-weight: bold;
+    line-height: 1;
+    vertical-align: middle;
+}
+.titleI {
+    background-color: #cc66ff;
+}
+.freeRed {
+    background-color: #2e8b57;
+}
+.chronic {
+    background-color: #E67E22;
+}
+.attend {
+    background-color: #005b96;
+}
+.score {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #ffffff;
+}
+.score2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #a0a0a0;
+}
+.grade {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #ffffff;
+}
+.grade2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+    padding: 0;
+    color: #a0a0a0;
+}
+.gradeA {
+    background-color: #4ce600;
+}
+.gradeB {
+    background-color: #70a800;
+}
+.gradeC {
+    background-color: #ffffbf;
+}
+.gradeD {
+    background-color: #fdae61;
+}
+.gradeF {
+    background-color: #d7191c;
+}
+.gradeNA {
+    background-color: #787878;
+}
+.r1, .c1 {
+    margin: 0 0 0 0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+.t1, .r2, .c2 {
+    margin: 8px 0 0 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/****************************
+ District & State Pie Charts
+*****************************/
+ .groupPie {
+    /* display: inline-block; */
+    text-align: center;
+    margin: auto;
+    width: 85%;
+    /* padding: 5px; */
+
+ }
+ #distELAChart, #stateELAChart {
+    float: left;
+    padding-right: 5px;
+ }
+ #distMATHChart, #stateMATHChart {
+    float: right;
+    padding-left: 5px;
+ }
+

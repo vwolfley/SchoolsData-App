@@ -1,13 +1,15 @@
 /* ========================================================================
  * Maricopa Association of Governments
+ *
  * MAG AzMERIT Data Viewer
  * JS document for the MAG AzMERIT Data Viewer
+ *
  * ========================================================================
  * @project     MAG AzMERIT Data Viewer
- * @version     0.0.3
+ * @version     0.0.2
  * @jsdoc       main.js
- * @copyright   2017 Maricopa Association of Governments
- * @license     MIT
+ * @copyright   2016 MAG
+ * @license     Licensed under MIT
  * ======================================================================== */
 
 $(document).ready(function() {
@@ -56,6 +58,7 @@ function setup() {
 
                     $(".selected-year").text(selectedYear);
 
+                    schoolNames();
                     getData();
                 }
             }).data("kendoTabStrip").select(1);
@@ -72,8 +75,6 @@ function setup() {
                 showAttribution: false,
                 logo: false
             });
-
-
 
             /**
              * [getData]
@@ -160,7 +161,7 @@ function setup() {
 
                 qt2015 = new QueryTask(appConfig.mainURL + "/2");
                 q2015 = new Query();
-                qt2016 = new QueryTask(appConfig.mainURL + "/3");
+                qt2016 = new QueryTask(appConfig.mainURL + "/4");
                 q2016 = new Query();
 
                 q2015.returnGeometry = q2016.returnGeometry = false;
@@ -190,7 +191,7 @@ function setup() {
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/3");
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
                     query = new Query();
                     query.where = "EntityID = " + self.dataItem.entityID;
                     query.returnGeometry = false;
@@ -217,7 +218,7 @@ function setup() {
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/3");
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
                     query = new Query();
                     query.where = "EntityID = " + dID + "AND Subgroup = 'X'";
                     query.returnGeometry = false;
@@ -243,7 +244,7 @@ function setup() {
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/3");
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
                     query = new Query();
                     query.where = "EntityID = -1";
                     query.returnGeometry = false;
@@ -270,7 +271,7 @@ function setup() {
                     query.outFields = ["*"];
                 }
                 if (selectedYear === "2016") {
-                    queryTask = new QueryTask(appConfig.mainURL + "/3");
+                    queryTask = new QueryTask(appConfig.mainURL + "/4");
                     query = new Query();
                     // query.where = "EntityID = " + self.countyID + " AND Subgroup = 'X' AND TestLevel = 'All Students'";
                     query.where = "EntityID = " + self.countyID;
@@ -411,7 +412,7 @@ function setup() {
                 // console.log(self.azMERITschools);
 
                 azMERITAllSchoolsChart();
-                schoolNames();
+                // schoolNames();
                 getBreakDown();
                 getStateBreakDown();
                 getSchoolPoint();
@@ -431,10 +432,59 @@ function setup() {
 
                 self.distInfo = [];
                 $.each(features, function(index, item) {
-                    self.distInfo.push(item.attributes);
+                    var groupScore, vColor;
+                    if (item.attributes.GROUP1 === "A") {
+                        groupScore = "Very High";
+                        vColor = "#028900";
+                    }
+                    if (item.attributes.GROUP1 === "B") {
+                        groupScore = "High";
+                        vColor = "#0057e7";
+                    }
+                    if (item.attributes.GROUP1 === "C") {
+                        groupScore = "Middle";
+                        vColor = "#9e379f";
+                    }
+                    if (item.attributes.GROUP1 === "D") {
+                        groupScore = "Low";
+                        vColor = "#ffa700";
+                    }
+                    if (item.attributes.GROUP1 === "F") {
+                        groupScore = "Very Low";
+                        vColor = "#d62d20";
+                    }
+                    self.distInfo.push({
+                        sName: item.attributes.SchoolName,
+                        dName: item.attributes.DistrictName,
+                        dID: item.attributes.DISTRICTID,
+                        entityID: item.attributes.ENTITYID,
+                        FY: item.attributes.FY,
+                        address: item.attributes.Address,
+                        city: item.attributes.City,
+                        zip: item.attributes.ZIPcode,
+                        grades: item.attributes.Grades,
+                        sClass: item.attributes.SchoolClass,
+                        sType: item.attributes.SchoolType,
+                        ELA1: item.attributes.ELA1,
+                        ELA2: item.attributes.ELA2,
+                        ELA3: item.attributes.ELA3,
+                        ELA4: item.attributes.ELA4,
+                        ELAP: item.attributes.ELAP,
+                        MATH1: item.attributes.MATH1,
+                        MATH2: item.attributes.MATH2,
+                        MATH3: item.attributes.MATH3,
+                        MATH4: item.attributes.MATH4,
+                        MATHP: item.attributes.MATHP,
+                        group: groupScore,
+                        sort: item.attributes.GROUP1,
+                        active: item.attributes.Active,
+                        vColor: vColor
+                    });
                 });
                 // console.log(self.distInfo);
                 buildDgrid();
+                azMERITdistrictScatter();
+
             };
 
             function breakdownQueryFault(error) {
@@ -463,7 +513,7 @@ function setup() {
                             ELA3: item.attributes.PCT_PL3,
                             ELA4: item.attributes.PCT_PL4,
                             ELAP: item.attributes.PCT_Passing,
-                            REDACT: item.attributes.PCT_REDACTED,
+                            REDACT: item.attributes.PCT_Redacted,
                         });
                     }
                     if (item.attributes.ContentArea === 677) {
@@ -481,7 +531,7 @@ function setup() {
                             MATH3: item.attributes.PCT_PL3,
                             MATH4: item.attributes.PCT_PL4,
                             MATHP: item.attributes.PCT_Passing,
-                            REDACT: item.attributes.PCT_REDACTED,
+                            REDACT: item.attributes.PCT_Redacted,
                         });
                     }
 
@@ -817,9 +867,9 @@ function setup() {
                     var mathChange = info2016math.PCT_Passing - info2015math.PCT_Passing;
                     // console.log("MATH " + mathChange);
 
-                    var upARROW = '<img class="arrow" src="./images/arrowUp.png" alt="UP">';
-                    var downARROW = '<img class="arrow" src="./images/arrowDown.png" alt="Down">';
-                    var noARROW = '<img class="noarrow" src="./images/arrowSide.png" alt="Side">';
+                    var upARROW = '<img class="arrow" src="./app/images/arrowUp.png" alt="UP">';
+                    var downARROW = '<img class="arrow" src="./app/images/arrowDown.png" alt="Down">';
+                    var noARROW = '<img class="noarrow" src="./app/images/arrowSide.png" alt="Side">';
 
                     if (selectedYear === "2016") {
 
@@ -954,6 +1004,74 @@ function setup() {
             };
 
             /**
+             * [azMERITdistrictScatter] - Shows District schools and their AzMERIT score in scatter chart.
+             * Data from [azMERITdistQueryHandler] via [getDistrictData();]
+             * @return
+             */
+            function azMERITdistrictScatter() {
+                // console.log(self.distInfo);
+                dom.byId("distName1").innerHTML = self.distInfo[0].dName;
+                dom.byId("distNum1").innerHTML = "(" + self.distInfo[0].dID + ")";
+
+                $("#azMERITdistrictScatter").kendoChart({
+                    theme: "Silver",
+                    title: {
+                        text: "AzMERIT District Schools Percent Passing" + " " + selectedYear
+                    },
+                    dataSource: {
+                        data: self.distInfo,
+                        filter: {
+                            field: "group",
+                            operator: "isnotnull"
+                        },
+                        group: {
+                            field: "sort"
+                        },
+                        sort: {
+                            field: "sort",
+                            dir: "asc"
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    },
+                    seriesDefaults: {
+                        type: "scatter"
+                    },
+                    series: [{
+                        xField: "ELAP",
+                        yField: "MATHP",
+                        name: "#= group.items[0].group #",
+                        colorField: "vColor"
+                    }],
+                    // seriesColors: ["#028900", "#0057e7", "#9e379f", "#ffa700", "#d62d20", "#777777"],
+                    xAxis: {
+                        max: 100,
+                        title: {
+                            text: "ELA Percent Passing"
+                        },
+                        labels: {
+                            template: "${ value }%"
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        max: 100,
+                        title: {
+                            text: "Math Percent Passing"
+                        },
+                        labels: {
+                            template: "${ value }%"
+                        }
+                    },
+                    tooltip: {
+                        visible: true,
+                        template: "${ dataItem.sName } <br>ELA - ${ dataItem.ELAP }% <br>MATH - ${ dataItem.MATHP }% "
+                    }
+                });
+            };
+
+            /**
              * [schoolNames] - populates the dropdown menu for "Find a School"
              * Data from [azMERITQueryHandler] via [getData();]
              * @return
@@ -1061,7 +1179,7 @@ function setup() {
             };
 
             /**
-             * [createChartELA description]
+             * [createChartELA - Pie Chart]
              * @return {[type]} [description]
              */
             function createChartELA() {
@@ -1140,7 +1258,7 @@ function setup() {
             };
 
             /**
-             * [createChartMATH description]
+             * [createChartMATH - Pie Chart]
              * @return {[type]} [description]
              */
             function createChartMATH() {
@@ -1316,17 +1434,20 @@ function setup() {
                     self.bd = [];
                     $.each(self.breakdownELA, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.ELA1 === -1) {
+                            if (item.ELA1 === -1 || item.ELA1 === -2) {
                                 item.ELA1 = 0;
                             }
-                            if (item.ELA2 === -1) {
+                            if (item.ELA2 === -1 || item.ELA2 === -2) {
                                 item.ELA2 = 0;
                             }
-                            if (item.ELA3 === -1) {
+                            if (item.ELA3 === -1 || item.ELA3 === -2) {
                                 item.ELA3 = 0;
                             }
-                            if (item.ELA4 === -1) {
+                            if (item.ELA4 === -1 || item.ELA4 === -2) {
                                 item.ELA4 = 0;
+                            }
+                            if (item.ELAP === -1) {
+                                item.ELAP = 100;
                             }
                             self.bd.push(item);
                         }
@@ -1335,16 +1456,16 @@ function setup() {
                     self.dbd = [];
                     $.each(self.districtELA, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.ELA1 === -1) {
+                            if (item.ELA1 === -1 || item.ELA1 === -2) {
                                 item.ELA1 = 0;
                             }
-                            if (item.ELA2 === -1) {
+                            if (item.ELA2 === -1 || item.ELA2 === -2) {
                                 item.ELA2 = 0;
                             }
-                            if (item.ELA3 === -1) {
+                            if (item.ELA3 === -1 || item.ELA3 === -2) {
                                 item.ELA3 = 0;
                             }
-                            if (item.ELA4 === -1) {
+                            if (item.ELA4 === -1 || item.ELA4 === -2) {
                                 item.ELA4 = 0;
                             }
                             self.dbd.push(item);
@@ -1354,16 +1475,16 @@ function setup() {
                     self.sbd = [];
                     $.each(self.stateELA, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.ELA1 === -1) {
+                            if (item.ELA1 === -1 || item.ELA1 === -2) {
                                 item.ELA1 = 0;
                             }
-                            if (item.ELA2 === -1) {
+                            if (item.ELA2 === -1 || item.ELA2 === -2) {
                                 item.ELA2 = 0;
                             }
-                            if (item.ELA3 === -1) {
+                            if (item.ELA3 === -1 || item.ELA3 === -2) {
                                 item.ELA3 = 0;
                             }
-                            if (item.ELA4 === -1) {
+                            if (item.ELA4 === -1 || item.ELA4 === -2) {
                                 item.ELA4 = 0;
                             }
                             self.sbd.push(item);
@@ -1376,17 +1497,20 @@ function setup() {
                     self.bd = [];
                     $.each(self.breakdownMATH, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.MATH1 === -1) {
+                            if (item.MATH1 === -1 || item.MATH1 === -2) {
                                 item.MATH1 = 0;
                             }
-                            if (item.MATH2 === -1) {
+                            if (item.MATH2 === -1 || item.MATH2 === -2) {
                                 item.MATH2 = 0;
                             }
-                            if (item.MATH3 === -1) {
+                            if (item.MATH3 === -1 || item.MATH3 === -2) {
                                 item.MATH3 = 0;
                             }
-                            if (item.MATH4 === -1) {
+                            if (item.MATH4 === -1 || item.MATH4 === -2) {
                                 item.MATH4 = 0;
+                            }
+                            if (item.MATHP === -1) {
+                                item.MATHP = 100;
                             }
                             self.bd.push(item);
                         }
@@ -1395,16 +1519,16 @@ function setup() {
                     self.dbd = [];
                     $.each(self.districtMATH, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.MATH1 === -1) {
+                            if (item.MATH1 === -1 || item.MATH1 === -2) {
                                 item.MATH1 = 0;
                             }
-                            if (item.MATH2 === -1) {
+                            if (item.MATH2 === -1 || item.MATH2 === -2) {
                                 item.MATH2 = 0;
                             }
-                            if (item.MATH3 === -1) {
+                            if (item.MATH3 === -1 || item.MATH3 === -2) {
                                 item.MATH3 = 0;
                             }
-                            if (item.MATH4 === -1) {
+                            if (item.MATH4 === -1 || item.MATH4 === -2) {
                                 item.MATH4 = 0;
                             }
                             self.dbd.push(item);
@@ -1414,16 +1538,16 @@ function setup() {
                     self.sbd = [];
                     $.each(self.stateMATH, function(index, item) {
                         if (item.level === self.tLevel) {
-                            if (item.MATH1 === -1) {
+                            if (item.MATH1 === -1 || item.MATH1 === -2) {
                                 item.MATH1 = 0;
                             }
-                            if (item.MATH2 === -1) {
+                            if (item.MATH2 === -1 || item.MATH2 === -2) {
                                 item.MATH2 = 0;
                             }
-                            if (item.MATH3 === -1) {
+                            if (item.MATH3 === -1 || item.MATH3 === -2) {
                                 item.MATH3 = 0;
                             }
-                            if (item.MATH4 === -1) {
+                            if (item.MATH4 === -1 || item.MATH4 === -2) {
                                 item.MATH4 = 0;
                             }
                             self.sbd.push(item);
@@ -1518,14 +1642,19 @@ function setup() {
                 // console.log(TotalArray);
 
                 var TotalArray = self.sbd.concat(self.dbd, self.studentBreakDown);
-                // console.log(TotalArray);
+                console.log(TotalArray);
 
                 buildChart();
+                buildChart1();
 
+                /**
+                 * [buildChart - Bar Chart showing four categories of Proficiency]
+                 * @return {[type]} [description]
+                 */
                 function buildChart() {
                     var seriesINFO;
                     if (self.typeA === "ELA") {
-                        title = selectedYear + " ELA Results",
+                        title = selectedYear + " ELA Proficiency Results",
                             seriesINFO = [{
                                 name: "Redacted",
                                 field: "REDACT",
@@ -1549,7 +1678,7 @@ function setup() {
                             }]
                     }
                     if (self.typeA === "MATH") {
-                        title = selectedYear + " MATH Results",
+                        title = selectedYear + " MATH Proficiency Results",
                             seriesINFO = [{
                                 name: "Redacted",
                                 field: "REDACT",
@@ -1621,6 +1750,89 @@ function setup() {
                         }
                     });
                 };
+
+                /**
+                 * [buildChart1 - Bar Chart showing Percent Passed]
+                 * @return {[type]} [description]
+                 */
+                function buildChart1() {
+                    var seriesINFO;
+                    if (self.typeA === "ELA") {
+                        title = selectedYear + " ELA Percent Passed",
+
+                            seriesINFO = [{
+                                name: "Percent Passed",
+                                field: "ELAP",
+                                color: function(point) {
+                                    if (point.value < 100) {
+                                        return "#50be09";
+                                    } else {
+                                        return "#c0c0c0";
+                                    }
+                                }
+                            }]
+                    }
+                    if (self.typeA === "MATH") {
+                        title = selectedYear + " MATH Percent Passed",
+                            seriesINFO = [{
+                                name: "Percent Passed",
+                                field: "MATHP",
+                                color: function(point) {
+                                    if (point.value < 100) {
+                                        return "#50be09";
+                                    } else {
+                                        return "#c0c0c0";
+                                    }
+                                }
+                            }]
+                    }
+
+                    $("#passChart").kendoChart({
+                        title: {
+                            text: title
+                        },
+                        dataSource: TotalArray,
+                        legend: {
+                            visible: false,
+                            position: "bottom"
+                        },
+                        seriesDefaults: {
+                            type: "bar"
+                        },
+                        series: seriesINFO,
+                        valueAxis: {
+                            max: 100,
+                            line: {
+                                visible: true
+                            },
+                            minorGridLines: {
+                                visible: true
+                            },
+                            majorGridLines: {
+                                visible: true,
+                                width: 2
+                            },
+                            labels: {
+                                template: "${ value }%"
+                            }
+                        },
+                        categoryAxis: {
+                            // field: "group",
+                            categories: appConfig.subGroupsAll,
+                            line: {
+                                visible: true
+                            },
+                            majorGridLines: {
+                                visible: false
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            // template: "${ series.name }: ${ value }%"
+                            template: "#if (value < 100) {# ${ series.name }: ${ value }% #} else {# Redacted #}#"
+                        }
+                    });
+                };
             };
 
             /**
@@ -1628,8 +1840,8 @@ function setup() {
              * @return {[type]} [description]
              */
             function buildDgrid() {
-                dom.byId("distName").innerHTML = self.distInfo[0].DistrictName;
-                dom.byId("distNum").innerHTML = "(" + self.distInfo[0].DISTRICTID + ")";
+                dom.byId("distName").innerHTML = self.distInfo[0].dName;
+                dom.byId("distNum").innerHTML = "(" + self.distInfo[0].dID + ")";
 
                 $("#grid").kendoGrid({
                     dataSource: {
@@ -1640,7 +1852,7 @@ function setup() {
                     sortable: true,
                     pageable: false,
                     columns: [{
-                        field: "DISTRICTID",
+                        field: "dID",
                         title: "District ID",
                         headerAttributes: {
                             "class": "grid-header-style"
@@ -1648,42 +1860,42 @@ function setup() {
                         width: 70
 
                     }, {
-                        field: "SCHOOLID",
+                        field: "entityID",
                         title: "School ID",
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
                         width: 70
                     }, {
-                        field: "SchoolName",
+                        field: "sName",
                         title: "School Name",
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
                         width: 260
                     }, {
-                        field: "SchoolClass",
+                        field: "sClass",
                         title: "School Class",
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
                         width: 70
                     }, {
-                        field: "SchoolType",
+                        field: "sType",
                         title: "School Type",
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
                         width: 80
                     }, {
-                        field: "Grades",
+                        field: "grades",
                         title: "Grades",
                         headerAttributes: {
                             "class": "grid-header-style"
                         },
                         width: 150
                     }, {
-                        field: "Active",
+                        field: "active",
                         title: "Active",
                         headerAttributes: {
                             "class": "grid-header-style"
@@ -1728,8 +1940,8 @@ function setup() {
 
 $(document).ready(function() {
     //*** Info binding
-    $("#infoModal").load("views/info-view.html");
-    $("#legalModal").load("views/legal-view.html");
+    $("#infoModal").load("app/views/info-view.html");
+    $("#legalModal").load("app/views/legal-view.html");
 
 });
 

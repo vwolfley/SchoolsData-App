@@ -1,24 +1,22 @@
 /* ========================================================================
  * Maricopa Association of Governments
- * MAG AzMERIT Data Viewer
- * JS document for the MAG AzMERIT Data Viewer
- * ========================================================================
- * @project     MAG AzMERIT Data Viewer
- * @version     0.0.3
- * @jsdoc       config.js
- * @copyright   2017 Maricopa Association of Governments
- * @license     MIT
+ * JS document
+ * @project     MAG Schools Data Visualization Project
+ * @summary     config file for project
+ * @file        config.js
  * ======================================================================== */
 
 define([], function() {
       return {
 
-            version: "0.0.3 | 05/16/2017",
+            version: "0.0.4 | 2018-02-23",
+            copyright: "2018",
 
             emailLink: "https://www.azmag.gov/EmailPages/JasonHoward.asp",
 
             // mainURL: "http://geo.azmag.gov/gismag/rest/services/maps/ReadOn_test/MapServer/0",
-            mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/AzMERIT_TEST/MapServer",
+            // mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/SchoolsTestData/MapServer",
+            mainURL: "http://geo.azmag.gov/gismag/rest/services/Test/SchoolsData_2017/MapServer",
 
             _subGroups: ["State Average", "District Average", "School Average", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 
@@ -26,8 +24,25 @@ define([], function() {
 
             subGroups: ["All Students", "Male", "Female", "White", "Black", "Asian", "Hispanic", "Native American", "Pacific Islander", "Two or More Races", "SPED", "ELL", "FRL", "Migrant", "Homeless"],
 
+            stateAzMERIT2017ela: [0,41,20,29,10],
+            stateAzMERIT2017math: [0,36,24,26,13],
+            stateAzMERIT2016ela: [0,42,20,28,10],
+            stateAzMERIT2016math: [0,38,25,26,11],
+            stateAzMERIT2015ela: [0,42,23,28,7],
+            stateAzMERIT2015math: [0,38,27,24,11],
+
+            stateELAPassing: [34, 38, 39],
+            stateMATHPassing: [35, 38, 40],
+
+            // Chronic Absent Rate for State
+            // All Students, All Grades
+            stateChronicRate2014: 13,
+            stateChronicRate2015: 14,
+            stateChronicRate2016: 14,
+            stateChronicRate2017: 0,
+
             subGroups1: [
-                  "All",
+                  "All Students",
                   "Male",
                   "Female",
                   "White",
@@ -45,7 +60,7 @@ define([], function() {
             ],
 
             sortOrder: {
-                  "All": 0,
+                  "All Students": 0,
                   "Male": 1,
                   "Female": 2,
                   "White": 3,

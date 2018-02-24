@@ -1,5 +1,5 @@
 ![](http://geo.azmag.gov/maps/readonaz/app/resources/img/maglogo_black.png)
-# AzMERIT Test Scores Data Visualization Project
+# Arizona Schools Data Visualization Project #
 MAG application showing selected key data for Arizona Schools
 
 [![GitHub version](https://badge.fury.io/gh/vwolfley%2SchoolsData-App.svg)](https://badge.fury.io/gh/vwolfley%2SchoolsData-App)
@@ -16,15 +16,15 @@ While every effort has been made to ensure the accuracy of this information, the
 
 ## Keywords
 
-`AzMERIT` `Testing` `Schools` `Arizona` `Maps` `MAG` `ESRI` `#MAGmaps`
+`schools` `education` `testing` `standards` `scores` `AzMERIT` `enrollment` `data` `visualization` `ADE` `Arizona` `maps` `MAG` `ESRI` `#MAGmaps`
 
 ## Version
 
-### version 0.0.3 ###
+### version 0.0.4 ###
 
- `Updated: 05/16/2017`
+ `Updated: 2018-02-23`
 
- `Created: 10/03/2016`
+ `Created: 2016-10-03`
 
 Releases will be numbered with the following format:
 
@@ -39,14 +39,15 @@ And constructed with the following guidelines:
 ## Credits
 
 * Maricopa Association of Governments (MAG) and the MAG member agencies
-* Read On Arizona - [Read On Arizona](http://readonarizona.org/)
-* Virginia G. Piper Charitable Trust - [Virginia G. Piper Charitable Trust](http://pipertrust.org/)
-* Arizona Department of Education - [Arizona Department of Education](http://www.azed.gov/)
-* First Things First - [First Things First](http://www.azftf.gov/Pages/default.aspx)
+* [Maricopa Association of Governments](http://www.azmag.gov/)
+* [Read On Arizona](http://readonarizona.org/)
+* [Virginia G. Piper Charitable Trust](http://pipertrust.org/)
+* [Arizona Department of Education](http://www.azed.gov/)
+* [First Things First](http://www.azftf.gov/Pages/default.aspx)
 
 ## Site URL's
 
-* [TEST SITE](http://geo.azmag.gov/maps/test/azmerit/)
+* [TEST SITE](http://geo.azmag.gov/maps/tools/schools)
 
 ## Documentation
 
