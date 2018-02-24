@@ -28,7 +28,7 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
-## Version 0.0.4 | 2018-02-20
+## Version 0.0.4 | 2018-02-23
 
 * changed info badges
 * added new info badges
