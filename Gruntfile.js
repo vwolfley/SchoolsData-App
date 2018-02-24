@@ -199,7 +199,7 @@ module.exports = function(grunt) {
     grunt.registerTask("work", ["jshint"]);
     grunt.registerTask("update", ["replace"]);
 
-    grunt.registerTask("build", ["clean:build", "replace", "copy", "toggleComments", "cssmin", "uglify"]);
+    grunt.registerTask("build", ["clean:build", "replace", "copy", "toggleComments"]);
 
 
     // the default task can be run just by typing "grunt" on the command line
