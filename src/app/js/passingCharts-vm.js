@@ -352,7 +352,7 @@
                             state = [ela,math];
                             break;
                     }
-                    console.log(state);
+                    // console.log(state);
 
                     buildDistPieChart();
                     function buildDistPieChart() {
@@ -491,7 +491,7 @@
                                 mathScores = azMERITcat;
                             }
                         });
-                        console.log(elaScores);
+                        // console.log(elaScores);
 
                         elaPieChart();
                         mathPieChart();

@@ -20,9 +20,9 @@ While every effort has been made to ensure the accuracy of this information, the
 
 ## Version
 
-### version 0.0.3 ###
+### version 0.0.4 ###
 
- `Updated: 2017-05-16`
+ `Updated: 2018-02-23`
 
  `Created: 2016-10-03`
 
@@ -47,7 +47,7 @@ And constructed with the following guidelines:
 
 ## Site URL's
 
-* [TEST SITE](http://geo.azmag.gov/maps/test/azmerit/)
+* [TEST SITE](http://geo.azmag.gov/maps/tools/schools)
 
 ## Documentation
 

@@ -33,23 +33,6 @@ module.exports = function(grunt) {
             " * @license    MIT\n" +
             " * ========================================================================== */\n",
 
-        htmlhint: {
-            build: {
-                options: {
-                    "tag-pair": true, // Force tags to have a closing pair
-                    "tagname-lowercase": true, // Force tags to be lowercase
-                    "attr-lowercase": true, // Force attribute names to be lowercase e.g. <div id="header"> is invalid
-                    "attr-value-double-quotes": true, // Force attributes to have double quotes rather than single
-                    // "doctype-first": true,           // Force the DOCTYPE declaration to come first in the document
-                    "spec-char-escape": true, // Force special characters to be escaped
-                    "id-unique": true, // Prevent using the same ID multiple times in a document
-                    // "head-script-disabled": false,   // Prevent script tags being loaded in the head for performance reasons
-                    "style-disabled": true // Prevent style tags. CSS should be loaded through
-                },
-                src: ["index.html", "app/views/*.html"]
-            }
-        },
-
         jshint: {
             options: {
                 jshintrc: true,
@@ -60,38 +43,56 @@ module.exports = function(grunt) {
 
         uglify: {
             options: {
-                banner: "<% var subtask = uglify[grunt.task.current.target]; %>" +
-                    "\n/*! <%= subtask.name %> */",
+                // banner: "<% var subtask = uglify[grunt.task.current.target]; %>" +
+                //     "\n/*! <%= subtask.name %> */",
                 preserveComments: "true",
                 mangle: false
             },
-            task1: {
-                name: "config.min.js",
-                files: [{
-                    src: "dist/js/config.js",
-                    dest: "dist/js/config.min.js"
-                }]
-            }
+            files: [{
+                expand: true,
+                src: ["dist/app/js/*.js"],
+                dest: "dist/app/js",
+                cwd: '.',
+            }]
+            // task1: {
+            //     name: "config.min.js",
+            //     files: [{
+            //         src: "dist/js/config.js",
+            //         dest: "dist/js/config.min.js"
+            //     }]
+            // }
         },
 
         cssmin: {
             options: {
-                specialComments: "all",
-                processImport: false,
-                roundingPrecision: -1,
                 mergeIntoShorthands: false,
-                advanced: false,
+                roundingPrecision: -1
             },
             target: {
-                files: [{
-                    expand: true,
-                    cwd: "dist/css",
-                    src: ["calciteCss.css", "custom.css"],
-                    dest: "dist/css",
-                    ext: ".min.css"
-                }]
+                files: {
+                    'dist/app/css/main.min.css': ['dist/app/css/normalize.css', 'dist/app/css/main.css']
+                }
             }
         },
+
+        // cssmin: {
+        //     // options: {
+        //     //     specialComments: "all",
+        //     //     processImport: false,
+        //     //     roundingPrecision: -1,
+        //     //     mergeIntoShorthands: false,
+        //     //     advanced: false
+        //     // },
+        //     target: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: "dist/app/css",
+        //             src: ["main.css", "normalize.css"],
+        //             dest: "dist/app/css",
+        //             ext: ".min.css"
+        //         }]
+        //     }
+        // },
 
         concat: {
             css: {
@@ -99,8 +100,8 @@ module.exports = function(grunt) {
                     stripBanners: true,
                     banner: "<%= bannercss %>"
                 },
-                src: ["dist/css/calciteCss.min.css", "dist/css/custom.min.css"],
-                dest: "dist/css/main-concat.min.css",
+                src: ["dist/app/css/normalize.min.css", "dist/app/css/main.min.css"],
+                dest: "dist/app/css/main-concat.min.css",
                 nonull: true,
             },
             js: {
@@ -198,7 +199,7 @@ module.exports = function(grunt) {
     grunt.registerTask("work", ["jshint"]);
     grunt.registerTask("update", ["replace"]);
 
-    grunt.registerTask("build", ["clean:build", "replace", "copy", "cssmin", "uglify", "concat", "clean:cleancss", "clean:cleanjs", "toggleComments"]);
+    grunt.registerTask("build", ["clean:build", "replace", "copy", "toggleComments"]);
 
 
     // the default task can be run just by typing "grunt" on the command line
