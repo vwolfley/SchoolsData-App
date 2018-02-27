@@ -102,11 +102,11 @@ Header Section
     padding-top: 5px;
 }
 #infoBtn {
-    padding-top: 18px;
-    text-align: right;
+    padding-bottom: 5px;
+    float: right;
 }
 #pickSchools {
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
 }
 .k-tabstrip-wrapper {
 
@@ -159,7 +159,7 @@ Header Section
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
     text-transform: uppercase;
     margin-bottom: 2px;
-    /* padding-top: 15px; */
+    margin-top: 5px;
 }
 /*******************
  State Panels
@@ -629,3 +629,7 @@ Header Section
     padding-left: 5px;
  }
 
+.breakCharts{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

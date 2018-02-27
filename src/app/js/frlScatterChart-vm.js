@@ -29,6 +29,7 @@
                     });
 
                     buildChart();
+
                     function buildChart() {
                         $("#frlScatterChart").kendoChart({
                             theme: "Silver",
@@ -76,8 +77,11 @@
                             }
                         });
                     }
-
                 };
+                $(window).resize(function() {
+                    $("#frlScatterChart").data("kendoChart").refresh();
+                });
+
             }; // end frlScatterChartVM
             return frlScatterChartVM;
         } // end function

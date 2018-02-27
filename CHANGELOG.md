@@ -28,6 +28,11 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
+## Version 0.0.5 | 2018-02-26
+
+* updated Kendo UI v2018.1.221 `UI R1 2018 SP1` [UI R1 2018 SP1](https://www.telerik.com/support/whats-new/kendo-ui/release-history/kendo-ui-r1-2018-sp1)
+* updated to ArcGIS API for JavaScript `v3.23` - [v3.23](https://developers.arcgis.com/javascript/)
+
 ## Version 0.0.4 | 2018-02-23
 
 * changed info badges

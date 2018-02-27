@@ -242,9 +242,11 @@
                     }
                     // end chronicGradeChart
 
-                };
-                // end self.chronicAbsenceChart
-
+                }; // end self.chronicAbsenceChart
+                $(window).resize(function() {
+                    $("#chronicSubChart").data("kendoChart").refresh();
+                    $("#chronicGradeChart").data("kendoChart").refresh();
+                });
 
             }; // end chronicChartsVM
             return chronicChartsVM;

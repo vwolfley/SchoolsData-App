@@ -238,6 +238,10 @@
                         });
                     }
                 };
+                $(window).resize(function() {
+                    $("#enrollmentChart").data("kendoChart").refresh();
+                    $("#enrollmentCohorts").data("kendoChart").refresh();
+                });
 
             }; // end enrollmentChartVM
             return enrollmentChartVM;

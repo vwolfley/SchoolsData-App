@@ -88,6 +88,11 @@
                         }
                     });
                 };
+
+                $(window).resize(function() {
+                    $("#azMERITchartSchools").data("kendoChart").refresh();
+                });
+
             }; // end scatterChartVM
             return scatterChartVM;
         } // end function

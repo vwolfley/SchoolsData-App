@@ -194,8 +194,12 @@
                             }
                         });
                     }
-
                 };
+                $(window).resize(function() {
+                    $("#azMeritTrendsELA").data("kendoChart").refresh();
+                    $("#azMeritTrendsMATH").data("kendoChart").refresh();
+                });
+
             }; // end azMeritTrendsVM
             return azMeritTrendsVM;
         } // end function
