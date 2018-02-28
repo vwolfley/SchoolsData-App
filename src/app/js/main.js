@@ -181,7 +181,6 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
                 queryTask.execute(query, districtDataQueryHandler, districtDataQueryFault);
-
             };
 
             /**
@@ -585,7 +584,7 @@ function setup() {
 
             /**
              * [schoolScoresQueryFault]
-             * @param  {getSchoolsData()}
+             * @param  {getSchoolScores()}
              * @return {error}
              */
             function schoolScoresQueryFault(error) {
@@ -807,6 +806,7 @@ function setup() {
 
                 var schoolData = $("#schools").data("kendoDropDownList");
                 var dataItem = schoolData.dataItem();
+                // console.log(dataItem);
 
                 // school name & district name
                 $(".schoolName").text(dataItem.sName);
@@ -816,6 +816,8 @@ function setup() {
 
                 dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
                 dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
+
+                scatterChartVM.schoolSelected(dataItem);
 
                 getSchoolLocation(dataItem);
                 getSchoolScores(dataItem);
@@ -846,10 +848,13 @@ function setup() {
                     $(".schoolName").text(dataItem.sName);
                     $(".schoolID").text("  (" + dataItem.entityID + ")");
                     $(".districtName").text(dataItem.dName);
-
+                    $(".districtID").text("  (" + dataItem.dID + ")");
 
                     dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
                     dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
+
+                    getSchoolsData(selectedYear);
+                    scatterChartVM.schoolSelected(dataItem);
 
                     getSchoolLocation(dataItem);
                     getSchoolScores(dataItem);
@@ -876,78 +881,6 @@ function setup() {
                     $("#option1").parents('.btn').button('toggle');
                 };
             };
-
-
-
-
-            /**
-             * [azMERITdistrictScatter] - Shows District schools and their AzMERIT score in scatter chart.
-             * Data from [azMERITdistQueryHandler] via [getDistrictData();]
-             * @return
-             */
-            function azMERITdistrictScatter() {
-                // console.log(self.distInfo);
-                dom.byId("distName1").innerHTML = self.distInfo[0].dName;
-                dom.byId("distNum1").innerHTML = "(" + self.distInfo[0].dID + ")";
-
-                $("#azMERITdistrictScatter").kendoChart({
-                    theme: "Silver",
-                    title: {
-                        text: "AzMERIT District Schools Percent Passing" + " " + selectedYear
-                    },
-                    dataSource: {
-                        data: self.distInfo,
-                        filter: {
-                            field: "group",
-                            operator: "isnotnull"
-                        },
-                        group: {
-                            field: "sort"
-                        },
-                        sort: {
-                            field: "sort",
-                            dir: "asc"
-                        }
-                    },
-                    legend: {
-                        position: "bottom"
-                    },
-                    seriesDefaults: {
-                        type: "scatter"
-                    },
-                    series: [{
-                        xField: "ELAP",
-                        yField: "MATHP",
-                        name: "#= group.items[0].group #",
-                        colorField: "vColor"
-                    }],
-                    // seriesColors: ["#028900", "#0057e7", "#9e379f", "#ffa700", "#d62d20", "#777777"],
-                    xAxis: {
-                        max: 100,
-                        title: {
-                            text: "ELA Percent Passing"
-                        },
-                        labels: {
-                            template: "${ value }%"
-                        }
-                    },
-                    yAxis: {
-                        min: 0,
-                        max: 100,
-                        title: {
-                            text: "Math Percent Passing"
-                        },
-                        labels: {
-                            template: "${ value }%"
-                        }
-                    },
-                    tooltip: {
-                        visible: true,
-                        template: "${ dataItem.sName } <br>ELA - ${ dataItem.ELAP }% <br>MATH - ${ dataItem.MATHP }% "
-                    }
-                });
-            };
-
 
         });
     // end main function
