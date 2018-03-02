@@ -66,8 +66,11 @@
                             mathInfo.push(item);
                         }
                     });
+                    // console.log(elaInfo);
+                    // console.log(mathInfo);
                     buildChartELA();
                     buildChartMATH();
+
 
                     function buildChartELA() {
                         $("#azMeritTrendsELA").kendoChart({
@@ -88,7 +91,7 @@
                                 style: "smooth",
                                 name: "ELA",
                                 field: "Pass",
-                                categoryField: "fy",
+                                // categoryField: "fy",
                                 color: "#007bc3"
                             }, {
                                 type: "area",
@@ -115,6 +118,7 @@
                                 axisCrossingValue: 0
                             }],
                             categoryAxis: {
+                                categories: [2015, 2016, 2017],
                                 labels: {
                                     font: "bold 12px Arial, Helvetica, sans-serif"
                                 },

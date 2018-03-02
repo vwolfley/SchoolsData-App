@@ -10,6 +10,11 @@
             var scatterChartVM = new function() {
                 var self = this;
 
+                /**
+                 * [schoolSelected description]
+                 * @param  {[type]} e [description]
+                 * @return {[type]}   [description]
+                 */
                 self.schoolSelected = function(e) {
                     self.schoolData = e;
                     // console.log(self.schoolData);

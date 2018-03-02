@@ -13,6 +13,7 @@ $(document).ready(function() {
 function setup() {
     var selectedYear = "2017";
     var dataURL;
+    var selectedSchool;
     var self = this;
 
     require([
@@ -64,7 +65,8 @@ function setup() {
 
                     $(".selected-year").text(selectedYear);
 
-                    getSchoolsData(selectedYear);
+
+                    getSchoolsList();
 
                     passingChartsVM.sYear(selectedYear);
                     azBreakdownVM.sYear(selectedYear);
@@ -93,13 +95,30 @@ function setup() {
             }, "BasemapToggle");
             toggle.startup();
 
+
             /**
-             * [getSchoolsData]
+             * [getSchoolsList - gets the list of schools for the drop-down menu]
+             * @return {[type]} [description]
+             */
+            function getSchoolsList() {
+                var queryTask;
+                var query;
+
+                queryTask = new QueryTask(appConfig.mainURL + "/10");
+                query = new Query();
+                query.where = "EntityID > 0";
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                queryTask.execute(query, azSchoolsListQueryHandler, azSchoolsListQueryFault);
+            };
+
+            /**
+             * [Queries AzSchools_InfoData for yearly stats ]
              * @param  {schoolSelected} e [SchoolEntityID, FY]
              * @return {azSchoolsQueryHandler}
              * @return {azSchoolsQueryFault} [error]
              */
-            function getSchoolsData(selectedYear) {
+            function getSchoolsData() {
                 var queryTask;
                 var query;
                 var year = selectedYear;
@@ -109,6 +128,7 @@ function setup() {
                 query.where = "FY = '" + year + "' AND SchoolEntityID > 0";
                 query.returnGeometry = false;
                 query.outFields = ["*"];
+                // console.log(query.where);
                 queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault);
             };
 
@@ -154,8 +174,8 @@ function setup() {
 
                 q2015.returnGeometry = q2016.returnGeometry = q2017.returnGeometry = false;
                 q2015.outFields = q2016.outFields = q2017.outFields = ["*"];
-                // q2015.where = q2016.where = q2017.where = "EntityID = " + self.dataItem.entityID + " AND Subgroup = 'All Students' AND TestLevel = 'All Students'";
                 q2015.where = q2016.where = q2017.where = "EntityID = " + dataItem.entityID + " AND Subgroup = 0 AND TestLevel = 0";
+                // console.log(q2017.where);
 
                 s2015 = qt2015.execute(q2015);
                 s2016 = qt2016.execute(q2016);
@@ -401,6 +421,39 @@ function setup() {
             //================================================================================================>
 
             /**
+             * [azSchoolsListQueryFault]
+             * @param  {getSchoolsList()}
+             * @return {error}
+             */
+            function azSchoolsListQueryFault(error) {
+                console.log(error.messaege);
+            };
+
+            /**
+             * [azSchoolsListQueryHandler]
+             * @param  {getSchoolsList()}
+             * @return {error}
+             */
+            function azSchoolsListQueryHandler(results) {
+                var features = results.features;
+                // console.log(features);
+
+                var sList = [];
+                $.each(features, function(index, item) {
+                    var i = item.attributes;
+                    sList.push({
+                        schoolName: i.SchoolName,
+                        districtName: i.DistrictName,
+                        districtID: i.DistrictEntityID,
+                        entityID: i.EntityID,
+                        city: i.PCity,
+                    });
+                });
+                // console.log(sList);
+                schoolsList(sList);
+            };
+
+            /**
              * [schoolPointQueryFault]
              * @param  {getSchoolPoint()}
              * @return {error}
@@ -469,35 +522,38 @@ function setup() {
              */
             function azSchoolsQueryHandler(results) {
                 var features = results.features;
-                // console.log(results);
+                // console.log(features);
 
-                self.azSchools = [];
+                var azSchoolInfo = [];
                 var azSchoolsScatter = [];
                 var azSchoolsFRL = [];
                 $.each(features, function(index, item) {
 
-                    self.azSchools.push({
-                        sName: item.attributes.SchoolName,
-                        dName: item.attributes.DistrictName,
-                        dID: item.attributes.DistrictEntityID,
-                        entityID: item.attributes.EntityID,
-                        FY: item.attributes.FY,
-                        address: item.attributes.PAddress,
-                        city: item.attributes.PCity,
-                        zip: item.attributes.ZIPcode,
-                        grades: item.attributes.GradesServed,
-                        sClass: item.attributes.EntityClass,
-                        sType: item.attributes.SchoolType,
-                        active: item.attributes.Active,
-                        titleI: item.attributes.TitleI,
-                        frl: item.attributes.FRL,
-                        score: item.attributes.Score,
-                        grade: item.attributes.ADE_Grade,
-                        chronic: item.attributes.ChronicAbsence,
-                        attend: item.attributes.AttendanceRate,
-                        ELAp: item.attributes.ELA_Passing,
-                        MATHp: item.attributes.MATH_Passing
-                    });
+                    if (selectedSchool === item.attributes.EntityID) {
+                        azSchoolInfo.push({
+                            sName: item.attributes.SchoolName,
+                            dName: item.attributes.DistrictName,
+                            dID: item.attributes.DistrictEntityID,
+                            entityID: item.attributes.EntityID,
+                            FY: item.attributes.FY,
+                            address: item.attributes.PAddress,
+                            city: item.attributes.PCity,
+                            zip: item.attributes.ZIPcode,
+                            grades: item.attributes.GradesServed,
+                            sClass: item.attributes.EntityClass,
+                            sType: item.attributes.SchoolType,
+                            active: item.attributes.Active,
+                            titleI: item.attributes.TitleI,
+                            frl: item.attributes.FRL,
+                            frlp: item.attributes.FRL_CALC,
+                            score: item.attributes.Score,
+                            grade: item.attributes.ADE_Grade,
+                            chronic: item.attributes.ChronicAbsence,
+                            attend: item.attributes.AttendanceRate,
+                            ELAp: item.attributes.ELA_Passing,
+                            MATHp: item.attributes.MATH_Passing
+                        });
+                    }
 
                     azSchoolsScatter.push({
                         sName: item.attributes.SchoolName,
@@ -518,10 +574,10 @@ function setup() {
                     });
 
                 });
-                // console.log(self.azSchools);
+                // console.log(azSchoolInfo);
                 // console.log(azSchoolsScatter);
 
-                getSchoolNames();
+                schoolInfo(azSchoolInfo);
                 scatterChartVM.azMERITscatterChart(azSchoolsScatter, selectedYear);
                 frlScatterChartVM.frlScatterChart(azSchoolsFRL, selectedYear);
             };
@@ -619,7 +675,7 @@ function setup() {
 
                 var info2016ela;
                 var info2016math;
-                if (features2016.length != 0) {
+                if (features2016.length >= 4) {
                     info2016ela = features2016[2].attributes;
                     info2016math = features2016[3].attributes;
                 } else {
@@ -631,7 +687,7 @@ function setup() {
 
                 var info2017ela;
                 var info2017math;
-                if (features2017.length != 0) {
+                if (features2017.length === 6) {
                     info2017ela = features2017[4].attributes;
                     info2017math = features2017[5].attributes;
                 } else {
@@ -782,30 +838,61 @@ function setup() {
             //============================================================================================================>
 
             /**
-             * [getSchoolNames] - populates the dropdown menu for "Find a School"
-             * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
-             * @return
+             * [populates the drop-down menu for "Find a School"]
+             * @param  {[type]} e [description]
+             * @return {[type]}   [description]
              */
-            function getSchoolNames() {
-                // console.log(self.azSchools);
+            function schoolsList(results) {
+                var schools = results;
+                // console.log(schools);
 
                 $("#schools").kendoDropDownList({
-                    dataTextField: "sName",
+                    dataTextField: "schoolName",
                     dataValueField: "entityID",
-                    template: "${data.sName}" + " - <span style='font-size: 12px;'>${data.city}" + " (${data.entityID})</span>",
+                    template: "${data.schoolName}" + " - <span style='font-size: 12px;'>${data.city}" + " (${data.entityID})</span>",
                     dataSource: {
-                        data: self.azSchools,
+                        data: schools,
                         sort: {
-                            field: "sName",
+                            field: "schoolName",
                             dir: "asc"
                         }
                     },
                     index: 1,
                     change: onChange
                 });
-
                 var schoolData = $("#schools").data("kendoDropDownList");
                 var dataItem = schoolData.dataItem();
+                selectedSchool = dataItem.entityID;
+                // console.log(dataItem);
+
+                getSchoolsData();
+
+                function onChange() {
+                    var value = $("#schools").val();
+                    var schoolData = $("#schools").data("kendoDropDownList");
+                    var dataItem = schoolData.dataItem();
+                    selectedSchool = dataItem.entityID;
+
+                    getSchoolsData();
+
+                    // toggles the Assessment Type back to ELA from MATH
+                    $("#option1").parents('.btn').button('toggle');
+                };
+            };
+
+            /**
+             * [schoolInfo]
+             * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
+             * @return
+             */
+            function schoolInfo(results) {
+                var features = results;
+                // console.log(features);
+
+                var dataItem = {};
+                $.each(features, function(index, item) {
+                    dataItem = item;
+                });
                 // console.log(dataItem);
 
                 // school name & district name
@@ -818,17 +905,16 @@ function setup() {
                 dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
 
                 scatterChartVM.schoolSelected(dataItem);
+                frlScatterChartVM.schoolSelected(dataItem);
 
                 getSchoolLocation(dataItem);
                 getSchoolScores(dataItem);
-
                 getSchoolBreakDown(dataItem);
                 getDistrictBreakDown(dataItem);
                 getStateBreakDown();
                 getChronicData(dataItem);
                 getEnrollmentData(dataItem);
                 getTestTrends(dataItem);
-
                 getDistrictData(dataItem);
                 getDistrictScores(dataItem);
 
@@ -838,48 +924,6 @@ function setup() {
                 infoBadgesVM.freeReducedBadge(dataItem);
                 infoBadgesVM.chronicBadge(dataItem);
                 infoBadgesVM.attendanceBadge(dataItem);
-
-                function onChange() {
-                    var value = $("#schools").val();
-                    var schoolData = $("#schools").data("kendoDropDownList");
-                    var dataItem = schoolData.dataItem();
-
-                    // school name & district name
-                    $(".schoolName").text(dataItem.sName);
-                    $(".schoolID").text("  (" + dataItem.entityID + ")");
-                    $(".districtName").text(dataItem.dName);
-                    $(".districtID").text("  (" + dataItem.dID + ")");
-
-                    dom.byId("info1").innerHTML = dataItem.sClass + " School&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.sType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + dataItem.grades;
-                    dom.byId("info2").innerHTML = dataItem.address + " " + dataItem.city + ", AZ " + dataItem.zip;
-
-                    getSchoolsData(selectedYear);
-                    scatterChartVM.schoolSelected(dataItem);
-
-                    getSchoolLocation(dataItem);
-                    getSchoolScores(dataItem);
-
-                    getSchoolBreakDown(dataItem);
-                    getDistrictBreakDown(dataItem);
-                    getStateBreakDown();
-                    getChronicData(dataItem);
-                    getEnrollmentData(dataItem);
-                    getTestTrends(dataItem);
-
-                    getDistrictData(dataItem);
-                    getDistrictScores(dataItem);
-
-                    infoBadgesVM.adeGradeBadge(dataItem);
-                    infoBadgesVM.scoreBadge(dataItem);
-                    infoBadgesVM.titleIBadge(dataItem);
-                    infoBadgesVM.freeReducedBadge(dataItem);
-                    infoBadgesVM.chronicBadge(dataItem);
-                    infoBadgesVM.attendanceBadge(dataItem);
-
-
-                    // toggles the Assessment Type back to ELA from MATH
-                    $("#option1").parents('.btn').button('toggle');
-                };
             };
 
         });
