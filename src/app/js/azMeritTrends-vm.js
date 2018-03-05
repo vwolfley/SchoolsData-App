@@ -44,6 +44,39 @@
                         }
                     });
                     // console.log(trendData);
+
+                    var fyList = [2015, 2016, 2017];
+
+                    // builds a list of test levels that are available
+                    var list = [];
+                    $.each(trendData, function(index, item) {
+                        list.push(item.fy);
+                    });
+                    // console.log(list);
+
+                    $.each(fyList, function(index, item) {
+                        var bb = list.includes(item);
+                        var blank_ela = {
+                            fy: item,
+                            content: "ELA",
+                            Pl3: null,
+                            Pl4: null,
+                            Pass: null
+                        };
+                        var blank_math = {
+                            fy: item,
+                            content: "MATH",
+                            Pl3: null,
+                            Pl4: null,
+                            Pass: null
+                        };
+                        if (bb === false) {
+                            // console.log("MISSING: " + item);
+                            trendData.push(blank_ela, blank_math);
+                        }
+                    });
+                    console.log(trendData);
+
                     self.azMERITtrendChart(trendData);
                 };
 
@@ -70,7 +103,6 @@
                     // console.log(mathInfo);
                     buildChartELA();
                     buildChartMATH();
-
 
                     function buildChartELA() {
                         $("#azMeritTrendsELA").kendoChart({

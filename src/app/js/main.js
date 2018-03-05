@@ -160,28 +160,15 @@ function setup() {
              */
             function getSchoolScores(e) {
                 var dataItem = e;
-                var promises;
-                var s2015;
-                var s2016;
-                var s2017;
-
-                qt2015 = new QueryTask(appConfig.mainURL + "/1");
-                q2015 = new Query();
-                qt2016 = new QueryTask(appConfig.mainURL + "/1");
-                q2016 = new Query();
-                qt2017 = new QueryTask(appConfig.mainURL + "/1");
-                q2017 = new Query();
-
-                q2015.returnGeometry = q2016.returnGeometry = q2017.returnGeometry = false;
-                q2015.outFields = q2016.outFields = q2017.outFields = ["*"];
-                q2015.where = q2016.where = q2017.where = "EntityID = " + dataItem.entityID + " AND Subgroup = 0 AND TestLevel = 0";
-                // console.log(q2017.where);
-
-                s2015 = qt2015.execute(q2015);
-                s2016 = qt2016.execute(q2016);
-                s2017 = qt2017.execute(q2017);
-                promises = all([s2015, s2016, s2017]);
-                promises.then(schoolScoresQueryHandler, schoolScoresQueryFault);
+                var queryTask;
+                var query;
+                queryTask = new QueryTask(appConfig.mainURL + "/1");
+                query = new Query();
+                query.where = "EntityID = " + dataItem.entityID + " AND Subgroup = 0 AND TestLevel = 0";
+                query.returnGeometry = false;
+                query.outFields = ["*"];
+                // console.log(query.where);
+                queryTask.execute(query, schoolScoresQueryHandler, schoolScoresQueryFault);
             };
 
             /**
@@ -653,49 +640,81 @@ function setup() {
              * @return {[passingChartsVM]}
              */
             function schoolScoresQueryHandler(results) {
-                // console.log(results);
-                var features2015 = results[0].features;
-                var features2016 = results[1].features;
-                var features2017 = results[2].features;
-                // console.log(features2015);
-                // console.log(features2016);
-                // console.log(features2017);
+                var features = results.features;
+                // console.log(features);
+
+                var f2015 = [];
+                var f2016 = [];
+                var f2017 = [];
+                $.each(features, function(index, item) {
+                    var x = item.attributes;
+                    if (x.FY === 2015) {
+                        f2015.push(x);
+                    }
+                    if (x.FY === 2016) {
+                        f2016.push(x);
+                    }
+                    if (x.FY === 2017) {
+                        f2017.push(x);
+                    }
+                });
+                // console.log(f2015);
+                // console.log(f2016);
+                // console.log(f2017);
 
                 var info2015ela;
                 var info2015math;
-                if (features2015.length != 0) {
-                    info2015ela = features2015[0].attributes;
-                    info2015math = features2015[1].attributes;
+                if (f2015.length > 0) {
+                    $.each(f2015, function(index, item) {
+                        if (item.ContentArea === 675) {
+                            info2015ela = item;
+                        }
+                        if (item.ContentArea === 677) {
+                            info2015math = item;
+                        }
+                    });
                 } else {
-                    info2015ela = 0;
-                    info2015math = 0;
-                    info2015ela.PCT_Passing = 0;
-                    info2015math.PCT_Passing = 0;
+                    info2015ela = 0
+                    info2015math = 0
                 }
+                // console.log(info2015ela);
+                // console.log(info2015math);
 
                 var info2016ela;
                 var info2016math;
-                if (features2016.length >= 4) {
-                    info2016ela = features2016[2].attributes;
-                    info2016math = features2016[3].attributes;
+                if (f2016.length > 0) {
+                    $.each(f2016, function(index, item) {
+                        if (item.ContentArea === 675) {
+                            info2016ela = item;
+                        }
+                        if (item.ContentArea === 677) {
+                            info2016math = item;
+                        }
+                    });
                 } else {
-                    info2016ela = 0;
-                    info2016math = 0;
-                    info2016ela.PCT_Passing = 0;
-                    info2016math.PCT_Passing = 0;
+                    info2016ela = 0
+                    info2016math = 0
                 }
+                // console.log(info2016ela);
+                // console.log(info2016math);
 
                 var info2017ela;
                 var info2017math;
-                if (features2017.length === 6) {
-                    info2017ela = features2017[4].attributes;
-                    info2017math = features2017[5].attributes;
+                if (f2017.length > 0) {
+                    $.each(f2017, function(index, item) {
+                        if (item.ContentArea === 675) {
+                            info2017ela = item;
+                        }
+                        if (item.ContentArea === 677) {
+                            info2017math = item;
+                        }
+                    });
                 } else {
-                    info2017ela = 0;
-                    info2017math = 0;
-                    info2017ela.PCT_Passing = 0;
-                    info2017math.PCT_Passing = 0;
+                    info2017ela = 0
+                    info2017math = 0
                 }
+                // console.log(info2017ela);
+                // console.log(info2017math);
 
                 var e1, e2;
                 if (selectedYear === "2015") {
