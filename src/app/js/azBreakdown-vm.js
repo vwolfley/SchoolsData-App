@@ -40,40 +40,41 @@
                     self.breakdownELA = [];
                     self.breakdownMATH = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675) {
+                        var x = item.attributes;
+                        if (x.ContentArea === 675) {
                             self.breakdownELA.push({
-                                entityID: item.attributes.EntityID,
-                                distID: item.attributes.DistrictEntityID,
-                                countyID: item.attributes.CountyEntityID,
-                                schoolID: item.attributes.SchoolEntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                ELA1: item.attributes.PCT_PL1,
-                                ELA2: item.attributes.PCT_PL2,
-                                ELA3: item.attributes.PCT_PL3,
-                                ELA4: item.attributes.PCT_PL4,
-                                ELAP: item.attributes.PCT_Passing,
-                                REDACT: item.attributes.PCT_Redacted,
+                                entityID: x.EntityID,
+                                distID: x.DistrictEntityID,
+                                countyID: x.CountyEntityID,
+                                schoolID: x.SchoolEntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                ELA1: x.PCT_PL1,
+                                ELA2: x.PCT_PL2,
+                                ELA3: x.PCT_PL3,
+                                ELA4: x.PCT_PL4,
+                                ELAP: x.PCT_Passing,
+                                REDACT: x.PCT_Redacted,
                             });
                         }
-                        if (item.attributes.ContentArea === 677) {
+                        if (x.ContentArea === 677) {
                             self.breakdownMATH.push({
-                                entityID: item.attributes.EntityID,
-                                distID: item.attributes.DistrictEntityID,
-                                countyID: item.attributes.CountyEntityID,
-                                schoolID: item.attributes.SchoolEntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                MATH1: item.attributes.PCT_PL1,
-                                MATH2: item.attributes.PCT_PL2,
-                                MATH3: item.attributes.PCT_PL3,
-                                MATH4: item.attributes.PCT_PL4,
-                                MATHP: item.attributes.PCT_Passing,
-                                REDACT: item.attributes.PCT_Redacted,
+                                entityID: x.EntityID,
+                                distID: x.DistrictEntityID,
+                                countyID: x.CountyEntityID,
+                                schoolID: x.SchoolEntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                MATH1: x.PCT_PL1,
+                                MATH2: x.PCT_PL2,
+                                MATH3: x.PCT_PL3,
+                                MATH4: x.PCT_PL4,
+                                MATHP: x.PCT_Passing,
+                                REDACT: x.PCT_Redacted,
                             });
                         }
 
@@ -84,16 +85,17 @@
                     self.elaLevels = [];
                     self.mathLevels = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675) {
+                        var x = item.attributes;
+                        if (x.ContentArea === 675) {
                             self.elaLevels.push({
-                                level: item.attributes.TestLevelName,
-                                sort: item.attributes.TestOrder
+                                level: x.TestLevelName,
+                                sort: x.TestOrder
                             });
                         }
-                        if (item.attributes.ContentArea === 677) {
+                        if (x.ContentArea === 677) {
                             self.mathLevels.push({
-                                level: item.attributes.TestLevelName,
-                                sort: item.attributes.TestOrder
+                                level: x.TestLevelName,
+                                sort: x.TestOrder
                             });
                         }
                     });
@@ -103,7 +105,7 @@
                     var unique0 = {};
                     self.distinctELA = [];
                     for (var i in self.elaLevels) {
-                        if (typeof(unique0[self.elaLevels[i].level]) == "undefined") {
+                        if (typeof(unique0[self.elaLevels[i].level]) === "undefined") {
                             self.distinctELA.push({
                                 level: self.elaLevels[i].level,
                                 sort: self.elaLevels[i].sort
@@ -130,7 +132,7 @@
                     var unique1 = {};
                     self.distinctMATH = [];
                     for (var i in self.mathLevels) {
-                        if (typeof(unique1[self.mathLevels[i].level]) == "undefined") {
+                        if (typeof(unique1[self.mathLevels[i].level]) === "undefined") {
                             self.distinctMATH.push({
                                 level: self.mathLevels[i].level,
                                 sort: self.mathLevels[i].sort
@@ -161,34 +163,35 @@
                     self.districtELA = [];
                     self.districtMATH = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === self.gLevel) {
+                        var x = item.attributes;
+                        if (x.ContentArea === 675 && x.SubgroupDef === self.gLevel) {
                             self.districtELA.push({
-                                entityID: item.attributes.EntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                ELA1: item.attributes.PCT_PL1,
-                                ELA2: item.attributes.PCT_PL2,
-                                ELA3: item.attributes.PCT_PL3,
-                                ELA4: item.attributes.PCT_PL4,
-                                ELAP: item.attributes.PCT_Passing,
-                                ELARDT: item.attributes.PCT_Redacted
+                                entityID: x.EntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                ELA1: x.PCT_PL1,
+                                ELA2: x.PCT_PL2,
+                                ELA3: x.PCT_PL3,
+                                ELA4: x.PCT_PL4,
+                                ELAP: x.PCT_Passing,
+                                ELARDT: x.PCT_Redacted
                             });
                         }
-                        if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === self.gLevel) {
+                        if (x.ContentArea === 677 && x.SubgroupDef === self.gLevel) {
                             self.districtMATH.push({
-                                entityID: item.attributes.EntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                MATH1: item.attributes.PCT_PL1,
-                                MATH2: item.attributes.PCT_PL2,
-                                MATH3: item.attributes.PCT_PL3,
-                                MATH4: item.attributes.PCT_PL4,
-                                MATHP: item.attributes.PCT_Passing,
-                                MATHRDT: item.attributes.PCT_Redacted
+                                entityID: x.EntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                MATH1: x.PCT_PL1,
+                                MATH2: x.PCT_PL2,
+                                MATH3: x.PCT_PL3,
+                                MATH4: x.PCT_PL4,
+                                MATHP: x.PCT_Passing,
+                                MATHRDT: x.PCT_Redacted
                             });
                         }
                     });
@@ -205,34 +208,35 @@
                     self.stateELA = [];
                     self.stateMATH = [];
                     $.each(features, function(index, item) {
-                        if (item.attributes.ContentArea === 675 && item.attributes.SubgroupDef === self.gLevel) {
+                        var x = item.attributes;
+                        if (x.ContentArea === 675 && x.SubgroupDef === self.gLevel) {
                             self.stateELA.push({
-                                entityID: item.attributes.EntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                ELA1: item.attributes.PCT_PL1,
-                                ELA2: item.attributes.PCT_PL2,
-                                ELA3: item.attributes.PCT_PL3,
-                                ELA4: item.attributes.PCT_PL4,
-                                ELAP: item.attributes.PCT_Passing,
-                                ELARDT: item.attributes.PCT_Redacted
+                                entityID: x.EntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                ELA1: x.PCT_PL1,
+                                ELA2: x.PCT_PL2,
+                                ELA3: x.PCT_PL3,
+                                ELA4: x.PCT_PL4,
+                                ELAP: x.PCT_Passing,
+                                ELARDT: x.PCT_Redacted
                             });
                         }
-                        if (item.attributes.ContentArea === 677 && item.attributes.SubgroupDef === self.gLevel) {
+                        if (x.ContentArea === 677 && x.SubgroupDef === self.gLevel) {
                             self.stateMATH.push({
-                                entityID: item.attributes.EntityID,
-                                FY: item.attributes.FY,
-                                area: item.attributes.ContentAreaDef,
-                                group: item.attributes.SubgroupDef,
-                                level: item.attributes.TestLevelName,
-                                MATH1: item.attributes.PCT_PL1,
-                                MATH2: item.attributes.PCT_PL2,
-                                MATH3: item.attributes.PCT_PL3,
-                                MATH4: item.attributes.PCT_PL4,
-                                MATHP: item.attributes.PCT_Passing,
-                                MATHRDT: item.attributes.PCT_Redacted
+                                entityID: x.EntityID,
+                                FY: x.FY,
+                                area: x.ContentAreaDef,
+                                group: x.SubgroupDef,
+                                level: x.TestLevelName,
+                                MATH1: x.PCT_PL1,
+                                MATH2: x.PCT_PL2,
+                                MATH3: x.PCT_PL3,
+                                MATH4: x.PCT_PL4,
+                                MATHP: x.PCT_Passing,
+                                MATHRDT: x.PCT_Redacted
                             });
                         }
                     });
@@ -568,7 +572,7 @@
                                     name: "Highly Proficient",
                                     field: "ELA4",
                                     color: "#50be09"
-                                }]
+                                }];
                         }
                         if (self.typeA === "MATH") {
                             title = self.selectedYear + " MATH Proficiency Results",
@@ -592,7 +596,7 @@
                                     name: "Highly Proficient",
                                     field: "MATH4",
                                     color: "#50be09"
-                                }]
+                                }];
                         }
 
                         $("#allChart").kendoChart({
@@ -642,7 +646,7 @@
                                 template: "${ category }<br />${ series.name }: ${ value }%"
                             }
                         });
-                    };
+                    }
 
                     /**
                      * [buildChart1 - Bar Chart showing Percent Passed]
@@ -665,7 +669,7 @@
                                             return "#c0c0c0";
                                         }
                                     }
-                                }]
+                                }];
                         }
                         if (self.typeA === "MATH") {
                             title = self.selectedYear + " MATH Percent Passed",
@@ -680,7 +684,7 @@
                                             return "#c0c0c0";
                                         }
                                     }
-                                }]
+                                }];
                         }
 
                         $("#passChart").kendoChart({
@@ -728,7 +732,7 @@
                                 template: "#if (value < 100) {# ${ category }<br />${ series.name }: ${ value }% #} else {# ${ category }<br />Redacted #}#"
                             }
                         });
-                    };
+                    }
                 };
 
             }; // end azBreakdownVM
