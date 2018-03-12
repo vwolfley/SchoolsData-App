@@ -28,8 +28,9 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
-## Version 0.0.5 | 2018-02-27
+## Version 0.0.5 | 2018-03-12
 
+* linted files
 * add unified school list for dropdown selection
 * added highlight of selected school to AzMERIT scatter chart
 * updated html for better responsive design
