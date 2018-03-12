@@ -162,10 +162,10 @@
 
                         cohorts.push({
                             fy: item.FY,
-                            ck2: (c1 != 0) ? c1 : null,
-                            c35: (c2 != 0) ? c2 : null,
-                            c68: (c3 != 0) ? c3 : null,
-                            c912: (c4 != 0) ? c4 : null,
+                            ck2: (c1 !== 0) ? c1 : null,
+                            c35: (c2 !== 0) ? c2 : null,
+                            c68: (c3 !== 0) ? c3 : null,
+                            c912: (c4 !== 0) ? c4 : null,
                         });
                     });
                     // console.log(cohorts);
@@ -238,6 +238,10 @@
                         });
                     }
                 };
+                $(window).resize(function() {
+                    $("#enrollmentChart").data("kendoChart").refresh();
+                    $("#enrollmentCohorts").data("kendoChart").refresh();
+                });
 
             }; // end enrollmentChartVM
             return enrollmentChartVM;

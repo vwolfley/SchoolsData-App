@@ -20,9 +20,9 @@ While every effort has been made to ensure the accuracy of this information, the
 
 ## Version
 
-### version 0.0.4 ###
+### version 0.0.5 ###
 
- `Updated: 2018-02-23`
+ `Updated: 2018-03-12`
 
  `Created: 2016-10-03`
 

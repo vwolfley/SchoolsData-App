@@ -60,10 +60,14 @@
                  * @return {[type]}       [description]
                  */
                 self.diffScore = function(v2015, v2016, v2017) {
+                    // console.log(v2015);
+                    // console.log(v2016);
+                    // console.log(v2017);
 
                     var ela2015 = v2015[0];
                     var ela2016 = v2016[0];
                     var ela2017 = v2017[0];
+
                     var math2015 = v2015[1];
                     var math2016 = v2016[1];
                     var math2017 = v2017[1];
@@ -168,12 +172,12 @@
                     }
 
                     function isBigEnough(element, index, array) {
-                        return element == 0;
+                        return element === 0;
                     }
                     var ddCheck = [e.PCT_PL1, e.PCT_PL2, e.PCT_PL3, e.PCT_PL4].every(isBigEnough);
                     // console.log(ddCheck);
 
-                    if (ddCheck == true) {
+                    if (ddCheck === true) {
                         dom.byId("elaChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
                         domClass.add("elaChart", "chartGoneNA");
                     } else {
@@ -249,12 +253,12 @@
                     }
 
                     function isBigEnough(element, index, array) {
-                        return element == 0;
+                        return element === 0;
                     }
                     var ddCheck = [e.PCT_PL1, e.PCT_PL2, e.PCT_PL3, e.PCT_PL4].every(isBigEnough);
                     // console.log(ddCheck);
 
-                    if (ddCheck == true) {
+                    if (ddCheck === true) {
                         dom.byId("mathChart").innerHTML = "<p class='chartGone'>Chart</p><p class='pCG'>N/A</p>";
                         domClass.add("mathChart", "chartGoneNA");
                     } else {
@@ -329,7 +333,7 @@
                             PL3: item.PCT_PL3,
                             PL4: item.PCT_PL4,
                             Passing: item.PCT_Passing
-                        }
+                        };
                         districtScores.push(data);
                     });
                     // console.log(districtScores);

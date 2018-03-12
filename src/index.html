@@ -1,10 +1,9 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MAG | Schools Data</title>
     <meta name="description" content="MAG Arizona schools data visualization project">
     <meta name="keywords" content="  schools, education, testing, standards, scores, AzMERIT, enrollment, data, visualization, ADE, Arizona, maps, MAG, ESRI, #MAGmaps">
@@ -13,17 +12,26 @@
     <link type="text/plain" rel="author" href="http://geo.azmag.gov/maps/tools/schools/humans.txt">
     <meta name="contact" content="www.azmag.gov">
     <meta name="url" content="http://geo.azmag.gov/maps/tools/schools/">
-    <link rel="shortcut icon" type="image-favorites-icon" href="images/magfavicon.png">
     <meta name="creation-date" content="2016-10-03">
-    <meta name="revision-date" content="2018-02-23">
-    <meta name="version" content="0.0.4">
+    <meta name="revision-date" content="2018-03-12">
+    <meta name="version" content="0.0.5">
+    <!-- Apple-Specific Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="app/images/magicon_144.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="app/images/magicon_114.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="app/images/magicon_72.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="app/images/magicon_57.png">
+    <link rel="icon" type="image-favorites-icon" href="app/images/magfavicon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <!-- Kendo UI Bootstrap -->
-    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.common-bootstrap.min.css" />
-    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2018.1.221/styles/kendo.bootstrap.min.css" />
     <!-- ArcGIS -->
-    <link rel="stylesheet" href="https://js.arcgis.com/3.18/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
     <link rel="stylesheet" href="app/css/normalize.css" />
     <link rel="stylesheet" href="app/css/main.css" />
     <!-- comments:uncomment-block html -->
@@ -53,12 +61,14 @@
             <h1 class="title">Arizona<span>&nbsp;Schools</span></h1>
             <h4 class="subtitle">Data Visualization Project</h4>
             <div id="year-filtering-tabs" class="filtering-tabs"></div>
-            <div id="pickSchools" class="col-md-10 field">
-                <h4 class="tDrop">Find a school</h4>
-                <input id="schools" />
-            </div>
-            <div id="infoBtn" class="col-md-2">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+            <div class="row">
+                <div id="pickSchools" class="col-md-12 field">
+                    <h4 class="tDrop">Find a school</h4>
+                    <input id="schools" />
+                    <div id="infoBtn">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal1">Information</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -92,10 +102,10 @@
                 <div class="row">
                     <div id="infoBadge" class=""></div>
                     <div id="footNote0" class="note">
-                        <p><strong>School Letter Grades</strong><br>
-                        A-F = School has received a preliminary letter grade based on initial calculation and methodologies<br>
-                        UR = Under Review: school has a non-typical school configuration or has filed an appeal<br>
-                        NR = Not rated: school is not rated due to insufficient data</p>
+                        <p><strong>School Letter Grades</strong>
+                            <br> A-F = School has received a preliminary letter grade based on initial calculation and methodologies
+                            <br> UR = Under Review: school has a non-typical school configuration or has filed an appeal
+                            <br> NR = Not rated: school is not rated due to insufficient data</p>
                     </div>
                 </div>
             </div>
@@ -141,13 +151,11 @@
                 <div id="comp" class="infoHeader">
                     <h4>Comparison Scores</h4>
                     <!-- <div id="compChart"></div> -->
-
                     <div id="stateGroup" class="col-md-2 groupPie">
                         <h5>State Scores</h5>
                         <div id="stateELAChart"></div>
                         <div id="stateMATHChart"></div>
                     </div>
-
                     <div id="districtGroup" class="col-md-2 groupPie">
                         <h5>District Scores</h5>
                         <div id="distELAChart"></div>
@@ -181,65 +189,67 @@
                 <span><h4>Test Level</h4></span>
                 <div id="fradio" class="funkyradio"></div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 breakCharts">
                 <div id="allChart"></div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 breakCharts">
                 <div id="passChart"></div>
             </div>
         </div>
         <div class="note">Note: Percentages may not sum to 100% due to rounding. Results provided are based on the grades in the school. Results for populations with fewer than 11 students or where all students score at the same performance level are masked to protect student identification, as required under the Family Educational Rights and Privacy Act (FERPA).</div>
         <div class="separator"></div>
         <!-- /row 4 -->
-
         <!-- new row **AzMERIT Scores over time-->
         <h3 class="sectionTitle">Schools AzMERIT Score Trends</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div id="azMeritTrendsELA" class="chartStyle"></div>
-            <br>
-            <div id="azMeritTrendsMATH" class="chartStyle"></div>
+            <div class="col-md-12">
+                <div id="azMeritTrendsELA" class="chartStyle"></div>
+                <br>
+                <div id="azMeritTrendsMATH" class="chartStyle"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Enrollment by Grade Chart-->
         <h3 class="sectionTitle">Total Student Enrollment</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div id="enrollmentChart" class="chartStyle"></div>
+            <div class="col-md-12">
+                <div id="enrollmentChart" class="chartStyle"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Enrollment by Grade Cohort Chart-->
         <h3 class="sectionTitle">Total Student Enrollment by Cohorts</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div id="enrollmentCohorts" class="chartStyle"></div>
+            <div class="col-md-12">
+                <div id="enrollmentCohorts" class="chartStyle"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Enrollment by Race & Ethnicity Chart-->
         <h3 class="sectionTitle">Total Student Enrollment by Race & Ethnicity</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
@@ -254,66 +264,68 @@
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Enrollment by Grade Table-->
         <h3 class="sectionTitle">Total Student Enrollment Table by Grade</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div id="enrollmentTable-Grade" class="chartStyle"></div>
+            <div class="col-md-12">
+                <div id="enrollmentTable-Grade" class="chartStyle"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Enrollment by Race Table-->
         <h3 class="sectionTitle">Total Student Enrollment Table by Race</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div id="enrollmentTable-Race" class="chartStyle"></div>
+            <div class="col-md-12">
+                <div id="enrollmentTable-Race" class="chartStyle"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
-
         <!-- new row **Chronic Absence Subgroup Chart-->
         <h3 class="sectionTitle">Chronic Absence by SubGroup</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="chronicAbsenceChart1" class="row">
-            <div id="chronicSubChart" class="chartStyle"></div>
-            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+            <div class="col-md-12">
+                <div id="chronicSubChart" class="chartStyle"></div>
+                <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- new row **Chronic Absence Grade Chart-->
         <h3 class="sectionTitle">Chronic Absence by Grade</h3>
         <span class="metric">For <span class="selected-year"></span></span>
-         <div>
+        <div>
             <h4 id="" class="schoolName schoolTitle"></h4>
             <h6 id="" class="schoolID sID"></h6>
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="chronicAbsenceChart2" class="row">
-            <div id="chronicGradeChart" class="chartStyle"></div>
-            <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+            <div class="col-md-12">
+                <div id="chronicGradeChart" class="chartStyle"></div>
+                <p class="legd"><span class="bar">&#8213;</span> This is the State Chronic Absence Rate.</p>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /new row -->
-
         <!-- row 6 **District Summary Table-->
         <h3 class="sectionTitle">District Summary Table</h3>
         <span class="metric">For <span class="selected-year"></span></span>
@@ -322,31 +334,32 @@
             <h6 id="" class="districtID dID"></h6>
         </div>
         <div class="row">
-            <div id="grid"></div>
+            <div class="col-md-12">
+                <div id="grid"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /row 6 -->
-
         <!-- row 8 **State Scatter Chart-->
         <h3 class="sectionTitle">All Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
-            <div id="azMERITchartSchools" class="col-md-12"></div>
+            <div class="col-md-12">
+                <div id="azMERITchartSchools"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /row 8 -->
-
         <!-- row 8 **State Scatter Chart-->
         <h3 class="sectionTitle">All Schools AzMERIT Average Scores vs Free & Reduced Lunch</h3>
         <span class="metric">For <span class="selected-year"></span></span>
         <div class="row">
-            <div id="frlScatterChart" class="col-md-12"></div>
+            <div class="col-md-12">
+                <div id="frlScatterChart"></div>
+            </div>
         </div>
         <div class="separator"></div>
         <!-- /row 8 -->
-
-
-
         <!-- row 7 **District Scatter Chart-->
         <!-- <h3 class="sectionTitle">District Schools AzMERIT Percent Passing Scores</h3>
         <span class="metric">For <span class="selected-year"></span></span>
@@ -359,8 +372,6 @@
         </div>
         <div class="separator"></div> -->
         <!-- /row 7 -->
-
-
     </div>
     <!-- /container -->
     <footer class="blog-footer">
@@ -373,9 +384,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//kendo.cdn.telerik.com/2016.3.914/js/jquery.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
     <script>
     var dojoConfig = {
         packages: [{
@@ -383,9 +394,10 @@
             location: location.pathname.replace(/\/[^/]+$/, "") + "./app/js"
         }]
     };
+
     </script>
     <!-- ArcGIS JS 3.x -->
-    <script src="https://js.arcgis.com/3.18/"></script>
+    <script src="https://js.arcgis.com/3.23/"></script>
     <script src="app/js/main.js"></script>
 </body>
 

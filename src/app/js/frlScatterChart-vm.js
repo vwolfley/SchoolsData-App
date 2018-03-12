@@ -11,6 +11,16 @@
                 var self = this;
 
                 /**
+                 * [schoolSelected description]
+                 * @param  {[type]} e [description]
+                 * @return {[type]}   [description]
+                 */
+                self.schoolSelected = function(e) {
+                    self.schoolData = e;
+                    // console.log(self.schoolData);
+                };
+
+                /**
                  * [azMERITAllSchoolsChart] - Shows all schools and their AzMERIT score in scatter chart.
                  * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
                  * @return
@@ -29,6 +39,7 @@
                     });
 
                     buildChart();
+
                     function buildChart() {
                         $("#frlScatterChart").kendoChart({
                             theme: "Silver",
@@ -39,6 +50,7 @@
                                 data: info,
                             },
                             legend: {
+                                visible: false,
                                 position: "bottom"
                             },
                             seriesDefaults: {
@@ -47,6 +59,29 @@
                             series: [{
                                 xField: "frl",
                                 yField: "score",
+                                tooltip: {
+                                    visible: true,
+                                    template: "${ dataItem.sName } <br>FRL: ${ dataItem.frl }% <br>AzMERIT: ${ dataItem.score }% "
+                                }
+                            }, {
+                                name: self.schoolData.sName,
+                                data: [
+                                    [self.schoolData.frlp, self.schoolData.score],
+                                ],
+                                markers: {
+                                    visible: true,
+                                    size: 15,
+                                    background: "",
+                                    border: {
+                                        width: 3,
+                                        color: "#00FF99"
+                                    }
+                                },
+                                tooltip: {
+                                    visible: true,
+                                    background: "#00FF99",
+                                    template: "${series.name}  <br>FRL: ${value.x}% <br>AzMERIT: ${value.y}% "
+                                }
                             }],
                             xAxis: {
                                 min: 0,
@@ -69,15 +104,14 @@
                                 labels: {
                                     template: "${ value }%"
                                 }
-                            },
-                            tooltip: {
-                                visible: true,
-                                template: "${ dataItem.sName } <br>FRL: ${ dataItem.frl }% <br>AzMERIT: ${ dataItem.score }% "
                             }
                         });
                     }
-
                 };
+                $(window).resize(function() {
+                    $("#frlScatterChart").data("kendoChart").refresh();
+                });
+
             }; // end frlScatterChartVM
             return frlScatterChartVM;
         } // end function

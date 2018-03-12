@@ -11,6 +11,16 @@
                 var self = this;
 
                 /**
+                 * [schoolSelected description]
+                 * @param  {[type]} e [description]
+                 * @return {[type]}   [description]
+                 */
+                self.schoolSelected = function(e) {
+                    self.schoolData = e;
+                    // console.log(self.schoolData);
+                };
+
+                /**
                  * [azMERITAllSchoolsChart] - Shows all schools and their AzMERIT score in scatter chart.
                  * Data from [azSchoolsQueryHandler] via [getSchoolsData();]
                  * @return
@@ -25,7 +35,7 @@
                             item.ELAp = 0;
                         }
                         if (item.MATHp < 0) {
-                            item.MATHp = 0
+                            item.MATHp = 0;
                         }
                     });
 
@@ -58,7 +68,31 @@
                         series: [{
                             xField: "ELAp",
                             yField: "MATHp",
-                            name: "#= group.items[0].rank #"
+                            name: "#= group.items[0].rank #",
+                            tooltip: {
+                                visible: true,
+                                template: "${ dataItem.sName } <br>ELA: ${ dataItem.ELAp }% <br>MATH: ${ dataItem.MATHp }% "
+                            }
+                        }, {
+                            name: self.schoolData.sName,
+                            data: [
+                                [self.schoolData.ELAp, self.schoolData.MATHp],
+                            ],
+                            visibleInLegend: false,
+                            markers: {
+                                visible: true,
+                                size: 15,
+                                background: "",
+                                border: {
+                                    width: 3,
+                                    color: "#00FF99"
+                                }
+                            },
+                            tooltip: {
+                                visible: true,
+                                background: "#00FF99",
+                                template: "${series.name}  <br>ELA: ${value.x}% <br>MATH: ${value.y}% "
+                            }
                         }],
                         seriesColors: ["#028900", "#0057e7", "#9e379f", "#ffa700", "#d62d20", "#777777"],
                         xAxis: {
@@ -82,12 +116,14 @@
                                 template: "${ value }%"
                             }
                         },
-                        tooltip: {
-                            visible: true,
-                            template: "${ dataItem.sName } <br>ELA: ${ dataItem.ELAp }% <br>MATH: ${ dataItem.MATHp }% "
-                        }
+
                     });
                 };
+
+                $(window).resize(function() {
+                    $("#azMERITchartSchools").data("kendoChart").refresh();
+                });
+
             }; // end scatterChartVM
             return scatterChartVM;
         } // end function

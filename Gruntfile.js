@@ -38,7 +38,7 @@ module.exports = function(grunt) {
                 jshintrc: true,
                 reporter: require("jshint-stylish-ex")
             },
-            src: ["Gruntfile.js", "src/js/*.js"],
+            src: ["Gruntfile.js", "src/app/js/*.js"],
         },
 
         uglify: {
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                 expand: true,
                 src: ["dist/app/js/*.js"],
                 dest: "dist/app/js",
-                cwd: '.',
+                cwd: ".",
             }]
             // task1: {
             //     name: "config.min.js",
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
             },
             target: {
                 files: {
-                    'dist/app/css/main.min.css': ['dist/app/css/normalize.css', 'dist/app/css/main.css']
+                    "dist/app/css/main.min.css": ["dist/app/css/normalize.css", "dist/app/css/main.css"]
                 }
             }
         },
@@ -150,42 +150,40 @@ module.exports = function(grunt) {
 
         replace: {
             update_Meta: {
-                src: ["src/index.html", "src/js/config.js", "src/humans.txt", "README.md"],
+                src: ["src/index.html", "src/app/js/config.js", "src/humans.txt", "README.md"],
                 overwrite: true, // overwrite matched source files
                 replacements: [{
                     // html pages
                     from: /(<meta name="revision-date" content=")[0-9]{4}-[0-9]{2}-[0-9]{2}(">)/g,
-                    to: '<meta name="revision-date" content="' + '<%= pkg.date %>' + '">',
+                    to: '<meta name="revision-date" content="' + "<%= pkg.date %>" + '">',
                 }, {
                     // html pages
                     from: /(<meta name="version" content=")([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))(">)/g,
-                    to: '<meta name="version" content="' + '<%= pkg.version %>' + '">',
+                    to: '<meta name="version" content="' + "<%= pkg.version %>" + '">',
                 }, {
                     // config.js
-                    // version: "v0.0.2 | 2017-12-18",
-                    from: /(v)([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))( \| )[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
-                    to: 'v' + '<%= pkg.version %>' + ' | ' + '<%= pkg.date %>',
+                    from: /(version\: ")([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))( \| )[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
+                    to: 'version: "' + "<%= pkg.version %>" + " | " + "<%= pkg.date %>",
                 }, {
                     // config.js
-                    // copyright: "2017",
-                    from: /(copyright: )[0-9]{4}/g,
-                    to: "copyright: " + "<%= pkg.copyright %>",
+                    from: /(copyright\: ")[0-9]{4}/g,
+                    to: 'copyright: "' + "<%= pkg.copyright %>",
                 }, {
                     // humans.txt
-                    from: /(Version\: )([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/g,
-                    to: "Version: " + '<%= pkg.version %>',
+                    from: /(Version\: ')([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/g,
+                    to: "Version: '" + "<%= pkg.version %>",
                 }, {
                     // humans.txt
                     from: /(Last updated\: )[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
-                    to: "Last updated: " + '<%= pkg.date %>',
+                    to: "Last updated: " + "<%= pkg.date %>",
                 }, {
                     // README.md
                     from: /(### version )([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/g,
-                    to: "### version " + '<%= pkg.version %>',
+                    to: "### version " + "<%= pkg.version %>",
                 }, {
                     // README.md
                     from: /(`Updated: )[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
-                    to: "`Updated: " + '<%= pkg.date %>',
+                    to: "`Updated: " + "<%= pkg.date %>",
                 }]
             }
         }
@@ -193,7 +191,7 @@ module.exports = function(grunt) {
 
     });
 
-    // this would be run by typing "grunt test" on the command line
+    // this wouldbe run by typing "grunt test" on the command line
     // grunt.registerTask("test", ["uglify", "cssmin", "concat"]);
 
     grunt.registerTask("work", ["jshint"]);
@@ -216,4 +214,7 @@ module.exports = function(grunt) {
 // Github Labels
 // [Website info](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63)
 // [NPM git-labelmaker](https://github.com/himynameisdave/git-labelmaker)
+<<<<<<< HEAD
 
+=======
+>>>>>>> release/v0.0.5

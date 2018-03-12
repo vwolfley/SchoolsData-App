@@ -39,11 +39,44 @@
                                 Pl3: x.PCT_PL3,
                                 Pl4: x.PCT_PL4,
                                 Pass: x.PCT_Passing
-                            }
+                            };
                             trendData.push(tInfo);
                         }
                     });
                     // console.log(trendData);
+
+                    var fyList = [2015, 2016, 2017];
+
+                    // builds a list of test levels that are available
+                    var list = [];
+                    $.each(trendData, function(index, item) {
+                        list.push(item.fy);
+                    });
+                    // console.log(list);
+
+                    $.each(fyList, function(index, item) {
+                        var bb = list.includes(item);
+                        var blank_ela = {
+                            fy: item,
+                            content: "ELA",
+                            Pl3: null,
+                            Pl4: null,
+                            Pass: null
+                        };
+                        var blank_math = {
+                            fy: item,
+                            content: "MATH",
+                            Pl3: null,
+                            Pl4: null,
+                            Pass: null
+                        };
+                        if (bb === false) {
+                            // console.log("MISSING: " + item);
+                            trendData.push(blank_ela, blank_math);
+                        }
+                    });
+                    // console.log(trendData);
+
                     self.azMERITtrendChart(trendData);
                 };
 
@@ -66,6 +99,8 @@
                             mathInfo.push(item);
                         }
                     });
+                    // console.log(elaInfo);
+                    // console.log(mathInfo);
                     buildChartELA();
                     buildChartMATH();
 
@@ -88,7 +123,7 @@
                                 style: "smooth",
                                 name: "ELA",
                                 field: "Pass",
-                                categoryField: "fy",
+                                // categoryField: "fy",
                                 color: "#007bc3"
                             }, {
                                 type: "area",
@@ -115,6 +150,7 @@
                                 axisCrossingValue: 0
                             }],
                             categoryAxis: {
+                                categories: [2015, 2016, 2017],
                                 labels: {
                                     font: "bold 12px Arial, Helvetica, sans-serif"
                                 },
@@ -194,8 +230,12 @@
                             }
                         });
                     }
-
                 };
+                $(window).resize(function() {
+                    $("#azMeritTrendsELA").data("kendoChart").refresh();
+                    $("#azMeritTrendsMATH").data("kendoChart").refresh();
+                });
+
             }; // end azMeritTrendsVM
             return azMeritTrendsVM;
         } // end function
