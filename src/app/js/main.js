@@ -110,7 +110,7 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
                 queryTask.execute(query, azSchoolsListQueryHandler, azSchoolsListQueryFault);
-            };
+            }
 
             /**
              * [Queries AzSchools_InfoData for yearly stats ]
@@ -130,7 +130,7 @@ function setup() {
                 query.outFields = ["*"];
                 // console.log(query.where);
                 queryTask.execute(query, azSchoolsQueryHandler, azSchoolsQueryFault);
-            };
+            }
 
             /**
              * [getSchoolLocation]
@@ -150,7 +150,7 @@ function setup() {
                 query.outFields = ["*"];
 
                 queryTask.execute(query, schoolPointQueryHandler, schoolPointQueryFault);
-            };
+            }
 
             /**
              * [getSchoolScores]
@@ -169,7 +169,7 @@ function setup() {
                 query.outFields = ["*"];
                 // console.log(query.where);
                 queryTask.execute(query, schoolScoresQueryHandler, schoolScoresQueryFault);
-            };
+            }
 
             /**
              * [getDistrictData]
@@ -188,7 +188,7 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
                 queryTask.execute(query, districtDataQueryHandler, districtDataQueryFault);
-            };
+            }
 
             /**
              * [getDistrictScores]
@@ -208,7 +208,7 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
                 queryTask.execute(query, districtScoresQueryHandler, districtScoresQueryFault);
-            };
+            }
 
             /**
              * [getSchoolBreakDown]
@@ -243,7 +243,7 @@ function setup() {
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.schoolBreakdownQueryHandler, azBreakdownVM.schoolBreakdownQueryFault);
                 }
-            };
+            }
 
             /**
              * [getgetTestTrends]
@@ -263,7 +263,7 @@ function setup() {
                 query.returnGeometry = false;
                 query.outFields = ["*"];
                 queryTask.execute(query, azMeritTrendsVM.azMeritTrendsQueryHandler, azMeritTrendsVM.azMeritTrendsQueryFault);
-            };
+            }
 
             /**
              * [getDistrictBreakDown]
@@ -297,7 +297,7 @@ function setup() {
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.districtBreakdownQueryHandler, azBreakdownVM.districtBreakdownQueryFault);
                 }
-            };
+            }
 
             /**
              * [getStateBreakDown]
@@ -331,7 +331,7 @@ function setup() {
                     query.outFields = ["*"];
                     queryTask.execute(query, azBreakdownVM.stateBreakdownQueryHandler, azBreakdownVM.stateBreakdownQueryFault);
                 }
-            };
+            }
 
 
             /**
@@ -353,7 +353,7 @@ function setup() {
                 // console.log(query.where);
 
                 queryTask.execute(query, chronicDataQueryHandler, chronicDataQueryFault);
-            };
+            }
 
             /**
              * [getEnrollmentData]
@@ -379,7 +379,7 @@ function setup() {
                     // console.log(query.where);
 
                     queryTask.execute(query, enrollmentGradeQueryHandler, enrollmentDataQueryFault);
-                };
+                }
 
                 function raceEnroll() {
                     queryTask = new QueryTask(appConfig.mainURL + "/4");
@@ -402,7 +402,7 @@ function setup() {
 
                     queryTask.execute(query, enrollmentRaceDistrictQueryHandler, enrollmentDataQueryFault);
                 }
-            };
+            }
 
 
             //================================================================================================>
@@ -414,7 +414,7 @@ function setup() {
              */
             function azSchoolsListQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [azSchoolsListQueryHandler]
@@ -438,7 +438,7 @@ function setup() {
                 });
                 // console.log(sList);
                 schoolsList(sList);
-            };
+            }
 
             /**
              * [schoolPointQueryFault]
@@ -447,7 +447,7 @@ function setup() {
              */
             function schoolPointQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [schoolPointQueryHandler]
@@ -491,7 +491,7 @@ function setup() {
                 map.graphics.add(feature);
                 // map.centerAt(feature.geometry);
                 map.centerAndZoom(feature.geometry, 14);
-            };
+            }
 
             /**
              * [azSchoolsQueryFault]
@@ -500,7 +500,7 @@ function setup() {
              */
             function azSchoolsQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [azSchoolsQueryHandler]
@@ -567,7 +567,7 @@ function setup() {
                 schoolInfo(azSchoolInfo);
                 scatterChartVM.azMERITscatterChart(azSchoolsScatter, selectedYear);
                 frlScatterChartVM.frlScatterChart(azSchoolsFRL, selectedYear);
-            };
+            }
 
             /**
              * [districtDataQueryFault]
@@ -576,7 +576,7 @@ function setup() {
              */
             function districtDataQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [districtDataQueryHandler]
@@ -596,7 +596,7 @@ function setup() {
                 // console.log(distInfo);
 
                 districtTableVM.districtTable(distInfo);
-            };
+            }
 
             /**
              * [districtDataQueryFault]
@@ -605,7 +605,7 @@ function setup() {
              */
             function districtScoresQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [districtScoresQueryHandler]
@@ -623,7 +623,7 @@ function setup() {
                 });
                 // console.log(distScores);
                 passingChartsVM.createComparisonChart(distScores);
-            };
+            }
 
             /**
              * [schoolScoresQueryFault]
@@ -632,7 +632,7 @@ function setup() {
              */
             function schoolScoresQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [schoolScoresQueryHandler] - AzMERIT Schools Scores
@@ -674,8 +674,8 @@ function setup() {
                         }
                     });
                 } else {
-                    info2015ela = 0
-                    info2015math = 0
+                    info2015ela = 0;
+                    info2015math = 0;
                 }
                 // console.log(info2015ela);
                 // console.log(info2015math);
@@ -692,8 +692,8 @@ function setup() {
                         }
                     });
                 } else {
-                    info2016ela = 0
-                    info2016math = 0
+                    info2016ela = 0;
+                    info2016math = 0;
                 }
                 // console.log(info2016ela);
                 // console.log(info2016math);
@@ -710,8 +710,8 @@ function setup() {
                         }
                     });
                 } else {
-                    info2017ela = 0
-                    info2017math = 0
+                    info2017ela = 0;
+                    info2017math = 0;
                 }
                 // console.log(info2017ela);
                 // console.log(info2017math);
@@ -737,7 +737,7 @@ function setup() {
                 var v2016 = [info2016ela, info2016math];
                 var v2017 = [info2017ela, info2017math];
                 passingChartsVM.diffScore(v2015, v2016, v2017);
-            };
+            }
 
             /**
              * [chronicDataQueryFault]
@@ -746,7 +746,7 @@ function setup() {
              */
             function chronicDataQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [chronicDataQueryHandler]
@@ -776,7 +776,7 @@ function setup() {
                 }
                 // console.log(chronicInfo);
                 chronicChartsVM.chronicAbsenceChart(chronicInfo, selectedYear);
-            };
+            }
 
 
             /**
@@ -786,7 +786,7 @@ function setup() {
              */
             function enrollmentDataQueryFault(error) {
                 console.log(error.messaege);
-            };
+            }
 
             /**
              * [enrollmentGradeQueryHandler]
@@ -815,9 +815,9 @@ function setup() {
                 // console.log(enrollmentData);
                 // console.log(enrollmentInfo);
                 enrollmentChartsVM.enrollmentChart(enrollmentData);
-                enrollmentChartsVM.enrollmentCohorts(enrollmentInfo)
+                enrollmentChartsVM.enrollmentCohorts(enrollmentInfo);
                 enrollmentTablessVM.enrollmentTableGrade(enrollmentInfo);
-            };
+            }
 
             /**
              * [enrollmentRaceQueryHandler]
@@ -834,7 +834,7 @@ function setup() {
                 });
                 enrollmentTablessVM.enrollmentTableRace(raceEnrollment);
                 demographicsChartVM.studentDemoChart(raceEnrollment);
-            };
+            }
 
             /**
              * [enrollmentRaceDistrictQueryHandler]
@@ -852,7 +852,7 @@ function setup() {
                     }
                 });
                 demographicsChartVM.districtDemoChart(raceEnrollment);
-            };
+            }
 
             //============================================================================================================>
 
@@ -895,9 +895,9 @@ function setup() {
                     getSchoolsData();
 
                     // toggles the Assessment Type back to ELA from MATH
-                    $("#option1").parents('.btn').button('toggle');
-                };
-            };
+                    $("#option1").parents(".btn").button("toggle");
+                }
+            }
 
             /**
              * [schoolInfo]
@@ -943,11 +943,11 @@ function setup() {
                 infoBadgesVM.freeReducedBadge(dataItem);
                 infoBadgesVM.chronicBadge(dataItem);
                 infoBadgesVM.attendanceBadge(dataItem);
-            };
+            }
 
         });
     // end main function
-};
+}
 
 $(document).ready(function() {
     //*** Info binding
@@ -980,4 +980,4 @@ function openEmailwin() {
     if (window.focus) {
         newWindow.focus();
     }
-};
+}

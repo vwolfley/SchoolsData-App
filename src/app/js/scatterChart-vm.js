@@ -35,7 +35,7 @@
                             item.ELAp = 0;
                         }
                         if (item.MATHp < 0) {
-                            item.MATHp = 0
+                            item.MATHp = 0;
                         }
                     });
 
@@ -78,6 +78,7 @@
                             data: [
                                 [self.schoolData.ELAp, self.schoolData.MATHp],
                             ],
+                            visibleInLegend: false,
                             markers: {
                                 visible: true,
                                 size: 15,
@@ -87,7 +88,7 @@
                                     color: "#00FF99"
                                 }
                             },
-                             tooltip: {
+                            tooltip: {
                                 visible: true,
                                 background: "#00FF99",
                                 template: "${series.name}  <br>ELA: ${value.x}% <br>MATH: ${value.y}% "

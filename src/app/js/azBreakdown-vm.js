@@ -105,7 +105,7 @@
                     var unique0 = {};
                     self.distinctELA = [];
                     for (var i in self.elaLevels) {
-                        if (typeof(unique0[self.elaLevels[i].level]) == "undefined") {
+                        if (typeof(unique0[self.elaLevels[i].level]) === "undefined") {
                             self.distinctELA.push({
                                 level: self.elaLevels[i].level,
                                 sort: self.elaLevels[i].sort
@@ -132,7 +132,7 @@
                     var unique1 = {};
                     self.distinctMATH = [];
                     for (var i in self.mathLevels) {
-                        if (typeof(unique1[self.mathLevels[i].level]) == "undefined") {
+                        if (typeof(unique1[self.mathLevels[i].level]) === "undefined") {
                             self.distinctMATH.push({
                                 level: self.mathLevels[i].level,
                                 sort: self.mathLevels[i].sort
@@ -572,7 +572,7 @@
                                     name: "Highly Proficient",
                                     field: "ELA4",
                                     color: "#50be09"
-                                }]
+                                }];
                         }
                         if (self.typeA === "MATH") {
                             title = self.selectedYear + " MATH Proficiency Results",
@@ -596,7 +596,7 @@
                                     name: "Highly Proficient",
                                     field: "MATH4",
                                     color: "#50be09"
-                                }]
+                                }];
                         }
 
                         $("#allChart").kendoChart({
@@ -646,7 +646,7 @@
                                 template: "${ category }<br />${ series.name }: ${ value }%"
                             }
                         });
-                    };
+                    }
 
                     /**
                      * [buildChart1 - Bar Chart showing Percent Passed]
@@ -669,7 +669,7 @@
                                             return "#c0c0c0";
                                         }
                                     }
-                                }]
+                                }];
                         }
                         if (self.typeA === "MATH") {
                             title = self.selectedYear + " MATH Percent Passed",
@@ -684,7 +684,7 @@
                                             return "#c0c0c0";
                                         }
                                     }
-                                }]
+                                }];
                         }
 
                         $("#passChart").kendoChart({
@@ -732,7 +732,7 @@
                                 template: "#if (value < 100) {# ${ category }<br />${ series.name }: ${ value }% #} else {# ${ category }<br />Redacted #}#"
                             }
                         });
-                    };
+                    }
                 };
 
             }; // end azBreakdownVM

@@ -50,6 +50,7 @@
                                 data: info,
                             },
                             legend: {
+                                visible: false,
                                 position: "bottom"
                             },
                             seriesDefaults: {

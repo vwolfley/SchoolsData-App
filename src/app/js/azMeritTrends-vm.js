@@ -39,7 +39,7 @@
                                 Pl3: x.PCT_PL3,
                                 Pl4: x.PCT_PL4,
                                 Pass: x.PCT_Passing
-                            }
+                            };
                             trendData.push(tInfo);
                         }
                     });
@@ -75,7 +75,7 @@
                             trendData.push(blank_ela, blank_math);
                         }
                     });
-                    console.log(trendData);
+                    // console.log(trendData);
 
                     self.azMERITtrendChart(trendData);
                 };

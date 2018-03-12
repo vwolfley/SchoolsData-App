@@ -121,7 +121,7 @@
                                 field: "ELA_Passing",
                                 title: "% Passing ELA",
                                 format: "{0:p0 %}",
-                                template: '#= kendo.format("{0:p0}", ELA_Passing / 100) #',
+                                template: "#= kendo.format('{0:p0}', ELA_Passing / 100) #",
                                 width: 55,
                                 attributes: {
                                     class: "table-cell",
@@ -135,7 +135,7 @@
                                 field: "MATH_Passing",
                                 title: "% Passing MATH",
                                 format: "{0:p0 %}",
-                                template: '#= kendo.format("{0:p0}", MATH_Passing / 100) #',
+                                template: "#= kendo.format('{0:p0}', MATH_Passing / 100) #",
                                 width: 55,
                                 attributes: {
                                     class: "table-cell",
