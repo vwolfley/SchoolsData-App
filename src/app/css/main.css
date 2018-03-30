@@ -13,28 +13,28 @@ body {
 /*******************
 Header Section
 ********************/
-.title,
-.subtitle,
+.mainHead,
+.subHead,
 .metric,
-.subtitle,
+.subHead,
 .stat dd {
     font-family: 'Open Sans Condensed', Verdana, sans-serif;
 }
-.title,
+.mainHead,
 .sectionTitle {
     color: #2b8abe;
     text-transform: uppercase;
 }
-.title {
+.mainHead {
     color: #2b8abe;
     font-size: 48px;
     font-weight: 300;
 }
-.title span,
+.mainHead span,
 .first dd {
     font-weight: 700;
 }
-.subtitle {
+.subHead {
     font-size: 18px;
     font-weight: bold;
     color: #708090;
@@ -44,8 +44,8 @@ Header Section
     font-weight: 700;
     margin-bottom: 0;
 }
-.title,
-.subtitle {
+.mainHead,
+.subHead {
     display: inline-block;
     margin: 0;
 }
@@ -404,6 +404,11 @@ Header Section
 /*******************
  Map
 ********************/
+#mapDiv {
+    padding:0;
+    margin:0;
+    height:100%;
+}
 #BasemapToggle {
     position: absolute;
     top: 10px;
@@ -418,6 +423,12 @@ Header Section
     height: 65px;
     overflow: hidden;
 }
+#HomeButton {
+    position: absolute;
+    top: 88px;
+    left: 36px;
+    z-index: 50;
+    }
 /*******************
  Popup
 ********************/

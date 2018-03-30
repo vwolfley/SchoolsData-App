@@ -48,7 +48,7 @@ humanstxt.org/
     Site Name: AzMERIT Test Scores Data Visualization Project
     Site URL: http://geo.azmag.gov/maps/tools/schools
     Version: 0.0.5
-	Last updated: 2018-03-12
+	Last updated: 2018-03-30
     Creation date: 2016-10-03
 	Language: English
 	Doctype: HTML5
