@@ -28,6 +28,12 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
+## Version 0.0.6 | 2018-03-30
+
+* added Student Enrollment by Subgroup bar Chart
+* changed comparison chart type to bar
+* fixed css issues with map popup
+
 ## Version 0.0.5 | 2018-03-12
 
 * linted files
