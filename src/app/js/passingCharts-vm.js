@@ -170,6 +170,10 @@
                     if (e.PCT_PL4 < 0) {
                         e.PCT_PL4 = 0;
                     }
+                    if (e.PCT_Passing < 0) {
+                        e.PCT_Passing = 0
+                    }
+                    self.schoolELA = e.PCT_Passing;
 
                     function isBigEnough(element, index, array) {
                         return element === 0;
@@ -251,6 +255,10 @@
                     if (e.PCT_PL4 < 0) {
                         e.PCT_PL4 = 0;
                     }
+                    if (e.PCT_Passing < 0) {
+                        e.PCT_Passing = 0
+                    }
+                    self.schoolMATH = e.PCT_Passing;
 
                     function isBigEnough(element, index, array) {
                         return element === 0;
@@ -315,9 +323,9 @@
                 };
 
                 /**
-                 * [createDistrictStateChart - bar charts]
+                 * [createComparisonChart - pie charts]
                  * Data from countyQueryHandler via [getCountyData();]
-                 * @return {[type]} [Bar Chart] self.districtELA
+                 * @return {[type]} [Pie Chart] self.districtELA
                  */
                 self.createComparisonChart = function(e) {
                     var info = e;
@@ -343,22 +351,23 @@
                         case "2015":
                             ela = appConfig.stateAzMERIT2015ela;
                             math = appConfig.stateAzMERIT2015math;
-                            state = [ela,math];
+                            state = [ela, math];
                             break;
                         case "2016":
                             ela = appConfig.stateAzMERIT2016ela;
-                            math =appConfig.stateAzMERIT2016math;
-                            state = [ela,math];
+                            math = appConfig.stateAzMERIT2016math;
+                            state = [ela, math];
                             break;
                         case "2017":
                             ela = appConfig.stateAzMERIT2017ela;
-                            math =appConfig.stateAzMERIT2017math;
-                            state = [ela,math];
+                            math = appConfig.stateAzMERIT2017math;
+                            state = [ela, math];
                             break;
                     }
                     // console.log(state);
 
                     buildDistPieChart();
+
                     function buildDistPieChart() {
                         var e = districtScores;
 
@@ -467,6 +476,7 @@
                     // end buildDistPieChart
 
                     buildStatePieChart();
+
                     function buildStatePieChart() {
                         var e = state;
 
@@ -571,70 +581,103 @@
                                 }
                             });
                         }
+                    }
+                };
 
+                self.createComparBarChart = function(e) {
+                    var info = e;
+                    // console.log(info);
 
+                    var districtELA, districtMATH;
+                    $.each(info, function(index, item) {
+                        if (item.ContentArea === 675) {
+                            districtELA = item.PCT_Passing;
+                        }
+                        if (item.ContentArea === 677) {
+                            districtMATH = item.PCT_Passing;
+                        }
+                    });
+
+                    var stateELA, stateMATH;
+                    switch (self.selectedYear) {
+                        case "2015":
+                            stateELA = appConfig.stateELAPassing[0];
+                            stateMATH = appConfig.stateMATHPassing[0];
+                            break;
+                        case "2016":
+                            stateELA = appConfig.stateELAPassing[1];
+                            stateMATH = appConfig.stateMATHPassing[1];
+                            break;
+                        case "2017":
+                            stateELA = appConfig.stateELAPassing[2];
+                            stateMATH = appConfig.stateMATHPassing[2];
+                            break;
                     }
 
+                    var compELA = [self.schoolELA, districtELA, stateELA];
+                    var compMATH = [self.schoolMATH, districtMATH, stateMATH];
+                    // console.log(compELA);
+                    // console.log(compMATH);
 
+                    createChart();
 
-
-                    // buildChart();
-                    function buildChart() {
+                    function createChart() {
                         $("#compChart").kendoChart({
                             title: {
                                 visible: false,
-                                text: "Sample"
+                                text: "% Passing Scores"
                             },
+                            theme: "Fiori",
                             legend: {
-                                visible: false,
-                                position: "bottom"
+                                position: "bottom",
+                                spacing: 25
                             },
-                            dataSource: {
-                                data: districtScores
-                            },
-                            series: [{
-                                field: "Passing",
-                                categoryField: "content",
-                                name: "content"
-                            }],
                             seriesDefaults: {
                                 type: "column",
                                 labels: {
                                     visible: true,
                                     background: "transparent",
-                                    format: "{0}%",
-                                    font: "bold italic 12px Open Sans Condensed,Verdana,sans-serif",
-                                    padding: -25
-                                },
-                                gap: 0.10,
-                                spacing: 0.10
+                                    format: "{0}%"
+                                }
                             },
+                            series: [{
+                                name: "ELA Passing",
+                                data: compELA
+                            }, {
+                                name: "MATH Passing",
+                                data: compMATH
+                            }],
                             valueAxis: {
-                                visible: true,
-                                max: 100,
+                                title: {
+                                    text: "% Passing Score",
+                                    font: "bold 14px Arial, Helvetica, sans-serif",
+                                    visible: false,
+                                },
                                 min: 0,
-                                majorGridLines: {
-                                    visible: false
+                                max: 100,
+                                labels: {
+                                    format: "{0}%"
                                 },
                                 line: {
-                                    visible: true
-                                }
+                                    visible: false
+                                },
+                                axisCrossingValue: 0
                             },
                             categoryAxis: {
-                                categories: ["District"],
-                                majorGridLines: {
+                                categories: ["School", "District", "State"],
+                                line: {
                                     visible: false
                                 },
-                                line: {
-                                    visible: true
-                                }
+                                labels: {}
                             },
                             tooltip: {
                                 visible: true,
-                                template: "District <br/>${ category }<br/>${ value }%"
+                                format: "{0}%",
+                                template: "#= series.name #: #= value #%"
                             }
                         });
                     }
+
                 };
 
 

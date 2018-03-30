@@ -39,6 +39,7 @@ function setup() {
             "esri/graphic",
             "esri/Color",
             "esri/geometry/Extent",
+            "esri/dijit/HomeButton",
 
             "appPackages/config",
             "appPackages/scatterChart-vm",
@@ -52,10 +53,11 @@ function setup() {
             "appPackages/demographicsChart-vm",
             "appPackages/azMeritTrends-vm",
             "appPackages/districtTable-vm",
+            "appPackages/enrollmentSubgroups-vm",
 
             "dojo/domReady!"
         ],
-        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM, demographicsChartVM, azMeritTrendsVM, districtTableVM) {
+        function(parser, all, dom, on, dc, domClass, arrayUtils, Query, QueryTask, StatisticDefinition, Map, BasemapToggle, FeatureLayer, InfoTemplate, Point, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, Graphic, Color, Extent, HomeButton, appConfig, scatterChartVM, azBreakdownVM, infoBadgesVM, passingChartsVM, chronicChartsVM, enrollmentChartsVM, enrollmentTablessVM, frlScatterChartVM, demographicsChartVM, azMeritTrendsVM, districtTableVM, enrollmentSubgroups) {
             parser.parse();
 
             $("#year-filtering-tabs").kendoTabStrip({
@@ -64,7 +66,6 @@ function setup() {
                     selectedYear = this.value();
 
                     $(".selected-year").text(selectedYear);
-
 
                     getSchoolsList();
 
@@ -80,8 +81,8 @@ function setup() {
             $(".copyright").text(appConfig.copyright);
 
             var map = new Map("mapDiv", {
-                center: [-112, 33],
-                minZoom: 5,
+                center: [-111.681, 34.256],
+                minZoom: 6,
                 maxZoom: 19,
                 basemap: "streets",
                 // basemap: "gray",
@@ -95,6 +96,11 @@ function setup() {
             }, "BasemapToggle");
             toggle.startup();
 
+            var home = new HomeButton({
+                map: map,
+                visible: true
+            }, "HomeButton");
+            home.startup();
 
             /**
              * [getSchoolsList - gets the list of schools for the drop-down menu]
@@ -622,7 +628,8 @@ function setup() {
                     distScores.push(x);
                 });
                 // console.log(distScores);
-                passingChartsVM.createComparisonChart(distScores);
+                // passingChartsVM.createComparisonChart(distScores);
+                passingChartsVM.createComparBarChart(distScores);
             }
 
             /**
@@ -829,11 +836,20 @@ function setup() {
                 // console.log(features);
 
                 var raceEnrollment = [];
+                var subgroupEnroll = [];
                 $.each(features, function(index, item) {
                     raceEnrollment.push(item.attributes);
+                    subgroupEnroll.push({
+                        subgroup: item.attributes.SubgroupDef,
+                        total: item.attributes.Total
+                    });
                 });
+                // console.log(raceEnrollment);
+                // console.log(subgroupEnroll);
+
                 enrollmentTablessVM.enrollmentTableRace(raceEnrollment);
                 demographicsChartVM.studentDemoChart(raceEnrollment);
+                enrollmentSubgroups.enrollmentSubgroupChart(subgroupEnroll);
             }
 
             /**

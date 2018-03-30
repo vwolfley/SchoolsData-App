@@ -13,8 +13,8 @@
     <meta name="contact" content="www.azmag.gov">
     <meta name="url" content="http://geo.azmag.gov/maps/tools/schools/">
     <meta name="creation-date" content="2016-10-03">
-    <meta name="revision-date" content="2018-03-12">
-    <meta name="version" content="0.0.5">
+    <meta name="revision-date" content="2018-03-30">
+    <meta name="version" content="0.0.6">
     <!-- Apple-Specific Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -58,8 +58,8 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <h1 class="title">Arizona<span>&nbsp;Schools</span></h1>
-            <h4 class="subtitle">Data Visualization Project</h4>
+            <h1 class="mainHead">Arizona<span>&nbsp;Schools</span></h1>
+            <h4 class="subHead">Data Visualization Project</h4>
             <div id="year-filtering-tabs" class="filtering-tabs"></div>
             <div class="row">
                 <div id="pickSchools" class="col-md-12 field">
@@ -110,8 +110,10 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div id="mapDiv"></div>
-                <div id="BasemapToggle"></div>
+                <div id="mapDiv">
+                    <div id="HomeButton"></div>
+                    <div id="BasemapToggle"></div>
+                </div>
             </div>
         </div>
         <div class="separator"></div>
@@ -150,8 +152,8 @@
             <div class="col-md-4">
                 <div id="comp" class="infoHeader">
                     <h4>Comparison Scores</h4>
-                    <!-- <div id="compChart"></div> -->
-                    <div id="stateGroup" class="col-md-2 groupPie">
+                    <div id="compChart"></div>
+                    <!--        <div id="stateGroup" class="col-md-2 groupPie">
                         <h5>State Scores</h5>
                         <div id="stateELAChart"></div>
                         <div id="stateMATHChart"></div>
@@ -160,7 +162,7 @@
                         <h5>District Scores</h5>
                         <div id="distELAChart"></div>
                         <div id="distMATHChart"></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -208,9 +210,10 @@
             <h5 id="" class="districtName districtTitle"></h5>
         </div>
         <div id="" class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div id="azMeritTrendsELA" class="chartStyle"></div>
-                <br>
+            </div>
+            <div class="col-md-6">
                 <div id="azMeritTrendsMATH" class="chartStyle"></div>
             </div>
         </div>
@@ -260,6 +263,21 @@
             </div>
             <div class="col-md-6">
                 <div id="enrollmentRaceDistrict" class="chartStyle"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <!-- /new row -->
+        <!-- new row **Enrollment by Subgroup Chart-->
+        <h3 class="sectionTitle">Total Student Enrollment by Subgroup</h3>
+        <span class="metric">For <span class="selected-year"></span></span>
+        <div>
+            <h4 id="" class="schoolName schoolTitle"></h4>
+            <h6 id="" class="schoolID sID"></h6>
+            <h5 id="" class="districtName districtTitle"></h5>
+        </div>
+        <div id="" class="row">
+            <div class="col-md-12">
+                <div id="enrollmentSubgroup" class="chartStyle"></div>
             </div>
         </div>
         <div class="separator"></div>
