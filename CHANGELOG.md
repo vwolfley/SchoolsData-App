@@ -28,6 +28,10 @@ And constructed with the following guidelines:
 
 ***************************************************************************************************************
 
+## Version 0.0.7 | 2018-04-30
+
+* changed dropdown box type to combobox for better mobile performance
+
 ## Version 0.0.6 | 2018-03-30
 
 * added Student Enrollment by Subgroup bar Chart
