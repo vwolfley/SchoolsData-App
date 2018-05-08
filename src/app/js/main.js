@@ -881,7 +881,7 @@ function setup() {
                 var schools = results;
                 // console.log(schools);
 
-                $("#schools").kendoDropDownList({
+                $("#schools").kendoComboBox({
                     dataTextField: "schoolName",
                     dataValueField: "entityID",
                     template: "${data.schoolName}" + " - <span style='font-size: 12px;'>${data.city}" + " (${data.entityID})</span>",
@@ -895,7 +895,7 @@ function setup() {
                     index: 1,
                     change: onChange
                 });
-                var schoolData = $("#schools").data("kendoDropDownList");
+                var schoolData = $("#schools").data("kendoComboBox");
                 var dataItem = schoolData.dataItem();
                 selectedSchool = dataItem.entityID;
                 // console.log(dataItem);
@@ -904,7 +904,7 @@ function setup() {
 
                 function onChange() {
                     var value = $("#schools").val();
-                    var schoolData = $("#schools").data("kendoDropDownList");
+                    var schoolData = $("#schools").data("kendoComboBox");
                     var dataItem = schoolData.dataItem();
                     selectedSchool = dataItem.entityID;
 
