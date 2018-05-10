@@ -2,7 +2,7 @@
 # Arizona Schools Data Visualization Project #
 MAG application showing selected key data for Arizona Schools
 
-[![GitHub version](https://badge.fury.io/gh/vwolfley%2SchoolsData-App.svg)](https://badge.fury.io/gh/vwolfley%2SchoolsData-App)
+[![GitHub version](https://badge.fury.io/gh/vwolfley/SchoolsData-App.svg)](https://badge.fury.io/gh/vwolfley/SchoolsData-App)
 [![GitHub issues](https://img.shields.io/github/issues/vwolfley/SchoolsData-App.svg)](https://github.com/vwolfley/SchoolsData-App/issues)
 [![dependencies](https://david-dm.org/vwolfley/SchoolsData-App.png)](https://david-dm.org/vwolfley/SchoolsData-App)
 [![devDependency Status](https://david-dm.org/vwolfley/SchoolsData-App/dev-status.png)](https://david-dm.org/vwolfley/SchoolsData-App)
