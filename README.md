@@ -7,7 +7,7 @@ MAG application showing selected key data for Arizona Schools
 [![dependencies](https://david-dm.org/vwolfley/SchoolsData-App.png)](https://david-dm.org/vwolfley/SchoolsData-App)
 [![devDependency Status](https://david-dm.org/vwolfley/SchoolsData-App/dev-status.png)](https://david-dm.org/vwolfley/SchoolsData-App)
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Built with Grunt](http://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This web app viewer was developed by MAG staff for MAG member agencies and the public using ESRI's JavaScript API.
